@@ -2,72 +2,146 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdById String
 
-    @@index([name])
+  @@index([name])
 }
 
 // Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token_expires_in Int?
+  refresh_token            String? // @db.Text
+  access_token             String? // @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? // @db.Text
+  session_state            String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+  id                          String          @id @default(cuid())
+  isTest                      Boolean         @default(false)
+  didCompleteOnboarding       Boolean         @default(false)
+  onboardingTechStack         String[]
+  onboardingLevel             String[]
+  onboardingLocation          String[]
+  onboardingCompanySize       String[]
+  onboardingCompanyIndustry   String[]
+  onboardingTotalCompensation String[]
+  name                        String?
+  email                       String?         @unique
+  emailVerified               DateTime?
+  image                       String?
+  accounts                    Account[]
+  sessions                    Session[]
+  posts                       Post[]
+  UserSavedJobs               UserSavedJobs[]
+  lastUpdatedProfileAt        DateTime?
+  createdAt                   DateTime        @default(now())
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
+}
+
+enum Companies {
+  Amazon
+  Apple
+  Facebook
+  Google
+  Microsoft
+  Netflix
+  Tesla
+  Twitter
+  Uber
+  Other
+}
+
+enum RoleLevel {
+  Intern
+  Entry
+  Mid
+  Senior
+  Lead
+  Manager
+  Director
+  VP
+  CLevel
+}
+
+model JobPostings {
+  id                Int             @id @default(autoincrement())
+  company           Companies
+  title             String
+  location          String
+  locationCity      String
+  locationState     String
+  locationCountry   String
+  roleLevel         RoleLevel
+  companyLogoBase64 String?
+  companyLogoUrl    String?
+  companyTechStack  String[]
+  urlJobSlug        String
+  urlJob            String
+  compensation      String?
+  compensationLow   String?
+  compensationHigh  String?
+  externalJobId     String?
+  jobDescription    String?
+  jobSearchText     String?
+  internalTeam      String?
+  createdInDBAt     DateTime        @default(now())
+  updatedInDbAt     DateTime        @updatedAt
+  UserSavedJobs     UserSavedJobs[]
+}
+
+model UserSavedJobs {
+  id           Int         @id @default(autoincrement())
+  userId       String
+  jobPostingId Int
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobPosting   JobPostings @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
 }

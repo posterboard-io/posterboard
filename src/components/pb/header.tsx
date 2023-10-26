@@ -1,3 +1,5 @@
+"use client"
+
 import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { ModeToggle } from '~/components/pb/theme-toggle'
@@ -12,19 +14,13 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 
-
 export const dynamic = 'force-dynamic'
 
-export default async function Header() {
-
-  const { user } = {
-      user: {
-        email: ''
-      }
-    }
-    
+export default function Header() {
+  
     return (
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+        
         <div className="w-full flex justify-between items-center p-3 text-sm text-foreground">
             <div className="flex items-center gap-4">
                 <Link href="/">
@@ -33,7 +29,7 @@ export default async function Header() {
                   </div>
                 </Link>                                          
             </div>
-          {user ? (
+          {/* {session ? (
             <div className="flex items-center gap-4">
               <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
                   <Link href="/jobs">
@@ -48,7 +44,9 @@ export default async function Header() {
                 <div className="flex items-center gap-4">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline">{user?.email}</Button>
+                      <Button variant="outline">
+                        Some Text
+                      </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
                       <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>
@@ -62,12 +60,10 @@ export default async function Header() {
                       </DropdownMenuCheckboxItem>                      
                     </DropdownMenuContent>
                   </DropdownMenu>
-
                 </div>
-
               <ModeToggle />
             </div>
-          ) : (
+          ) : ( */}
               <div className="flex items-center gap-4">
                 <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
                   <Link href="/jobs">
@@ -81,7 +77,7 @@ export default async function Header() {
                 </Button>
               <ModeToggle />
             </div>
-          )}
+          {/* )} */}
         </div>
       </nav>
     )

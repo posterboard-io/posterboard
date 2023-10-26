@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from "~/components/ui/button"
 
-import { HomeIcon, PaperclipIcon } from "lucide-react"
+import { Home, Paperclip } from "lucide-react"
 import { cookies } from "next/headers"
 import Link from "next/link"
 import { GearIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
@@ -19,7 +19,7 @@ export function DashboardShell() {
           <Button onClick={() => setActiveLink('/dashboard')} className={`w-full flex items-center space-x-2 bg-inherit hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg ${activeLink === '/dashboard' ? 'text-black' : 'text-gray-500'}`}>
             <Link href="/dashboard">
               <div className="flex items-center">
-                <HomeIcon className={`w-4 h-4 ${activeLink === '/dashboard' ? 'text-black dark:text-white' : 'text-gray-500'} hover:text-gray-800 active:text-gray-900 text-black dark:text-white`} />
+                <Home className={`w-4 h-4 ${activeLink === '/dashboard' ? 'text-black dark:text-white' : 'text-gray-500'} hover:text-gray-800 active:text-gray-900 text-black dark:text-white`} />
                 <span className="text-sm font-medium px-2 text-black dark:text-white">Home</span>                
               </div>
             </Link>
@@ -35,7 +35,7 @@ export function DashboardShell() {
           <Button onClick={() => setActiveLink('/dashboard/resume')} className={`w-full flex items-center space-x-2 bg-inherit hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg ${activeLink === '/dashboard/resume' ? 'text-black' : 'text-gray-500'}`}>
             <Link href="/dashboard/resume">
               <div className="flex items-center">
-                <PaperclipIcon className={`w-4 h-4 ${activeLink === '/dashboard/resume' ? 'text-black  dark:text-white' : 'text-gray-500'} hover:text-gray-800 active:text-gray-900 text-black dark:text-white`} />
+                <Paperclip className={`w-4 h-4 ${activeLink === '/dashboard/resume' ? 'text-black  dark:text-white' : 'text-gray-500'} hover:text-gray-800 active:text-gray-900 text-black dark:text-white`} />
                 <span className="text-sm font-medium px-2 text-black dark:text-white">Resume</span>                
               </div>
             </Link>

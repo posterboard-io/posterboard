@@ -14,6 +14,8 @@ import { Label } from "~/components/ui/label"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import { useToast } from "~/components/ui/use-toast"
 import { useSearchParams } from 'next/navigation'
+import Github from "next-auth/providers/github"
+import Link from "next/link"
 
 
 export function CreateAccountCard() {
@@ -47,8 +49,10 @@ export function CreateAccountCard() {
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-2 gap-6">
           <Button variant="outline">
-            <GitHubLogoIcon className="mr-2 h-4 w-4" />
-            Github
+            <Link href="/api/auth/github">
+              <GitHubLogoIcon className="mr-2 h-4 w-4" />
+              Github
+            </Link>
           </Button>
           <Button variant="outline">
             {/* <GoogleIcon className="mr-2 h-4 w-4" /> */}

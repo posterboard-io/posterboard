@@ -1,82 +1,147 @@
 import Link from "next/link";
 
-import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
+import { CheckIcon, MagnifyingGlassIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
+import { ArrowRight, BotIcon, Code2, HeartHandshake, MailWarningIcon } from 'lucide-react'
+import { Button } from '~/components/ui/button'
+import { auth } from "auth"
+
 export default async function Home() {
-  const hello = await api.post.hello.query({ text: "from tRPC" });
-  const session = await getServerAuthSession();
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
+    <div className="flex flex-col min-h-screen bg-grid-slate-200/50">    
+      <section className="space-y-4 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
+        <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
           <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
+            href=""
+            className="rounded-2xl bg-gradient-to-r from-orange-400 via-blue-400 to-blue-600 px-4 py-1.5 text-sm font-semibold text-white shadow-lg"
             target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
-
-          <div className="flex flex-col items-center justify-center gap-4">
-            <p className="text-center text-2xl text-white">
-              {session && <span>Logged in as {session.user?.name}</span>}
-            </p>
-            <Link
-              href={session ? "/api/auth/signout" : "/api/auth/signin"}
-              className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-            >
-              {session ? "Sign out" : "Sign in"}
+          >            
+          We&apos;re Still building. Follow along on X for updates.
+            <Link href="https://twitter.com/joinposterboard" target="_blank" rel="noreferrer">
+              <TwitterLogoIcon className="inline-block w-4 h-4 ml-1.5" />
             </Link>
+          </Link>          
+          <h1 className="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-linear-gradient(rgb(251, 146, 60), rgb(96, 165, 250), rgb(59, 130, 246))">
+            A better way to find a job.
+          </h1>
+          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
+            Posterboard.io is a job board for the modern web. It&apos;s a place
+            where developers can find verified jobs, from real companies with real people.
+          </p>
+          <div className="space-x-4">
+            <Button className="text-white">
+              <Link href="/login">
+                Get Started
+              </Link>
+              <ArrowRight className="inline-block w-4 h-4 ml-1.5" />
+            </Button>            
           </div>
         </div>
-
-        <CrudShowcase />
-      </div>
-    </main>
-  );
-}
-
-async function CrudShowcase() {
-  const session = await getServerAuthSession();
-  if (!session?.user) return null;
-
-  const latestPost = await api.post.getLatest.query();
-
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <CreatePost />
+      </section>
+      <hr className="border-t border-foreground/10" />
+      <section
+        id="features"
+        className="container space-y-6 py-8 dark:bg-transparent md:py-12 lg:py-24"
+      >
+        <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+          <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+            Built by Developers, for Developers.
+          </h2>
+          <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+            Our mission is to delete the levels of absraction with the job search process. Find verified jobs, from real companies with real people.
+          </p>
+        </div>
+        <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
+          <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+            <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+              <CheckIcon className="h-12 w-12 text-green-500" />
+              <div className="space-y-2">
+                <h3 className="font-bold">Verified Companies</h3>
+                <p className="text-sm text-muted-foreground">
+                  We verify every company that posts a job on Posterboard.io.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+            <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+              <MailWarningIcon className="h-12 w-12 text-red-500" />
+              <div className="space-y-2">
+                <h3 className="font-bold">No more Spam</h3>
+                <p className="text-sm text-muted-foreground">
+                  No more LinkedIn. No more recruiters. No more spam.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+            <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+              <Code2 className="h-12 w-12 text-purple-500" />
+              <div className="space-y-2">
+                <h3 className="font-bold">Developer First</h3>
+                <p className="text-sm text-muted-foreground">
+                  Access our API and automate your job search.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+            <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+              <BotIcon className="h-12 w-12 text-yellow-500" />
+              <div className="space-y-2">
+                <h3 className="font-bold">LLM Utilities</h3>
+                <p className="text-sm text-muted-foreground">
+                  Generate a resume, cover letter, and more.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+            <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+              <HeartHandshake className="h-12 w-12 text-blue-500" />
+              <div className="space-y-2">
+                <h3 className="font-bold">Connect with others</h3>
+                <p className="text-sm text-muted-foreground">
+                  Find other developers and connect with them. Not bots.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+            <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+              <MagnifyingGlassIcon className="h-12 w-12 text-orange-500" />
+              <div className="space-y-2">
+                <h3 className="font-bold">Search by tech stack</h3>
+                <p className="text-sm text-muted-foreground">
+                  Want only React jobs? We&apos;ve got you covered.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </section>      
+      <section id="open-source" className="container py-8 md:py-12 lg:py-24">
+        <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
+          <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+            Proudly Open Source.
+          </h2>
+          <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+            We aren&apos;t here to farm data or waste anyone&apos;s time. We&apos;re here to help fellow Developers. <br />{" "}
+            Find us on{" "}
+            <Link
+              href="https://github.com/posterboard-io"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-4"
+            >
+              GitHub
+            </Link>
+            .{" "}
+          </p>
+        </div>
+      </section>      
     </div>
   );
 }

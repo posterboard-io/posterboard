@@ -49,7 +49,7 @@ export function LoginAccountCard() {
         <div className="grid grid-cols-2 gap-6">
           <Button variant="outline">
             <div className="flex flex-row">
-                <Link href="/auth/github">
+                <Link href="/api/auth/github">
                     <GitHubLogoIcon className="mr-2 h-4 w-4" />
                     Github
                 </Link>
