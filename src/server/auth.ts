@@ -32,6 +32,11 @@ declare module "next-auth" {
   // }
 }
 
+
+
+// const postmarkClient = new Client(env.POSTMARK_API_TOKEN)
+
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -40,10 +45,10 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => ({
-      ...session,
+      ...session,      
       user: {
         ...session.user,
-        id: user.id,
+        id: user.id,        
       },
     }),
   },
@@ -66,6 +71,48 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
+    // EmailProvider({
+    //   from: env.SMTP_FROM,
+    //   sendVerificationRequest: async ({ identifier, url, provider }) => {
+    //     const user = await db.user.findUnique({
+    //       where: {
+    //         email: identifier,
+    //       },
+    //       select: {
+    //         emailVerified: true,
+    //       },
+    //     })
+
+    //     const templateId = user?.emailVerified
+    //       ? env.POSTMARK_SIGN_IN_TEMPLATE
+    //       : env.POSTMARK_ACTIVATION_TEMPLATE
+    //     if (!templateId) {
+    //       throw new Error("Missing template id")
+    //     }
+
+    //     const result = await postmarkClient.sendEmailWithTemplate({
+    //       TemplateId: parseInt(templateId),
+    //       To: identifier,
+    //       From: provider.from as string,
+    //       TemplateModel: {
+    //         action_url: url,
+    //         product_name: env.POSTMARK_PRODUCT_NAME,
+    //       },
+    //       Headers: [
+    //         {
+    //           // Set this to prevent Gmail from threading emails.
+    //           // See https://stackoverflow.com/questions/23434110/force-emails-not-to-be-grouped-into-conversations/25435722.
+    //           Name: "X-Entity-Ref-ID",
+    //           Value: new Date().getTime() + "",
+    //         },
+    //       ],
+    //     })
+
+    //     if (result.ErrorCode) {
+    //       throw new Error(result.Message)
+    //     }
+    //   },
+    // }),    
   ],
 };
 

@@ -4,7 +4,7 @@ import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
 import { CheckIcon, MagnifyingGlassIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
-import { ArrowRight, BotIcon, Code2, HeartHandshake, MailWarningIcon } from 'lucide-react'
+import { ArrowRight, Bot, Code2, HeartHandshake, MailWarning } from 'lucide-react'
 import { Button } from '~/components/ui/button'
 import { auth } from "auth"
 
@@ -67,7 +67,7 @@ export default async function Home() {
           </div>
           <div className="relative overflow-hidden rounded-lg border bg-background p-2">
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-              <MailWarningIcon className="h-12 w-12 text-red-500" />
+              <MailWarning className="h-12 w-12 text-red-500" />
               <div className="space-y-2">
                 <h3 className="font-bold">No more Spam</h3>
                 <p className="text-sm text-muted-foreground">
@@ -89,7 +89,7 @@ export default async function Home() {
           </div>
           <div className="relative overflow-hidden rounded-lg border bg-background p-2">
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-              <BotIcon className="h-12 w-12 text-yellow-500" />
+              <Bot className="h-12 w-12 text-yellow-500" />
               <div className="space-y-2">
                 <h3 className="font-bold">LLM Utilities</h3>
                 <p className="text-sm text-muted-foreground">

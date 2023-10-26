@@ -31,12 +31,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
 
-  async function onSubmit(data: FormData) {
+  async function onSubmit(data: FormData) {    
     setIsLoading(true)
 
     const signInResult = await signIn("email", {
       email: data.email.toLowerCase(),
-      redirect: false,
+      redirect: true,
       callbackUrl: searchParams?.get("from") || "/dashboard",
     })
 

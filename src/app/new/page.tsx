@@ -14,11 +14,6 @@ export default async function NewPage() {
         }
       }
     
-    // const router = useRouter()
-    
-    // if (!user) {        
-    //     router.push('/auth/signin')
-    // }
 
     return (        
         <div className="flex flex-col items-center justify-center min-h-screen px-28 py-4">
