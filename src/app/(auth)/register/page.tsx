@@ -7,8 +7,6 @@ import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
 import Image from "next/image"
 import { getServerAuthSession } from "~/server/auth";
 
-
-
 export const metadata = {
   title: "Create an account",
   description: "Create an account to get started.",

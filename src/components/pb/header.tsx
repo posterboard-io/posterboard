@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 import { getServerAuthSession } from '~/server/auth'
+import Image from 'next/image'
 
 export const dynamic = 'force-dynamic'
 
@@ -21,8 +22,7 @@ export default async function Header() {
     const session = await getServerAuthSession()
     
     return (
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        
+        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">        
         <div className="w-full flex justify-between items-center p-3 text-sm text-foreground">
             <div className="flex items-center gap-4">
                 <Link href="/">
@@ -46,8 +46,10 @@ export default async function Header() {
                 <div className="flex items-center gap-4">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline">
-                        {session.user?.name}
+                      <Button className="bg-transparent">
+                        <div className="flex items-center gap-2">
+                          <Image src={session.user?.image} className="rounded-full" width={32} height={32} />
+                        </div>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
