@@ -12,6 +12,7 @@ import { Toaster } from "~/components/ui/toaster"
 import { Analytics } from '~/components/pb/analytics'
 import { Suspense } from 'react'
 import Loading from '~/components/pb/loading'
+import { SessionProvider } from "next-auth/react"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,8 +43,8 @@ export default async function RootLayout({
             >
             <Header />
               <TRPCReactProvider headers={headers()}>
-                  <Suspense fallback={<Loading />}>                   
-                      {children}                  
+                  <Suspense fallback={<Loading />}>    
+                      {children}                    
                   </Suspense>
                 </TRPCReactProvider>
               <Toaster />

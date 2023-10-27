@@ -15,6 +15,7 @@ import { Label } from "~/components/ui/label"
 import { toast } from "~/components/ui/use-toast"
 import { Icons } from "~/components/pb/icons"
 import { Button } from "~/components/ui/button"
+import Link from "next/link"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -30,6 +31,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
+  const [isGoogleLoading, setIsGoogleLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
 
   async function onSubmit(data: FormData) {    
@@ -37,7 +39,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     const signInResult = await signIn("email", {
       email: data.email.toLowerCase(),
-      redirect: false,
+      redirect: true,
       callbackUrl: searchParams?.get("from") || "/dashboard",
     })
 
@@ -101,11 +103,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       </div>
       <Button
         type="button"
-        className={cn(buttonVariants({ variant: "outline" }))}
+        className={cn(buttonVariants())}
         onClick={() => {
           console.log("clicked")
           setIsGitHubLoading(true)
-          signIn("github")
+          signIn("github", { callbackUrl: "/dashboard" })
         }}
         disabled={isLoading || isGitHubLoading}
       >
@@ -115,6 +117,24 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           <Icons.gitHub className="mr-2 h-4 w-4" />
         )}{" "}
         Github
+      </Button>
+
+      <Button
+        type="button"
+        className={cn(buttonVariants())}
+        onClick={() => {
+          console.log("clicked")
+          setIsGoogleLoading(true)
+          signIn("google", { callbackUrl: "/dashboard" })
+        }}
+        disabled={isLoading || isGoogleLoading}
+      >
+        {isGoogleLoading ? (
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <Icons.check className="mr-2 h-4 w-4" />
+        )}{" "}
+        Google
       </Button>
     </div>
   )

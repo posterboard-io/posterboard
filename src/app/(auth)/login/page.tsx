@@ -3,13 +3,18 @@ import Link from "next/link"
 import { UserAuthForm } from "~/components/pb/user-auth-form"
 import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
 import Image from "next/image"
+import { getServerAuthSession } from "~/server/auth";
+
 
 export const metadata: Metadata = {
   title: "Login",
   description: "Login to your account",
 }
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  
+  const session = await getServerAuthSession()
+  
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">      
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
@@ -36,6 +41,9 @@ export default function LoginPage() {
           >
             Don&apos;t have an account? Sign Up
           </Link>
+        </p>
+        <p className="text-center text-2xl text-white">
+              {session && <span>Logged in as {session.user?.name}</span>}
         </p>
       </div>
     </div>

@@ -5,6 +5,8 @@ import { buttonVariants } from "~/components/ui/button"
 import { UserAuthForm } from "~/components/pb/user-auth-form"
 import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
 import Image from "next/image"
+import { getServerAuthSession } from "~/server/auth";
+
 
 
 export const metadata = {
@@ -12,8 +14,11 @@ export const metadata = {
   description: "Create an account to get started.",
 }
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const session = await getServerAuthSession()
+
   return (
+    
     <div className="container grid h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
       <div className="hidden h-full bg-muted lg:block" />
       <div className="lg:p-8">
@@ -52,6 +57,9 @@ export default function RegisterPage() {
             .
           </p>
         </div>
+        <p className="text-center text-2xl text-white">
+              {session && <span>Logged in as {session.user?.name}</span>}
+        </p>
       </div>
     </div>
   )

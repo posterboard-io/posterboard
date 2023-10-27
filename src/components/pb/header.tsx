@@ -1,4 +1,4 @@
-"use client"
+
 
 import Link from 'next/link'
 import { cookies } from 'next/headers'
@@ -13,11 +13,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
+import { getServerAuthSession } from '~/server/auth'
 
 export const dynamic = 'force-dynamic'
 
-export default function Header() {
-  
+export default async function Header() {
+    const session = await getServerAuthSession()
+    
     return (
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         
@@ -29,7 +31,7 @@ export default function Header() {
                   </div>
                 </Link>                                          
             </div>
-          {/* {session ? (
+          {session ? (
             <div className="flex items-center gap-4">
               <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
                   <Link href="/jobs">
@@ -45,25 +47,23 @@ export default function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline">
-                        Some Text
+                        {session.user?.name}
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
                       <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>
                       <DropdownMenuSeparator />                      
-                      <DropdownMenuCheckboxItem> 
-                        <form action="/auth/sign-out" method="post">                       
-                          <Button variant="outline">
+                      <DropdownMenuCheckboxItem>                         
+                          <Link href="/api/auth/signout" className="bg-transparent text-black dark:text-white hover:bg-transparent">
                             Sign Out  
-                          </Button>                   
-                        </form>     
+                          </Link>                                           
                       </DropdownMenuCheckboxItem>                      
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
               <ModeToggle />
             </div>
-          ) : ( */}
+          ) : ( 
               <div className="flex items-center gap-4">
                 <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
                   <Link href="/jobs">
@@ -77,7 +77,7 @@ export default function Header() {
                 </Button>
               <ModeToggle />
             </div>
-          {/* )} */}
+          )}
         </div>
       </nav>
     )
