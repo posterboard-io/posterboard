@@ -14,6 +14,7 @@ import { Input } from "~/components/ui/input"
 import { Label } from "~/components/ui/label"
 import { toast } from "~/components/ui/use-toast"
 import { Icons } from "~/components/pb/icons"
+import { Button } from "~/components/ui/button"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -36,7 +37,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     const signInResult = await signIn("email", {
       email: data.email.toLowerCase(),
-      redirect: true,
+      redirect: false,
       callbackUrl: searchParams?.get("from") || "/dashboard",
     })
 
@@ -98,10 +99,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </span>
         </div>
       </div>
-      <button
+      <Button
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}
         onClick={() => {
+          console.log("clicked")
           setIsGitHubLoading(true)
           signIn("github")
         }}
@@ -113,7 +115,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           <Icons.gitHub className="mr-2 h-4 w-4" />
         )}{" "}
         Github
-      </button>
+      </Button>
     </div>
   )
 }
