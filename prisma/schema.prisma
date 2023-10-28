@@ -129,7 +129,7 @@ model JobPostings {
   compensation      String?
   compensationLow   String?
   compensationHigh  String?
-  externalJobId     String?
+  externalJobId     String?         @unique
   jobDescription    String?
   jobSearchText     String?
   internalTeam      String?

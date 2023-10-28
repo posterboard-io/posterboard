@@ -16,6 +16,14 @@ export const jobsRouter = createTRPCRouter({
         }
     ),
 
+    getLatest: publicProcedure
+        .query(({ ctx }) => {
+            // Some query
+            return ctx.db.jobPostings.findMany({
+                orderBy: { updatedInDbAt: "desc" },
+            });
+        }),
+
     getRecommended: protectedProcedure
         .input(z.object({
             // Some input
