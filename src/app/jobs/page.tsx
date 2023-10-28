@@ -20,9 +20,14 @@ import {
   } from "~/components/ui/select"
  import { Search } from "lucide-react"
  import { ScrollArea } from "~/components/ui/scroll-area"
+ import { api } from "~/trpc/server";
 
 
-export default function Jobs() {
+
+export default async function Jobs() {
+
+    const jobs = await api.jobs.getLatest.query()
+
     return (
         <div className="min-h-screen">                                
             <div className="flex flex-col items-center justify-center space-y-2 py-2 px-2">
@@ -104,18 +109,10 @@ export default function Jobs() {
                 {/* <Input placeholder="Search for jobs" /> */}
                 <ScrollArea className="">
                     <div className="flex flex-col space-y-2">
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
-                        <JobCard />
+                        {jobs.map((job) => (
+                            <JobCard key={job.id} jobTitle={job.title} company={job.company} locationCity={job.locationCity} locationState={job.locationState} locationCountry={job.locationCountry} jobTeam={job.internalTeam || ""} datePosted={job.createdInDBAt} salaryLow={job.compensationLow || ""} salaryHigh={job.compensationHigh || ""} salaryRange={job.compensation || ""} />
+                        ))}
+
                     </div>
                 </ScrollArea>
             </div>

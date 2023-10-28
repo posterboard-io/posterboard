@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "~/components/ui/card"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
-import { ArrowBigLeft, ArrowBigRight, ArrowRightIcon, BookMarkedIcon, Calendar, CalendarIcon, CheckCircleIcon, DollarSignIcon, FlameIcon, TrendingUpIcon, User2Icon, Users2Icon } from "lucide-react"
+import { ArrowBigLeft, ArrowBigRight, ArrowRight, Book, Bookmark, Calendar, CheckCircle, DollarSign, Flame, TrendingUp, Users } from "lucide-react"
 import {
   HoverCard,
   HoverCardContent,
@@ -17,34 +17,34 @@ import {
 
 import Link from "next/link"
 
-export default function JobCard() {
+export default function JobCard({ jobTitle, company, locationCity, locationState, locationCountry, jobTeam, salaryLow, salaryHigh, salaryRange }: { jobTitle: string, company: string, locationCity: string, locationState: string, locationCountry: string, jobTeam: string, salaryLow: string, salaryHigh: string, salaryRange: string}) {
     return (
       <Card>
       <CardHeader className="space-y-1">
         <div className="grid grid-cols-2">
           <div className="flex flex-col space-y-1">
-          <CardTitle className="text-2xl">Software Engineer L4</CardTitle>
+          <CardTitle className="text-2xl">{jobTitle}</CardTitle>
           <div className="flex flex-row space-x-2">
             <GitHubLogoIcon className="h-6 w-6"/>
             <CardTitle className="text-xl">
-              Github
+              {company}
             </CardTitle>
           </div>
-          <CardDescription className="">San Fransisco, CA, USA</CardDescription>
-          <CardDescription className="">Machine Learning</CardDescription>
+          <CardDescription className="">{locationCity}, {locationState}, {locationCountry}</CardDescription>
+          <CardDescription className="">{jobTeam}</CardDescription>
           {/* <CardDescription className="">San Fransisco, CA, USA</CardDescription> */}
           </div>
           <div className="flex flex-col space-y-1">
           <Button variant="outline">
-            <CalendarIcon className="mr-2 h-4 w-4 "/>
-            Posted 13 days ago
+            <Calendar className="mr-2 h-4 w-4 "/>
+            {/* {datePosted} */} Some date
           </Button>
           <Button variant="outline">
           <HoverCard>
               <HoverCardTrigger>
                 <div className="flex flex-row space-x-2">
-                <DollarSignIcon className="mr-2 h-4 w-4 text-green-500"/>
-                  $200,000 - $300,000
+                <DollarSign className="mr-2 h-4 w-4 text-green-500"/>
+                  ${salaryLow} - ${salaryHigh}, {salaryRange}
                 </div>
               </HoverCardTrigger>
               <HoverCardContent>
@@ -56,7 +56,7 @@ export default function JobCard() {
             <HoverCard>
               <HoverCardTrigger>
                 <div className="flex flex-row space-x-2">
-                  <Users2Icon className="mr-2 h-4 w-4"/>
+                  <Users className="mr-2 h-4 w-4"/>
                   Interview Prep
                 </div>
               </HoverCardTrigger>
@@ -71,20 +71,20 @@ export default function JobCard() {
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-4 gap-6">
           <Button variant="outline">
-            <TrendingUpIcon className="mr-2 h-4 w-4 text-green-500"/>
+            <TrendingUp className="mr-2 h-4 w-4 text-green-500"/>
             Popular
           </Button>
           <Button variant="outline">
             Tech Stack
-            <CheckCircleIcon className="ml-2 h-4 w-4 text-green-500"/>            
+            <CheckCircle className="ml-2 h-4 w-4 text-green-500"/>            
           </Button>
           <Button variant="outline">            
-            <BookMarkedIcon className="mr-2 h-4 w-4"/>            
+            <Bookmark className="mr-2 h-4 w-4"/>            
             Save Job
           </Button>
           <Button variant="outline">
             View Job
-            <ArrowRightIcon className="mr-2 h-4 w-4"/>            
+            <ArrowRight className="mr-2 h-4 w-4"/>            
           </Button>
         </div>        
       </CardContent>
