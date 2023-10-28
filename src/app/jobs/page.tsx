@@ -110,7 +110,17 @@ export default async function Jobs() {
                 <ScrollArea className="">
                     <div className="flex flex-col space-y-2">
                         {jobs.map((job) => (
-                            <JobCard key={job.id} jobTitle={job.title} company={job.company} locationCity={job.locationCity} locationState={job.locationState} locationCountry={job.locationCountry} jobTeam={job.internalTeam || ""} datePosted={job.createdInDBAt} salaryLow={job.compensationLow || ""} salaryHigh={job.compensationHigh || ""} salaryRange={job.compensation || ""} />
+                            <JobCard key={job.id} 
+                                jobTitle={job.title} 
+                                company={job.company} 
+                                locationCity={job.locationCity} 
+                                locationState={job.locationState} 
+                                locationCountry={job.locationCountry} 
+                                jobTeam={job.internalTeam || ""} 
+                                salaryLow={job.compensationLow || ""} 
+                                salaryHigh={job.compensationHigh || ""} 
+                                salaryRange={job.compensation || ""} 
+                            />
                         ))}
 
                     </div>
