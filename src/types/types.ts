@@ -2,6 +2,7 @@ import { JWT } from "next-auth/jwt"
 import type { Icon } from "lucide-react"
 
 import { Icons } from "~/components/pb/icons"
+import { type } from "os"
 
 export type NavItem = {
   title: string
@@ -26,6 +27,13 @@ export type SidebarNavItem = {
       items: NavLink[]
     }
 )
+
+export type NavLink = {
+  title: string
+  href: string
+  icon?: keyof typeof Icons
+}
+
 
 export type SiteConfig = {
   name: string

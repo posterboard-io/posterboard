@@ -45,7 +45,7 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
           <div className="flex flex-col space-y-1">
           <Button variant="outline">
             <Calendar className="mr-2 h-4 w-4 "/>
-            {/* {datePosted} */} Some date
+            {/* {datePosted} */} Some date  
           </Button>
           <Button variant="outline">
           <HoverCard>

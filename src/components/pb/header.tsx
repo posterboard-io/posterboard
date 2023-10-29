@@ -48,7 +48,7 @@ export default async function Header() {
                     <DropdownMenuTrigger asChild>
                       <Button className="bg-transparent">
                         <div className="flex items-center gap-2">
-                          <Image src={session.user?.image} className="rounded-full" width={32} height={32} />
+                          <Image src={session.user?.image || ""} className="rounded-full" width={32} height={32} alt="" />
                         </div>
                       </Button>
                     </DropdownMenuTrigger>

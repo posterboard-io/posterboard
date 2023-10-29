@@ -6,7 +6,7 @@ import { api } from "~/trpc/server";
 import { CheckIcon, MagnifyingGlassIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
 import { ArrowRight, Bot, Code2, HeartHandshake, MailWarning } from 'lucide-react'
 import { Button } from '~/components/ui/button'
-import { auth } from "auth"
+
 
 export default async function Home() {
   return (

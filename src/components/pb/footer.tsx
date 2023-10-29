@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { DiscordLogoIcon, GitHubLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
-import { SlackIcon } from "lucide-react";
+import { Slack } from "lucide-react";
 
 export default function Footer() {
     return (
