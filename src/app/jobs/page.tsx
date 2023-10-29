@@ -8,8 +8,8 @@ import {
     CardDescription,
     CardContent
 
- } from "~/components/ui/card"
- import {
+} from "~/components/ui/card"
+import {
     Select,
     SelectContent,
     SelectGroup,
@@ -17,10 +17,11 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "~/components/ui/select"
- import { Search } from "lucide-react"
- import { ScrollArea } from "~/components/ui/scroll-area"
- import { api } from "~/trpc/server";
+} from "~/components/ui/select"
+import { Search } from "lucide-react"
+import { ScrollArea } from "~/components/ui/scroll-area"
+import { api } from "~/trpc/server";
+import { decodeBase64ToDataURI } from "~/lib/base64";
 
 
 
@@ -109,20 +110,24 @@ export default async function Jobs() {
                 {/* <Input placeholder="Search for jobs" /> */}
                 <ScrollArea className="">
                     <div className="flex flex-col space-y-2">
-                        {jobs.map((job) => (
-                            <JobCard key={job.id} 
-                                jobTitle={job.title} 
-                                company={job.company} 
-                                locationCity={job.locationCity} 
-                                locationState={job.locationState} 
-                                locationCountry={job.locationCountry} 
-                                jobTeam={job.internalTeam || ""} 
-                                salaryLow={job.compensationLow || ""} 
-                                salaryHigh={job.compensationHigh || ""} 
-                                salaryRange={job.compensation || ""} 
-                            />
-                        ))}
-
+                        {jobs.map((job) => {
+                                // const imageSrc = decodeBase64ToDataURI({ str: job.companyLogoBase64 || "" });
+                                return (
+                                    <JobCard 
+                                        key={job.id} 
+                                        jobTitle={job.title} 
+                                        company={job.company} 
+                                        locationCity={job.locationCity} 
+                                        locationState={job.locationState} 
+                                        locationCountry={job.locationCountry} 
+                                        jobTeam={job.internalTeam || ""} 
+                                        salaryLow={job.compensationLow || ""} 
+                                        salaryHigh={job.compensationHigh || ""} 
+                                        salaryRange={job.compensation || ""} 
+                                        jobLink={job.urlJob || ""}
+                                        jobImage={job.companyLogoUrl || ""}
+                                    />
+                            )})}
                     </div>
                 </ScrollArea>
             </div>

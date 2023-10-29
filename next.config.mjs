@@ -14,6 +14,12 @@ const config = {
             port: '',
             pathname: '/u/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'images.ctfassets.net',
+            port: '',
+            pathname: '/i5wc420v2vd1/11e0YAu75XDfPHXMfz9mFN/f222a9c40f4d1c0a910006d7cd2d1849/Netflix_Symbol_RGB.png',
+          },
         ],
     },
 };

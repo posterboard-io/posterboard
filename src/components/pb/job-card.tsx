@@ -14,10 +14,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/components/ui/hover-card"
-
+import Image from "next/image"
 import Link from "next/link"
 
-export default function JobCard({ jobTitle, company, locationCity, locationState, locationCountry, jobTeam, salaryLow, salaryHigh, salaryRange }: { jobTitle: string, company: string, locationCity: string, locationState: string, locationCountry: string, jobTeam: string, salaryLow: string, salaryHigh: string, salaryRange: string}) {
+export default function JobCard({ jobTitle, company, locationCity, locationState, locationCountry, jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, jobImage }: { jobTitle: string, company: string, locationCity: string, locationState: string, locationCountry: string, jobTeam: string, salaryLow: string, salaryHigh: string, salaryRange: string, jobLink: string, jobImage: string }) {
     return (
       <Card>
       <CardHeader className="space-y-1">
@@ -25,7 +25,15 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
           <div className="flex flex-col space-y-1">
           <CardTitle className="text-2xl">{jobTitle}</CardTitle>
           <div className="flex flex-row space-x-2">
-            <GitHubLogoIcon className="h-6 w-6"/>
+
+            <Image
+              className="h-6 w-6"
+              src={jobImage}
+              alt={company}
+              width={12}
+              height={24}
+              loading="lazy"
+             />
             <CardTitle className="text-xl">
               {company}
             </CardTitle>
@@ -83,7 +91,13 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
             Save Job
           </Button>
           <Button variant="outline">
+            <Link 
+              href={jobLink} 
+              target="_blank"
+              rel="noopener noreferrer"
+            >
             View Job
+            </Link>
             <ArrowRight className="mr-2 h-4 w-4"/>            
           </Button>
         </div>        
