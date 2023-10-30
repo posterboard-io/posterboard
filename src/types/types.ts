@@ -2,7 +2,14 @@ import { JWT } from "next-auth/jwt"
 import type { Icon } from "lucide-react"
 
 import { Icons } from "~/components/pb/icons"
-import { type } from "os"
+
+
+export type StripePlans = {
+  name: string
+  description: string
+  price: number
+  stripePriceId: string
+}
 
 export type NavItem = {
   title: string
