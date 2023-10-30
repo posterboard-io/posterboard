@@ -1,7 +1,4 @@
-
-
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { ModeToggle } from '~/components/pb/theme-toggle'
 import { Button } from '~/components/ui/button'
 import ClearLogo from '~/components/pb/clear-logo'
@@ -15,12 +12,13 @@ import {
 } from "~/components/ui/dropdown-menu"
 import { getServerAuthSession } from '~/server/auth'
 import Image from 'next/image'
+import SignOutButton from '~/components/pb/sign-out-button'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Header() {
     const session = await getServerAuthSession()
-    
+    // const session = true
     return (
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">        
         <div className="w-full flex justify-between items-center p-3 text-sm text-foreground">
@@ -55,10 +53,10 @@ export default async function Header() {
                     <DropdownMenuContent className="w-56">
                       <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>
                       <DropdownMenuSeparator />                      
-                      <DropdownMenuCheckboxItem>                         
-                          <Link href="/api/auth/signout" className="bg-transparent text-black dark:text-white hover:bg-transparent">
-                            Sign Out  
-                          </Link>                                           
+                      <DropdownMenuCheckboxItem>
+                          <div className="flex items-center gap-2 hover:bg-inherit">
+                            <SignOutButton />
+                          </div>
                       </DropdownMenuCheckboxItem>                      
                     </DropdownMenuContent>
                   </DropdownMenu>

@@ -91,9 +91,9 @@ export default async function Home() {
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
               <Bot className="h-12 w-12 text-yellow-500" />
               <div className="space-y-2">
-                <h3 className="font-bold">LLM Utilities</h3>
+                <h3 className="font-bold">Resume Utilities</h3>
                 <p className="text-sm text-muted-foreground">
-                  Generate a resume, cover letter, and more.
+                  Test your resume against job descriptions.
                 </p>
               </div>
             </div>
