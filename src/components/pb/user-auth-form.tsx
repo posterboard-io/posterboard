@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import Image from "next/image"
 
 import { cn } from "~/lib/utils"
 import { userAuthSchema } from "~/lib/validations/auth"
@@ -15,6 +16,7 @@ import { Label } from "~/components/ui/label"
 import { toast } from "~/components/ui/use-toast"
 import { Icons } from "~/components/pb/icons"
 import { Button } from "~/components/ui/button"
+import GoogleLogo from "../../../public/png/google.png"
 import Link from "next/link"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -67,7 +69,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             <Label className="sr-only" htmlFor="email">
               Email
             </Label>
-            <Input
+            {/* <Input
               id="email"
               placeholder="name~example.com"
               type="email"
@@ -76,22 +78,22 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoCorrect="off"
               disabled={isLoading || isGitHubLoading}
               {...register("email")}
-            />
+            /> */}
             {errors?.email && (
               <p className="px-1 text-xs text-red-600">
                 {errors.email.message}
               </p>
             )}
           </div>
-          <button className={cn(buttonVariants())} disabled={isLoading}>
+          {/* <button className={cn(buttonVariants())} disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
             Sign In with Email
-          </button>
+          </button> */}
         </div>
       </form>
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -100,7 +102,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             Or continue with
           </span>
         </div>
-      </div>
+      </div> */}
       <Button
         type="button"
         className={cn(buttonVariants())}
@@ -132,7 +134,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         {isGoogleLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
-          <Icons.check className="mr-2 h-4 w-4" />
+          <Image 
+            src={GoogleLogo}
+            alt="Google Logo"
+            width={16}
+            height={16}
+            className="mr-2 h-6 w-6"
+          />
+          // <Icons.check className="mr-2 h-4 w-4" />
         )}{" "}
         Google
       </Button>

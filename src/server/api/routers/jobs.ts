@@ -17,10 +17,18 @@ export const jobsRouter = createTRPCRouter({
     ),
 
     getLatest: publicProcedure
-        .query(({ ctx }) => {
-            // Some query
+        .input(z.object({
+            page: z.number().optional().default(1),
+            pageSize: z.number().optional().default(10),
+        }))
+        .query(({ ctx, input }) => {
+            const skip = (input.page - 1) * input.pageSize;
+            const take = input.pageSize;
+
             return ctx.db.jobPostings.findMany({
                 orderBy: { updatedInDbAt: "desc" },
+                skip: skip,
+                take: take,
             });
         }),
 

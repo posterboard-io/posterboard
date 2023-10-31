@@ -7,6 +7,7 @@ import {
 // import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { sendSlackMessage } from "~/lib/sendSlack";
 
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
@@ -28,12 +29,11 @@ export const authOptions: NextAuthOptions = {
         id: user.id,        
       },
     }),
-    redirect: async ({ url, baseUrl }) => {
+    redirect: async ({ url, baseUrl }) => {      
       console.log('Redirect URL:', url);
       console.log('Base URL:', baseUrl);
     
       if (url.startsWith(baseUrl)) {
-        console.log('Redirecting to:', url);
         return url;
       } else {
         console.log('Redirecting to dashboard');

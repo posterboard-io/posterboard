@@ -16,6 +16,7 @@ import { useToast } from "~/components/ui/use-toast"
 import { useSearchParams } from 'next/navigation'
 import Github from "next-auth/providers/github"
 import Link from "next/link"
+import { GoogleProfile } from "next-auth/providers/google"
 
 
 export function CreateAccountCard() {

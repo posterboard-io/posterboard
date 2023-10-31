@@ -7,7 +7,7 @@ export default function Footer() {
             <footer className="border-t border-b border-b-foreground/10 text-foreground">
                 <div className="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
                     <div className="w-full sm:w-auto mb-4 sm:mb-0 flex justify-between items-center">
-                        <p className="text-sm sm:text-base mb-4 sm:mb-0">Posterboard.io - {new Date().getFullYear()}</p>
+                        <p className="text-sm sm:text-base mb-4 sm:mb-0 px-2">Posterboard.io - {new Date().getFullYear()}</p>
                         <div className="flex gap-3">
                             <Link href="https://github.com/posterboard-io" target="_blank" rel="noreferrer" className="text-gray-600 hover:text-gray-800">
                                 <GitHubLogoIcon className="w-6 h-6" />                                

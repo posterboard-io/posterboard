@@ -29,9 +29,9 @@ export default async function LoginPage() {
           <h1 className="text-2xl font-semibold tracking-tight">
             Welcome back
           </h1>
-          <p className="text-sm text-muted-foreground">
+          {/* <p className="text-sm text-muted-foreground">
             Enter your email to sign in to your account
-          </p>
+          </p> */}
         </div>
         <UserAuthForm />
         <p className="px-8 text-center text-sm text-muted-foreground">

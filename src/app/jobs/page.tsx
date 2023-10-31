@@ -21,13 +21,16 @@ import {
 import { Search } from "lucide-react"
 import { ScrollArea } from "~/components/ui/scroll-area"
 import { api } from "~/trpc/server";
-import { decodeBase64ToDataURI } from "~/lib/base64";
+import { useEffect, useState } from "react";
 
 
 
 export default async function Jobs() {
 
-    const jobs = await api.jobs.getLatest.query()
+    const jobs = await api.jobs.getLatest.query({
+            page: 1,
+            pageSize: 10
+    });
 
     return (
         <div className="min-h-screen">                                
@@ -108,6 +111,12 @@ export default async function Jobs() {
                     </div>
                 </Card>
                 {/* <Input placeholder="Search for jobs" /> */}
+                <div className="flex flex-col py-4 justify-start items-end">
+                    <h1 className="text-xl font-semibold">
+                        Recently Posted Jobs
+                    </h1>
+                </div>
+
                 <ScrollArea className="">
                     <div className="flex flex-col space-y-2">
                         {jobs.map((job) => {

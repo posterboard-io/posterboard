@@ -18,6 +18,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function JobCard({ jobTitle, company, locationCity, locationState, locationCountry, jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, jobImage }: { jobTitle: string, company: string, locationCity: string, locationState: string, locationCountry: string, jobTeam: string, salaryLow: string, salaryHigh: string, salaryRange: string, jobLink: string, jobImage: string }) {
+
     return (
       <Card>
       <CardHeader className="space-y-1">
@@ -40,7 +41,6 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
           </div>
           <CardDescription className="">{locationCity}, {locationState}, {locationCountry}</CardDescription>
           <CardDescription className="">{jobTeam}</CardDescription>
-          {/* <CardDescription className="">San Fransisco, CA, USA</CardDescription> */}
           </div>
           <div className="flex flex-col space-y-1">
           <Button variant="outline">

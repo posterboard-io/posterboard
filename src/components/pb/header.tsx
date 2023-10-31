@@ -33,7 +33,12 @@ export default async function Header() {
             <div className="flex items-center gap-4">
               <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
                   <Link href="/jobs">
-                      Jobs
+                      Search
+                  </Link>              
+                </Button>
+                <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
+                  <Link href="/newest?page=1">
+                     Newest
                   </Link>              
                 </Button>
                 <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">

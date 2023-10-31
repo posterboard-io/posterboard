@@ -32,22 +32,22 @@ export default async function RegisterPage() {
             <h1 className="text-2xl font-semibold tracking-tight">
               Create an account
             </h1>
-            <p className="text-sm text-muted-foreground">
+            {/* <p className="text-sm text-muted-foreground">
               Enter your email below to create your account
-            </p>
+            </p> */}
           </div>
           <UserAuthForm />
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{" "}
             <Link
-              href="/terms"
+              href="/l/tos"
               className="hover:text-brand underline underline-offset-4"
             >
               Terms of Service
             </Link>{" "}
             and{" "}
             <Link
-              href="/privacy"
+              href="/l/pp"
               className="hover:text-brand underline underline-offset-4"
             >
               Privacy Policy

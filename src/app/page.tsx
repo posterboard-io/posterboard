@@ -59,7 +59,7 @@ export default async function Home() {
               <div className="space-y-2">
                 <h3 className="font-bold">Verified Companies</h3>
                 <p className="text-sm text-muted-foreground">
-                  We verify every company that posts a job on Posterboard.io.
+                  Jobs are verified by real people. No more fake jobs or suspicious companies.
                 </p>
               </div>
             </div>
