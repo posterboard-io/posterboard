@@ -2,6 +2,8 @@ import { postRouter } from "~/server/api/routers/post";
 import { jobsRouter } from "~/server/api/routers/jobs";
 import { contactRouter } from "~/server/api/routers/contact";
 import { createTRPCRouter } from "~/server/api/trpc";
+import { stripeRouter } from "~/server/api/routers/stripe";
+import { userRouter } from "~/server/api/routers/user";
 
 /**
  * This is the primary router for your server.
@@ -14,6 +16,10 @@ export const appRouter = createTRPCRouter({
   jobs: jobsRouter,
 
   contact: contactRouter,
+
+  stripe: stripeRouter,
+
+  user: userRouter,
 });
 
 // export type definition of API

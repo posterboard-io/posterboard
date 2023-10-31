@@ -26,9 +26,8 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
           <div className="flex flex-col space-y-1">
           <CardTitle className="text-2xl">{jobTitle}</CardTitle>
           <div className="flex flex-row space-x-2">
-
             <Image
-              className="h-6 w-6"
+              className="h-6 w-4"
               src={jobImage}
               alt={company}
               width={12}
