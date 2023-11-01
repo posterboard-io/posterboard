@@ -1,3 +1,5 @@
+"use client"
+
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import JobCard from "~/components/pb/job-card"
@@ -20,14 +22,15 @@ import {
 } from "~/components/ui/select"
 import { Search } from "lucide-react"
 import { ScrollArea } from "~/components/ui/scroll-area"
-import { api } from "~/trpc/server";
+import { api } from "~/trpc/react";
 import { useEffect, useState } from "react";
-
+import Loading from "~/components/pb/loading"
+import { getServerAuthSession } from "~/server/auth";
 
 
 export default async function Jobs() {
 
-    const jobs = await api.jobs.getLatest.query({
+    const searchJobs = await api.jobs.getLatest.useQuery({
             page: 1,
             pageSize: 10
     });
@@ -109,19 +112,25 @@ export default async function Jobs() {
                         </CardContent>
                         </div>
                     </div>
-                </Card>
-                {/* <Input placeholder="Search for jobs" /> */}
-                <div className="flex flex-col py-4 justify-start items-end">
-                    <h1 className="text-xl font-semibold">
-                        Recently Posted Jobs
-                    </h1>
-                </div>
+                </Card>                
+                {searchJobs.isLoading ? (
+                    <Loading />
+                ) : searchJobs.error ? (
+                    <div>Error: {searchJobs.error.message}</div>
+                ) : (
+                <div>
+                    <div className="flex flex-col py-4 justify-start items-start">
+                        <h1 className="text-xl font-semibold">
+                            Search Results
+                        </h1>
+                    </div>
 
                 <ScrollArea className="">
                     <div className="flex flex-col space-y-2">
-                        {jobs.map((job) => {
+                        {searchJobs.data.map((job) => {
                                 // const imageSrc = decodeBase64ToDataURI({ str: job.companyLogoBase64 || "" });
                                 return (
+                                    <div>
                                     <JobCard 
                                         key={job.id} 
                                         jobTitle={job.title} 
@@ -135,12 +144,18 @@ export default async function Jobs() {
                                         salaryRange={job.compensation || ""} 
                                         jobLink={job.urlJob || ""}
                                         jobImage={job.companyLogoUrl || ""}
+                                        someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
+                                        techStack={job.companyTechStack}
+                                        posterboardId={job.posterboardId}
+                                        userId={""}
                                     />
+                                    </div>
                             )})}
-                    </div>
-                </ScrollArea>
-            </div>
-            {/* <CreateAccountCard /> */}
+                        </div>
+                    </ScrollArea>
+                </div>
+                )}
+            </div>                        
         </div>
     )
 }

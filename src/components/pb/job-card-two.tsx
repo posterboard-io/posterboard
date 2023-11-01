@@ -17,99 +17,97 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 
-export default async function JobsCardTwo({ 
-        jobTitle, company, locationCity, locationState, locationCountry, 
-        jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, jobImage
-    }: { 
-        jobTitle: string, company: string, locationCity: string, locationState: string, 
-        locationCountry: string, jobTeam: string, salaryLow: string, salaryHigh: string, 
-        salaryRange: string, jobLink: string, jobImage: string 
-    }) {
+export default function JobCard({
+    jobTitle,
+    company,
+    locationCity,
+    locationState,
+    locationCountry,
+    jobTeam,
+    salaryLow,
+    salaryHigh,
+    salaryRange,
+    jobLink,
+    jobImage,
+    someDate
+  }: {
+    jobTitle: string,
+    company: string,
+    locationCity: string,
+    locationState: string,
+    locationCountry: string,
+    jobTeam: string,
+    salaryLow: string,
+    salaryHigh: string,
+    salaryRange: string,
+    jobLink: string,
+    jobImage: string,
+    someDate: string
+  }) {
     return (
-        <Card>
-            <CardHeader className="space-y-1">
-                <div className="grid grid-cols-2">
-                <div className="flex flex-col space-y-1">
-                <CardTitle className="text-2xl">{jobTitle}</CardTitle>
-                <div className="flex flex-row space-x-2">
-                    <Image
-                    className="h-6 w-4"
-                    src={jobImage}
-                    alt={company}
-                    width={12}
-                    height={24}
-                    loading="lazy"
-                    />
-                    <CardTitle className="text-xl">
-                    {company}
-                    </CardTitle>
-                </div>
-                <CardDescription className="">{locationCity}, {locationState}, {locationCountry}</CardDescription>
-                <CardDescription className="">{jobTeam}</CardDescription>
-                </div>
-                <div className="flex flex-col space-y-1">                
-                    <Button variant="outline">
-                        <Calendar className="mr-2 h-4 w-4 "/>
-                        {/* {datePosted} */} Some date  
-                    </Button>
-                <Button variant="outline">
-                <HoverCard>
-                    <HoverCardTrigger>
-                        <div className="flex flex-row space-x-2">
-                        <DollarSign className="mr-2 h-4 w-4 text-green-500"/>
-                        ${salaryLow} - ${salaryHigh}, {salaryRange}
-                        </div>
-                    </HoverCardTrigger>
-                    <HoverCardContent>
-                        Unlock Salary Insights with Premium
-                    </HoverCardContent>
-                    </HoverCard>            
-                </Button>
-                <Button variant="outline">
-                    <HoverCard>
-                    <HoverCardTrigger>
-                        <div className="flex flex-row space-x-2">
-                        <Users className="mr-2 h-4 w-4"/>
-                        Interview Prep
-                        </div>
-                    </HoverCardTrigger>
-                    <HoverCardContent>
-                        Unlock Interview Prep with Premium 
-                    </HoverCardContent>
-                    </HoverCard>
-                </Button>                      
-                </div>
-                </div>        
-            </CardHeader>
-            <CardContent className="grid gap-4">
-                <div className="grid grid-cols-4 gap-6">
-                <Button variant="outline">
-                    <TrendingUp className="mr-2 h-4 w-4 text-green-500"/>
-                    Popular
-                </Button>
-                <Button variant="outline">
-                    Tech Stack
-                    <CheckCircle className="ml-2 h-4 w-4 text-green-500"/>            
-                </Button>
-                <Button variant="outline">            
-                    <Bookmark className="mr-2 h-4 w-4"/>            
-                    Save Job
-                </Button>
-                <Button variant="outline">
-                    <Link 
-                    href={jobLink} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                    View Job
-                    </Link>
-                    <ArrowRight className="mr-2 h-4 w-4"/>            
-                </Button>
-                </div>        
-            </CardContent>
-            <CardFooter>
-                {/*  */}
-            </CardFooter>
-        </Card>
-    )
-}
+      <Card>
+        <CardHeader className="space-y-2 md:space-y-0 md:flex md:items-center md:justify-between">
+          <div className="space-y-1">
+            <CardTitle className="text-2xl">{jobTitle}</CardTitle>
+            <div className="flex flex-row items-center space-x-2">
+              <Image
+                className="h-6 w-auto"
+                src={jobImage}
+                alt={company}
+                width={24}
+                height={24}
+                loading="lazy"
+              />
+              <CardTitle className="text-xl">
+                {company}
+              </CardTitle>
+            </div>
+            <CardDescription>{locationCity}, {locationState}, {locationCountry}</CardDescription>
+            <CardDescription>{jobTeam}</CardDescription>
+          </div>
+          <div className="space-y-1">
+            <Button variant="outline" className="flex items-center justify-center md:justify-start">
+              <Calendar className="mr-2 h-4 w-4"/>
+              Last Updated {someDate}
+            </Button>
+            <Button variant="outline" className="flex items-center justify-center md:justify-start">
+              <DollarSign className="mr-2 h-4 w-4 text-green-500"/>
+              ${salaryLow} - ${salaryHigh}, {salaryRange}
+            </Button>
+            <Button variant="outline" className="flex items-center justify-center md:justify-start">
+              <Users className="mr-2 h-4 w-4"/>
+              Interview Prep
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <Button variant="outline" className="flex items-center justify-center">
+            <TrendingUp className="mr-2 h-4 w-4 text-green-500"/>
+            Popular
+          </Button>
+          <Button variant="outline" className="flex items-center justify-center">
+            Tech Stack
+            <CheckCircle className="ml-2 h-4 w-4 text-green-500"/>            
+          </Button>
+          <Button variant="outline" className="flex items-center justify-center">
+            <Bookmark className="mr-2 h-4 w-4"/>            
+            Save Job
+          </Button>
+          <Button variant="outline" className="flex items-center justify-center">
+            <Link 
+              href={jobLink} 
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Job
+              <ArrowRight className="ml-2 h-4 w-4"/>
+            </Link>
+          </Button>
+        </CardContent>
+        <CardFooter>
+          {/* If you have footer content, it goes here */}
+        </CardFooter>
+      </Card>
+    );
+  }
+  

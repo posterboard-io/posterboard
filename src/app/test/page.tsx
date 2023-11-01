@@ -17,6 +17,7 @@ export default function TestPage() {
                     salaryRange="USD"
                     jobLink="https://google.com"
                     jobImage=""
+                    someDate="2021-10-01"
                 />
             </div>
         </div>

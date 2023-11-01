@@ -43,19 +43,32 @@ export const jobsRouter = createTRPCRouter({
 
     saveJob: protectedProcedure
         .input(z.object({
-            // Some input
+            posterboardId: z.string(),
+            userId: z.string(),
         }))
         .mutation(async ({ ctx, input }) => {
-            // Some mutation
+            const jobSaved = await ctx.db.userSavedJobs.create({
+                data: {
+                    jobPostingId: input.posterboardId,
+                    userId: input.userId,                    
+                },
+            });
+            return jobSaved;
         }
     ),
 
     removeSavedJob: protectedProcedure
-        .input(z.object({
-            // Some input
+        .input(z.object({            
+            posterboardId: z.string(),
+            userId: z.string(),
         }))
         .mutation(async ({ ctx, input }) => {
-            // Some mutation
+            const jobRemoved = await ctx.db.userSavedJobs.delete({
+                where: {
+                    jobPostingId: input.posterboardId,
+                    userId: input.userId,
+                }
+            });
         }
     ),
 });

@@ -1,4 +1,7 @@
+"use client"
+
 import { Button } from "~/components/ui/button"
+import React, { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -7,8 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import { GitHubLogoIcon } from "@radix-ui/react-icons"
-import { ArrowBigLeft, ArrowBigRight, ArrowRight, Book, Bookmark, Calendar, CheckCircle, DollarSign, Flame, TrendingUp, Users } from "lucide-react"
+import { 
+  ArrowRight, Bookmark,
+  Calendar, CheckCircle, 
+  DollarSign, Flame, TrendingUp, Users } from "lucide-react"
 import {
   HoverCard,
   HoverCardContent,
@@ -16,8 +21,18 @@ import {
 } from "~/components/ui/hover-card"
 import Image from "next/image"
 import Link from "next/link"
+import SaveJobButton from "~/components/pb/save-job-button";
 
-export default function JobCard({ jobTitle, company, locationCity, locationState, locationCountry, jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, jobImage }: { jobTitle: string, company: string, locationCity: string, locationState: string, locationCountry: string, jobTeam: string, salaryLow: string, salaryHigh: string, salaryRange: string, jobLink: string, jobImage: string }) {
+export default function JobCard({ 
+  jobTitle, company, locationCity, locationState, locationCountry, 
+  jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, 
+  jobImage, someDate, techStack = [], posterboardId, userId
+  }: { 
+  jobTitle: string, company: string, locationCity: string, 
+  locationState: string, locationCountry: string, jobTeam: string, 
+  salaryLow: string, salaryHigh: string, salaryRange: string, 
+  jobLink: string, jobImage: string, someDate: string, techStack?: string[],
+  posterboardId: string, userId: string }) {
 
     return (
       <Card>
@@ -44,7 +59,7 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
           <div className="flex flex-col space-y-1">
           <Button variant="outline">
             <Calendar className="mr-2 h-4 w-4 "/>
-            {/* {datePosted} */} Some date  
+              Last Updated {someDate}
           </Button>
           <Button variant="outline">
           <HoverCard>
@@ -68,7 +83,9 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
                 </div>
               </HoverCardTrigger>
               <HoverCardContent>
-                Unlock Interview Prep with Premium 
+                <div className="flex flex-row space-x-2">
+                  Unlock Interview Prep with Premium 
+                </div>
               </HoverCardContent>
             </HoverCard>
           </Button>                      
@@ -82,13 +99,28 @@ export default function JobCard({ jobTitle, company, locationCity, locationState
             Popular
           </Button>
           <Button variant="outline">
-            Tech Stack
-            <CheckCircle className="ml-2 h-4 w-4 text-green-500"/>            
-          </Button>
-          <Button variant="outline">            
-            <Bookmark className="mr-2 h-4 w-4"/>            
-            Save Job
-          </Button>
+            <HoverCard>
+              <HoverCardTrigger>
+                <div className="flex flex-row space-x-2">
+                  <CheckCircle className="mr-2 h-4 w-4 text-green-500"/>
+                  Tech Stack
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent>
+                <div className="grid grid-cols-2 gap-2">
+                {techStack.map((tech, index) => (                  
+                  <p key={index} className="py-1 rounded text-sm">
+                    {tech}
+                  </p>
+                ))}
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          </Button> 
+          <SaveJobButton
+            jobId={posterboardId}
+            userId={userId}
+          />
           <Button variant="outline">
             <Link 
               href={jobLink} 

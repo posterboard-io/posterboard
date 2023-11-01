@@ -3,8 +3,10 @@
 import { api } from "~/trpc/react"
 import JobCard from "~/components/pb/job-card"
 import { useRouter, useSearchParams } from 'next/navigation'
+import Loading from "~/components/pb/loading"
+import { getServerAuthSession } from "~/server/auth";
 
-export default function NewestJobs() {
+export default async function NewestJobs() {
 
     const searchParams = useSearchParams()
     const page = parseInt(searchParams?.get('page') ?? '1', 10);
@@ -26,31 +28,35 @@ export default function NewestJobs() {
         <div className="flex flex-col py-4">
             <div className="flex justify-start items-start">
                 <h1 className="text-xl font-semibold py-4 px-4">
-                    Recently Posted Jobs
+                    Recently Posted Jobs - Page {page}
                 </h1>
             </div>
             <div className="flex flex-col space-y-2 px-4">
                 {latestJobs.isLoading ? (
-                    <div>Loading...</div>
+                    <Loading />
                 ) : latestJobs.error ? (
                     <div>Error: {latestJobs.error.message}</div>
                 ) : (
                     <div className="flex flex-col space-y-2">
                         {latestJobs.data.map((job) => (
                             <JobCard 
-                                key={job.id}
-                                jobTitle={job.title}
-                                company={job.company}
-                                locationCity={job.locationCity}
-                                locationState={job.locationState}
-                                locationCountry={job.locationCountry}
-                                jobTeam={job.internalTeam || ""}
-                                salaryLow={job.compensationLow || ""}
-                                salaryHigh={job.compensationHigh || ""}
-                                salaryRange={job.compensation || ""}
-                                jobLink={job.urlJob}
-                                jobImage={job.companyLogoUrl || ""}
-                            />
+                            key={job.id} 
+                            jobTitle={job.title} 
+                            company={job.company} 
+                            locationCity={job.locationCity} 
+                            locationState={job.locationState} 
+                            locationCountry={job.locationCountry} 
+                            jobTeam={job.internalTeam || ""} 
+                            salaryLow={job.compensationLow || ""} 
+                            salaryHigh={job.compensationHigh || ""} 
+                            salaryRange={job.compensation || ""} 
+                            jobLink={job.urlJob || ""}
+                            jobImage={job.companyLogoUrl || ""}
+                            someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
+                            techStack={job.companyTechStack}
+                            posterboardId={job.posterboardId}
+                            userId={""}
+                        />
                         ))}
                     </div>
                 )}    

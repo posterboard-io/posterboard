@@ -95,6 +95,7 @@ model User {
   email                       String?                   @unique
   emailVerified               DateTime?
   image                       String?
+  phoneNumber                 String?
   accounts                    Account[]
   sessions                    Session[]
   posts                       Post[]
@@ -141,6 +142,7 @@ enum RoleLevel {
 
 model JobPostings {
   id                Int             @id @default(autoincrement())
+  posterboardId     String          @unique @default(cuid())
   company           Companies
   title             String
   location          String
@@ -168,9 +170,9 @@ model JobPostings {
 model UserSavedJobs {
   id           Int         @id @default(autoincrement())
   userId       String
-  jobPostingId Int
+  jobPostingId String      @unique
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  jobPosting   JobPostings @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  jobPosting   JobPostings @relation(fields: [jobPostingId], references: [posterboardId], onDelete: Cascade)
 }
