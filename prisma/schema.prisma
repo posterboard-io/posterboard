@@ -1,33 +1,24 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider  = "postgresql"
-  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  createdBy   User   @relation(fields: [createdById], references: [id])
+  id          Int      @id @default(autoincrement())
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   createdById String
+  createdBy   User     @relation(fields: [createdById], references: [id])
 
   @@index([name])
 }
 
-// Necessary for Next auth
 model Account {
   id                       String   @id @default(cuid())
   userId                   String
@@ -35,16 +26,16 @@ model Account {
   provider                 String
   providerAccountId        String
   refresh_token_expires_in Int?
-  refresh_token            String? // @db.Text
-  access_token             String? // @db.Text
+  refresh_token            String?
+  access_token             String?
   expires_at               Int?
   token_type               String?
   scope                    String?
-  id_token                 String? // @db.Text
+  id_token                 String?
   session_state            String?
+  createdAt                DateTime @default(now()) @map("created_at")
+  updatedAt                DateTime @default(now()) @map("updated_at")
   user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt                DateTime @default(now()) @map(name: "created_at")
-  updatedAt                DateTime @default(now()) @map(name: "updated_at")
 
   @@unique([provider, providerAccountId])
 }
@@ -55,17 +46,6 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-enum StripeSubscriptionStatus {
-  incomplete
-  incomplete_expired
-  trialing
-  active
-  past_due
-  canceled
-  unpaid
-  paused
 }
 
 model StripeEvent {
@@ -95,16 +75,16 @@ model User {
   email                       String?                   @unique
   emailVerified               DateTime?
   image                       String?
-  phoneNumber                 String?
-  accounts                    Account[]
-  sessions                    Session[]
-  posts                       Post[]
-  UserSavedJobs               UserSavedJobs[]
   lastUpdatedProfileAt        DateTime?
+  createdAt                   DateTime                  @default(now())
   stripeCustomerId            String?
   stripeSubscriptionId        String?
   stripeSubscriptionStatus    StripeSubscriptionStatus?
-  createdAt                   DateTime                  @default(now())
+  phoneNumber                 String?
+  accounts                    Account[]
+  posts                       Post[]
+  sessions                    Session[]
+  savedJobs                   UserSavedJobs[]
 }
 
 model VerificationToken {
@@ -113,6 +93,56 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model JobPostings {
+  id                Int             @id @default(autoincrement())
+  company           Companies
+  title             String
+  location          String
+  locationCity      String
+  locationState     String
+  locationCountry   String
+  roleLevel         RoleLevel
+  companyLogoBase64 String?
+  companyLogoUrl    String?
+  companyTechStack  String[]
+  urlJobSlug        String
+  urlJob            String
+  compensation      String?
+  compensationLow   String?
+  compensationHigh  String?
+  externalJobId     String?         @unique
+  jobDescription    String?
+  jobSearchText     String?
+  internalTeam      String?
+  createdInDBAt     DateTime        @default(now())
+  updatedInDbAt     DateTime        @updatedAt
+  posterboardId     String          @unique @default(cuid())
+  savedByUsers      UserSavedJobs[]
+}
+
+model UserSavedJobs {
+  id           Int         @id @default(autoincrement())
+  userId       String
+  jobPostingId Int // This should be an Int to match the JobPostings id type
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  jobPosting   JobPostings @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, jobPostingId]) // A composite unique index ensures a user can't save the same job posting multiple times
+}
+
+enum StripeSubscriptionStatus {
+  incomplete
+  incomplete_expired
+  trialing
+  active
+  past_due
+  canceled
+  unpaid
+  paused
 }
 
 enum Companies {
@@ -138,41 +168,4 @@ enum RoleLevel {
   Director
   VP
   CLevel
-}
-
-model JobPostings {
-  id                Int             @id @default(autoincrement())
-  posterboardId     String          @unique @default(cuid())
-  company           Companies
-  title             String
-  location          String
-  locationCity      String
-  locationState     String
-  locationCountry   String
-  roleLevel         RoleLevel
-  companyLogoBase64 String?
-  companyLogoUrl    String?
-  companyTechStack  String[]
-  urlJobSlug        String
-  urlJob            String
-  compensation      String?
-  compensationLow   String?
-  compensationHigh  String?
-  externalJobId     String?         @unique
-  jobDescription    String?
-  jobSearchText     String?
-  internalTeam      String?
-  createdInDBAt     DateTime        @default(now())
-  updatedInDbAt     DateTime        @updatedAt
-  UserSavedJobs     UserSavedJobs[]
-}
-
-model UserSavedJobs {
-  id           Int         @id @default(autoincrement())
-  userId       String
-  jobPostingId String      @unique
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  jobPosting   JobPostings @relation(fields: [jobPostingId], references: [posterboardId], onDelete: Cascade)
 }

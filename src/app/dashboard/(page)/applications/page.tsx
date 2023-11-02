@@ -3,7 +3,8 @@ import KanbanBoard from "~/components/pb/applications-kanban"
 import { getServerAuthSession } from "~/server/auth"
 
 export default async function DashboardApplications() {
-  const session = await getServerAuthSession() || null
+  const session = await getServerAuthSession() 
+    
 
   return (
     <div className="flex">

@@ -4,7 +4,6 @@ import { api } from "~/trpc/react"
 import JobCard from "~/components/pb/job-card"
 import { useRouter, useSearchParams } from 'next/navigation'
 import Loading from "~/components/pb/loading"
-import { getServerAuthSession } from "~/server/auth";
 
 export default async function NewestJobs() {
 

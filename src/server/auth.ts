@@ -22,12 +22,13 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
+    session: async ({ session, user }) => ({      
       ...session,      
-      user: {
+      user: {        
         ...session.user,
         id: user.id,        
       },
+      
     }),
     redirect: async ({ url, baseUrl }) => {      
       console.log('Redirect URL:', url);

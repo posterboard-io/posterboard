@@ -10,15 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
-import { getServerAuthSession } from '~/server/auth'
 import Image from 'next/image'
 import SignOutButton from '~/components/pb/sign-out-button'
+import { getServerAuthSession } from '~/server/auth'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Header() {
-    const session = await getServerAuthSession()
-    // const session = true
+    const session = await getServerAuthSession() 
+    
     return (
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">        
         <div className="w-full flex justify-between items-center p-3 text-sm text-foreground">

@@ -2,7 +2,7 @@ import { env } from "~/env.mjs";
 import { getOrCreateStripeCustomerIdForUser } from "~/server/stripe-hook";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { stripe } from "~/server/stripe";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client/edge";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export interface CustomContext {

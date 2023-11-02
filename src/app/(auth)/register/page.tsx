@@ -5,7 +5,7 @@ import { buttonVariants } from "~/components/ui/button"
 import { UserAuthForm } from "~/components/pb/user-auth-form"
 import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
 import Image from "next/image"
-import { getServerAuthSession } from "~/server/auth";
+
 
 export const metadata = {
   title: "Create an account",
@@ -13,7 +13,6 @@ export const metadata = {
 }
 
 export default async function RegisterPage() {
-  const session = await getServerAuthSession()
 
   return (
     
@@ -55,9 +54,9 @@ export default async function RegisterPage() {
             .
           </p>
         </div>
-        <p className="text-center text-2xl text-white">
+        {/* <p className="text-center text-2xl text-white">
               {session && <span>Logged in as {session.user?.name}</span>}
-        </p>
+        </p> */}
       </div>
     </div>
   )

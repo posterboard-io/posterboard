@@ -3,7 +3,7 @@ import Link from "next/link"
 import { UserAuthForm } from "~/components/pb/user-auth-form"
 import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
 import Image from "next/image"
-import { getServerAuthSession } from "~/server/auth";
+import { getServerAuthSession } from "~/server/auth"
 
 
 export const metadata: Metadata = {
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 }
 
 export default async function LoginPage() {
-  
-  const session = await getServerAuthSession()
+
+  const session = getServerAuthSession()  
   
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">      
@@ -42,9 +42,9 @@ export default async function LoginPage() {
             Don&apos;t have an account? Sign Up
           </Link>
         </p>
-        <p className="text-center text-2xl text-white">
+        {/* <p className="text-center text-2xl text-white">
               {session && <span>Logged in as {session.user?.name}</span>}
-        </p>
+        </p> */}
       </div>
     </div>
   )

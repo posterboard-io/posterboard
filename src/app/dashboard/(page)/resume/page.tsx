@@ -1,5 +1,4 @@
 import { DashboardShell } from "~/components/pb/dashboard-shell"
-import { getServerAuthSession } from "~/server/auth"
 import {
   Card,
   CardTitle,
@@ -7,11 +6,12 @@ import {
 } from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import Link from "next/link"
+import { getServerAuthSession } from "~/server/auth"
 
 export default async function DashboardResume() {
 
-  const session = await getServerAuthSession() || null
-
+  const session = await getServerAuthSession()     
+  
   return (
     <div className="flex">
         <DashboardShell  />

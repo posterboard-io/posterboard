@@ -47,13 +47,13 @@ export const jobsRouter = createTRPCRouter({
             userId: z.string(),
         }))
         .mutation(async ({ ctx, input }) => {
-            const jobSaved = await ctx.db.userSavedJobs.create({
-                data: {
-                    jobPostingId: input.posterboardId,
-                    userId: input.userId,                    
-                },
-            });
-            return jobSaved;
+            // const jobSaved = await ctx.db.userSavedJobs.create({
+            //     data: {
+            //         jobPostingId: input.posterboardId,
+            //         userId: input.userId,                    
+            //     },
+            // });
+            // return jobSaved;
         }
     ),
 
@@ -63,12 +63,12 @@ export const jobsRouter = createTRPCRouter({
             userId: z.string(),
         }))
         .mutation(async ({ ctx, input }) => {
-            const jobRemoved = await ctx.db.userSavedJobs.delete({
-                where: {
-                    jobPostingId: input.posterboardId,
-                    userId: input.userId,
-                }
-            });
+            // const jobRemoved = await ctx.db.userSavedJobs.delete({
+            //     where: {
+            //         jobPostingId: input.posterboardId,
+            //         userId: input.userId,
+            //     }
+            // });
         }
     ),
 });

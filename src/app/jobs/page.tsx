@@ -25,7 +25,6 @@ import { ScrollArea } from "~/components/ui/scroll-area"
 import { api } from "~/trpc/react";
 import { useEffect, useState } from "react";
 import Loading from "~/components/pb/loading"
-import { getServerAuthSession } from "~/server/auth";
 
 
 export default async function Jobs() {

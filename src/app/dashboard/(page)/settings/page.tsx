@@ -17,6 +17,7 @@ import { getServerAuthSession } from "~/server/auth"
 export default async function DashboardSettings() {
     
     const session = await getServerAuthSession() || null
+    
 
     return (
         <div className="flex">

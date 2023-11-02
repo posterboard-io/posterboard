@@ -66,7 +66,7 @@ export default function JobCard({
               <HoverCardTrigger>
                 <div className="flex flex-row space-x-2">
                 <DollarSign className="mr-2 h-4 w-4 text-green-500"/>
-                  ${salaryLow} - ${salaryHigh}, {salaryRange}
+                  {salaryLow} - {salaryHigh} 
                 </div>
               </HoverCardTrigger>
               <HoverCardContent>
