@@ -148,10 +148,11 @@ enum StripeSubscriptionStatus {
 enum Companies {
   Amazon
   Apple
-  Facebook
+  Meta
   Google
   Microsoft
   Netflix
+  Nvidia
   Tesla
   Twitter
   Uber

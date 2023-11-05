@@ -25,6 +25,18 @@ const config = {
             hostname: 'lh3.googleusercontent.com',
             port: '',
             pathname: '/a/**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'www.nvidia.com',
+            port: '',
+            pathname: "/content/dam/en-zz/Solutions/about-nvidia/logo-and-brand/01-nvidia-logo-vert-500x200-2c50-l@2x.png"
+          },
+          {
+            protocol: 'https',
+            hostname: 'img-prod-cms-rt-microsoft-com.akamaized.net',
+            port: '',
+            pathname: "/cms/api/am/imageFileData/RE1Mu3b"
           }
         ],
     },

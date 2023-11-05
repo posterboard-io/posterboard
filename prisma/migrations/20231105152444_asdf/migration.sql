@@ -1,5 +1,8 @@
 -- CreateEnum
-CREATE TYPE "Companies" AS ENUM ('Amazon', 'Apple', 'Facebook', 'Google', 'Microsoft', 'Netflix', 'Tesla', 'Twitter', 'Uber', 'Other');
+CREATE TYPE "StripeSubscriptionStatus" AS ENUM ('incomplete', 'incomplete_expired', 'trialing', 'active', 'past_due', 'canceled', 'unpaid', 'paused');
+
+-- CreateEnum
+CREATE TYPE "Companies" AS ENUM ('Amazon', 'Apple', 'Facebook', 'Google', 'Microsoft', 'Netflix', 'Nvidia', 'Tesla', 'Twitter', 'Uber', 'Other');
 
 -- CreateEnum
 CREATE TYPE "RoleLevel" AS ENUM ('Intern', 'Entry', 'Mid', 'Senior', 'Lead', 'Manager', 'Director', 'VP', 'CLevel');
@@ -47,6 +50,22 @@ CREATE TABLE "Session" (
 );
 
 -- CreateTable
+CREATE TABLE "StripeEvent" (
+    "id" TEXT NOT NULL,
+    "api_version" TEXT,
+    "data" JSONB NOT NULL,
+    "request" JSONB,
+    "type" TEXT NOT NULL,
+    "object" TEXT NOT NULL,
+    "account" TEXT,
+    "created" TIMESTAMP(3) NOT NULL,
+    "livemode" BOOLEAN NOT NULL,
+    "pending_webhooks" INTEGER NOT NULL,
+
+    CONSTRAINT "StripeEvent_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "isTest" BOOLEAN NOT NULL DEFAULT false,
@@ -63,6 +82,10 @@ CREATE TABLE "User" (
     "image" TEXT,
     "lastUpdatedProfileAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "stripeCustomerId" TEXT,
+    "stripeSubscriptionId" TEXT,
+    "stripeSubscriptionStatus" "StripeSubscriptionStatus",
+    "phoneNumber" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -98,6 +121,7 @@ CREATE TABLE "JobPostings" (
     "internalTeam" TEXT,
     "createdInDBAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedInDbAt" TIMESTAMP(3) NOT NULL,
+    "posterboardId" TEXT NOT NULL,
 
     CONSTRAINT "JobPostings_pkey" PRIMARY KEY ("id")
 );
@@ -123,6 +147,9 @@ CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provi
 CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "StripeEvent_id_key" ON "StripeEvent"("id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
@@ -134,6 +161,12 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 -- CreateIndex
 CREATE UNIQUE INDEX "JobPostings_externalJobId_key" ON "JobPostings"("externalJobId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "JobPostings_posterboardId_key" ON "JobPostings"("posterboardId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "UserSavedJobs_userId_jobPostingId_key" ON "UserSavedJobs"("userId", "jobPostingId");
+
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -144,7 +177,7 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserSavedJobs" ADD CONSTRAINT "UserSavedJobs_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "UserSavedJobs" ADD CONSTRAINT "UserSavedJobs_jobPostingId_fkey" FOREIGN KEY ("jobPostingId") REFERENCES "JobPostings"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserSavedJobs" ADD CONSTRAINT "UserSavedJobs_jobPostingId_fkey" FOREIGN KEY ("jobPostingId") REFERENCES "JobPostings"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "UserSavedJobs" ADD CONSTRAINT "UserSavedJobs_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
