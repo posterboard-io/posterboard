@@ -26,13 +26,13 @@ import SaveJobButton from "~/components/pb/save-job-button";
 export default function JobCard({ 
   jobTitle, company, locationCity, locationState, locationCountry, 
   jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, 
-  jobImage, someDate, techStack = [], posterboardId, userId
+  jobImage, someDate, techStack = [], jobId
   }: { 
   jobTitle: string, company: string, locationCity: string, 
   locationState: string, locationCountry: string, jobTeam: string, 
   salaryLow: string, salaryHigh: string, salaryRange: string, 
   jobLink: string, jobImage: string, someDate: string, techStack?: string[],
-  posterboardId: string, userId: string }) {
+  jobId: number }) {
 
     return (
       <Card>
@@ -118,8 +118,7 @@ export default function JobCard({
             </HoverCard>
           </Button> 
           <SaveJobButton
-            jobId={posterboardId}
-            userId={userId}
+            jobId={jobId}
           />
           <Button variant="outline">
             <Link 

@@ -41,35 +41,65 @@ export const jobsRouter = createTRPCRouter({
         }
     ),
 
+    getSavedJobs: protectedProcedure
+        .query(async ({ ctx }) => {
+            const savedJobs = await ctx.db.userSavedJobs.findMany({
+                where: {
+                    userId: ctx.session.user.id,
+                },
+                include: {
+                    jobPosting: true, // Assuming you want to include the details of the job postings
+                },
+            });
+    
+        return savedJobs.map((savedJob) => ({
+            ...savedJob,
+            jobPosting: savedJob.jobPosting,
+        }));
+        }),
+  
     saveJob: protectedProcedure
         .input(z.object({
-            posterboardId: z.string(),
-            userId: z.string(),
+            jobId: z.number(),
         }))
         .mutation(async ({ ctx, input }) => {
-            // const jobSaved = await ctx.db.userSavedJobs.create({
-            //     data: {
-            //         jobPostingId: input.posterboardId,
-            //         userId: input.userId,                    
-            //     },
-            // });
-            // return jobSaved;
+            const jobSaved = await ctx.db.userSavedJobs.create({
+                data: {
+                    userId: ctx.session.user.id,
+                    jobPostingId: input.jobId,                    
+                },
+            });
+            return jobSaved;
+        }
+    ),    
+
+    removeJob: protectedProcedure
+        .input(z.object({
+            jobId: z.number(),
+        }))
+        .mutation(async ({ ctx, input }) => {
+            // You can add a check here to ensure the job actually belongs to the user
+            // This prevents users from deleting jobs saved by others
+            const job = await ctx.db.userSavedJobs.findFirst({
+                where: {
+                    userId: ctx.session.user.id,
+                    jobPostingId: input.jobId,
+                },
+            });
+
+            if (!job) {
+                throw new Error("Job not found or you don't have permission to delete it.");
+            }
+
+            const jobRemoved = await ctx.db.userSavedJobs.delete({
+                where: {
+                    id: job.id, // Assuming 'id' is the unique ID for the UserSavedJobs record
+                },
+            });
+
+            return jobRemoved;
         }
     ),
 
-    removeSavedJob: protectedProcedure
-        .input(z.object({            
-            posterboardId: z.string(),
-            userId: z.string(),
-        }))
-        .mutation(async ({ ctx, input }) => {
-            // const jobRemoved = await ctx.db.userSavedJobs.delete({
-            //     where: {
-            //         jobPostingId: input.posterboardId,
-            //         userId: input.userId,
-            //     }
-            // });
-        }
-    ),
 });
 

@@ -53,8 +53,7 @@ export default async function NewestJobs() {
                             jobImage={job.companyLogoUrl || ""}
                             someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
                             techStack={job.companyTechStack}
-                            posterboardId={job.posterboardId}
-                            userId={""}
+                            jobId={job.id}
                         />
                         ))}
                     </div>

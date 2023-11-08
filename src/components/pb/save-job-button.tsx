@@ -5,22 +5,18 @@ import { BookmarkFilledIcon, BookmarkIcon } from '@radix-ui/react-icons';
 import { api } from "~/trpc/react";
 import { Button } from '~/components/ui/button';
 
-export default function SaveJobButton({ jobId, userId }: { jobId: string, userId: string }) {
+export default function SaveJobButton({ jobId }: { jobId: number  }) {
   const [isSaved, setIsSaved] = useState(false);
 
   const saveJobMutation = api.jobs.saveJob.useMutation();
-  const unsaveJobMutation = api.jobs.removeSavedJob.useMutation();
+  const unsaveJobMutation = api.jobs.removeJob.useMutation();
 
-  
-  
   const toggleSave = () => {
 
-    console.log('Toggling save status for:', { jobId, userId });
-
     if (isSaved) {
-      unsaveJobMutation.mutate({ posterboardId: jobId, userId: userId });
+      unsaveJobMutation.mutate({ jobId: jobId });
     } else {
-      saveJobMutation.mutate({ posterboardId: jobId, userId });
+      saveJobMutation.mutate({ jobId: jobId });
     }
     setIsSaved(!isSaved);
   };
