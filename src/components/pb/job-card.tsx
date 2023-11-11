@@ -41,14 +41,16 @@ export default function JobCard({
           <div className="flex flex-col space-y-1">
           <CardTitle className="text-2xl">{jobTitle}</CardTitle>
           <div className="flex flex-row space-x-2">
-            <Image
-              className="h-6 w-4"
-              src={jobImage}
-              alt={company}
-              width={12}
-              height={24}
-              loading="lazy"
-             />
+            <div className="w-8 h-8 relative">
+              <Image
+                className="object-contain" // or use object-contain for the full image
+                src={jobImage}
+                alt={company}
+                layout="fill"
+                loading="lazy"
+              />
+              </div>
+
             <CardTitle className="text-xl">
               {company}
             </CardTitle>

@@ -10,7 +10,7 @@ export const jobsRouter = createTRPCRouter({
     searchJobs: publicProcedure
         .input(z.object({
             page: z.number().optional().default(1),
-            pageSize: z.number().optional().default(10),
+            pageSize: z.number().optional().default(100),
             query: z.string().optional().nullable(),
             location: z.string().optional().nullable(),
             fullTime: z.boolean().optional().nullable(),
@@ -34,6 +34,23 @@ export const jobsRouter = createTRPCRouter({
 
             return jobs;
         }),
+
+    getTotalJobsForQuery: publicProcedure
+        .input(z.object({
+            query: z.string().optional().nullable(),           
+        }))
+        .query(async ({ ctx, input }) => {
+            const where = {
+                ...(input.query ? { title: { contains: input.query } } : {}),
+            };
+
+            const count = await ctx.db.jobPostings.count({
+                where: where,
+            });
+
+            return count;
+        }
+    ),
 
     getLatest: publicProcedure
         .input(z.object({
