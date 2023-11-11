@@ -7,14 +7,33 @@ import {
 } from "~/server/api/trpc";
 
 export const jobsRouter = createTRPCRouter({
-    find: protectedProcedure
+    searchJobs: publicProcedure
         .input(z.object({
-            // Some input
+            page: z.number().optional().default(1),
+            pageSize: z.number().optional().default(10),
+            query: z.string().optional().nullable(),
+            location: z.string().optional().nullable(),
+            fullTime: z.boolean().optional().nullable(),
         }))
         .query(async ({ ctx, input }) => {
-            // Some query
-        }
-    ),
+            const skip = (input.page - 1) * input.pageSize;
+            const take = input.pageSize;
+
+            const where = {
+                ...(input.query ? { title: { contains: input.query } } : {}),
+                ...(input.location ? { location: { contains: input.location } } : {}),
+                ...(input.fullTime ? { fullTime: input.fullTime } : {}),
+            };
+
+            const jobs = await ctx.db.jobPostings.findMany({
+                where: where,
+                orderBy: { updatedInDbAt: "desc" },
+                skip: skip,
+                take: take,
+            });
+
+            return jobs;
+        }),
 
     getLatest: publicProcedure
         .input(z.object({
