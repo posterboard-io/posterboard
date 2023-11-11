@@ -5,11 +5,8 @@ import { Button } from "~/components/ui/button"
 import JobCard from "~/components/pb/job-card"
 import { 
     Card,
-    CardHeader,
     CardTitle,
     CardDescription,
-    CardContent
-
 } from "~/components/ui/card"
 import {
     Select,
@@ -26,33 +23,79 @@ import { api } from "~/trpc/react";
 import { useEffect, useState } from "react";
 import Loading from "~/components/pb/loading"
 
+export default function Jobs() {
 
-export default async function Jobs() {
+    const [search, setSearch] = useState("");
 
-    const searchJobs = await api.jobs.getLatest.useQuery({
-            page: 1,
-            pageSize: 10
-    });
+    const jobs = api.jobs.searchJobs.useQuery({
+        query: search
+    })
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
 
     return (
-        <div className="min-h-screen">                                
+        <div className="min-h-screen"> 
             <div className="flex flex-col items-center justify-center space-y-2 py-2 px-2">
-                <Card className="py-2 px-2">                    
-                    <CardTitle className="space-y-1 px-2 py-2">
-                        Find Jobs
+                <Card className="w-full py-2 px-2">
+                    <CardTitle className="text-lg sm:text-base space-y-1 px-2 py-2">
+                        Search Jobs
                     </CardTitle>
-                    <CardDescription className="px-2 py-2">
+                    <CardDescription className="text-xs sm:text-sm px-2 py-2">
                         Search for jobs by company, location, technology, or job title
                     </CardDescription>
-                    <div className="flex flex-row space-x-2 px-2">
-                        <Input placeholder="Software Engineer" />
+                    <div>
+                        <form className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 px-2">
+                        <Input placeholder="Software Engineer" className="text-sm" onChange={handleSearch} />
                         <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black">
                             <Search className="mr-2 h-4 w-4 text-white dark:text-black" />
                             Search
                         </Button>
-                        
+                        </form>
                     </div>
-                    <div className="relative flex py-2 px-2">
+
+                </Card>
+            </div>
+            <div className="flex flex-col space-y-2 px-2">
+                <p>{search}</p>
+            </div>
+            {jobs.isLoading ? (
+                <Loading />
+            ) : jobs.error ? (
+                <div>Error: {jobs.error.message}</div>
+            ) : (
+                <div className="flex flex-col space-y-2 px-2">
+                    {jobs.data.map((job) => (
+                        <JobCard 
+                            key={job.id} 
+                            jobTitle={job.title} 
+                            company={job.company} 
+                            locationCity={job.locationCity} 
+                            locationState={job.locationState} 
+                            locationCountry={job.locationCountry} 
+                            jobTeam={job.internalTeam || ""} 
+                            salaryLow={job.compensationLow || ""} 
+                            salaryHigh={job.compensationHigh || ""} 
+                            salaryRange={job.compensation || ""} 
+                            jobLink={job.urlJob || ""}
+                            jobImage={job.companyLogoUrl || ""}
+                            someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
+                            techStack={job.companyTechStack}
+                            jobId={job.id}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+
+
+/*
+
+<div className="relative flex py-2 px-2">
                         <div className="relative flex justify-center text-xs ">
                         <CardContent className="grid gap-4">
                             <div className="grid grid-cols-5 gap-6">                                                        
@@ -111,49 +154,5 @@ export default async function Jobs() {
                         </CardContent>
                         </div>
                     </div>
-                </Card>                
-                {searchJobs.isLoading ? (
-                    <Loading />
-                ) : searchJobs.error ? (
-                    <div>Error: {searchJobs.error.message}</div>
-                ) : (
-                <div>
-                    <div className="flex flex-col py-4 justify-start items-start">
-                        <h1 className="text-xl font-semibold">
-                            Search Results
-                        </h1>
-                    </div>
 
-                <ScrollArea className="">
-                    <div className="flex flex-col space-y-2">
-                        {searchJobs.data.map((job) => {
-                                // const imageSrc = decodeBase64ToDataURI({ str: job.companyLogoBase64 || "" });
-                                return (
-                                    <div>
-                                    <JobCard 
-                                        key={job.id} 
-                                        jobTitle={job.title} 
-                                        company={job.company} 
-                                        locationCity={job.locationCity} 
-                                        locationState={job.locationState} 
-                                        locationCountry={job.locationCountry} 
-                                        jobTeam={job.internalTeam || ""} 
-                                        salaryLow={job.compensationLow || ""} 
-                                        salaryHigh={job.compensationHigh || ""} 
-                                        salaryRange={job.compensation || ""} 
-                                        jobLink={job.urlJob || ""}
-                                        jobImage={job.companyLogoUrl || ""}
-                                        someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
-                                        techStack={job.companyTechStack}
-                                        jobId={job.id}                                        
-                                    />
-                                    </div>
-                            )})}
-                        </div>
-                    </ScrollArea>
-                </div>
-                )}
-            </div>                        
-        </div>
-    )
-}
+*/
