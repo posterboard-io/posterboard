@@ -4,15 +4,15 @@ import { DashboardShell } from "~/components/pb/dashboard-shell"
 import { api } from "~/trpc/react"
 import Loading from "~/components/pb/loading"
 import JobCard from "~/components/pb/job-card"
-import { Card } from "~/components/ui/card"
+import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import Link from "next/link"
+import DashboardCard from "~/components/pb/dashboard-card"
+import { DashboardGraph } from "~/components/pb/dashboard-graph"
+import { DashboardPieChart } from "~/components/pb/dashboard-piechart"
 
 export default function Dashboard() {  
 
-  const savedJobs = api.jobs.getSavedJobs.useQuery()
-
-  // console.log(savedJobs.data)
-
+  
   return (
     <div className="flex">
         <DashboardShell />
@@ -23,43 +23,62 @@ export default function Dashboard() {
                   <div>
                     <h1 className="text-2xl font-bold tracking-tight">
                       Dashboard
-                    </h1>                  
-                  </div>     
-                  <div className="flex flex-col space-y-2 px-4">
-                {savedJobs.isLoading ? (
-                    <Loading />
-                ) : savedJobs.error ? (
-                    <div>Error: {savedJobs.error.message}</div>
-                ) : (
-                    <div className="flex flex-col space-y-2">
-                        {savedJobs.data.map((job) => (
-                            <JobCard 
-                            key={job.id} 
-                            jobTitle={job.jobPosting.title} 
-                            company={job.jobPosting.company} 
-                            locationCity={job.jobPosting.locationCity} 
-                            locationState={job.jobPosting.locationState} 
-                            locationCountry={job.jobPosting.locationCountry} 
-                            jobTeam={job.jobPosting.internalTeam || ""} 
-                            salaryLow={job.jobPosting.compensationLow || ""} 
-                            salaryHigh={job.jobPosting.compensationHigh || ""} 
-                            salaryRange={job.jobPosting.compensation || ""} 
-                            jobLink={job.jobPosting.urlJob || ""}
-                            jobImage={job.jobPosting.companyLogoUrl || ""}
-                            someDate={job.jobPosting.updatedInDbAt ? new Date(job.jobPosting.updatedInDbAt).toLocaleDateString() : ""}
-                            techStack={job.jobPosting.companyTechStack}
-                            jobId={job.id}
-                        />
-                        ))}
-                    </div>
-                )}    
-                {savedJobs.data && savedJobs.data.length > 0 && (
-                <div className="flex justify-center py-4">
-                    <p>You have no saved Jobs. Get Searching!</p>
+                    </h1>                                      
+                  </div>                  
                 </div>
-            )}    
-            </div>   
-                </div>                              
+                <div className="flex flex-col">
+                  <Card className="flex flex-col space-y-2">
+                    <CardTitle className="flex flex-col py-2 px-2">
+                      {/* Put some text here? */}
+                    </CardTitle>
+                    <CardContent className="flex flex-col space-y-2">
+                      <div className="grid grid-cols-4 gap-4">
+                        <DashboardCard 
+                          cardContent="23"
+                          cardContentDesc="+130% from last month"
+                          cardTitle="Total Jobs Applied For"
+                          cardIcon="JobIcon"
+                        />
+                        <DashboardCard 
+                          cardContent="0"
+                          cardContentDesc="Total Jobs"
+                          cardTitle="Jobs"
+                          cardIcon="JobIcon"
+                        />
+                        <DashboardCard 
+                          cardContent="0"
+                          cardContentDesc="Total Jobs"
+                          cardTitle="Jobs"
+                          cardIcon="JobIcon"
+                        />
+                        <DashboardCard 
+                          cardContent="0"
+                          cardContentDesc="Total Jobs"
+                          cardTitle="Jobs"
+                          cardIcon="JobIcon"
+                        />
+                      </div>
+                      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
+                        <Card className="col-span-4">
+                          <CardHeader>
+                            <CardTitle>Total Applications</CardTitle>
+                          </CardHeader>
+                          <CardContent className="pl-2">
+                            <DashboardGraph />
+                          </CardContent>
+                        </Card>
+                        <Card className="col-span-4">
+                          <CardHeader>
+                            <CardTitle>Company Applications</CardTitle>
+                          </CardHeader>
+                          <CardContent className="pl-2">
+                            <DashboardPieChart />
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CardContent>
+                  </Card> 
+                </div>                               
               </div>                                  
             </div>                
         </main>
