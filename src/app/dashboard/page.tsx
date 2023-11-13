@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   const savedJobs = api.jobs.getSavedJobs.useQuery()
 
-  console.log(savedJobs.data)
+  // console.log(savedJobs.data)
 
   return (
     <div className="flex">

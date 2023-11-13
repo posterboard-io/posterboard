@@ -6,14 +6,9 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import { 
-  ArrowRight, Bookmark,
-  Calendar, CheckCircle, 
-  DollarSign, Flame, TrendingUp, Users } from "lucide-react"
 import {
   HoverCard,
   HoverCardContent,
@@ -36,9 +31,8 @@ export default function JobKanbanCard({
       <CardHeader className="space-y-1">
         <div className="grid grid-cols-1">
           <div className="flex flex-col space-y-1">
-          <CardTitle className="text-2xl">{jobTitle}</CardTitle>
-          <CardDescription className="">{company}, {jobTeam}</CardDescription>        
-          <CardDescription className="">{locationCity}, {locationState}, {locationCountry}</CardDescription>        
+          <CardTitle className="text-md">{jobTitle}</CardTitle>  
+          <CardDescription className="text-sm">{company}, {locationCity}, {locationState}</CardDescription>        
           </div>        
         </div>        
       </CardHeader>
@@ -54,8 +48,7 @@ export default function JobKanbanCard({
               rel="noopener noreferrer"
             >
             View Job
-            </Link>
-            <ArrowRight className="mr-2 h-4 w-4"/>            
+            </Link>            
           </Button>
         </div>        
       </CardContent>

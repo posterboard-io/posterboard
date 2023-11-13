@@ -1,6 +1,7 @@
 "use client"
 
 import { DashboardShell } from "~/components/pb/dashboard-shell"
+import { Button } from "~/components/ui/button"
 import { getServerAuthSession } from "~/server/auth"
 import { api } from "~/trpc/react"
 import Loading from "~/components/pb/loading"
@@ -23,9 +24,9 @@ export default function DashboardApplications() {
             <main className="flex-grow p-6">
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-lg font-medium">Applications</h1>
-                    <button onClick={toggleView} className="px-4 py-2 bg-blue-500 text-white rounded">
+                    <Button onClick={toggleView}  className="bg-black dark:bg-white text-white dark:text-black">                            
                         {showAsKanban ? 'Show as List' : 'Show as Kanban'}
-                    </button>                                    
+                    </Button>                                    
                 </div>
                 {showAsKanban ? (
                     <div className="grid grid-cols-5 gap-4 p-4">
