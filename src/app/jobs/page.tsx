@@ -86,7 +86,7 @@ export default function Jobs() {
                             </div>
                         </div>
                     </PopoverContent>
-                    </Popover>                
+                </Popover>                
                 </div>
             </div>
             {jobs.isLoading ? (

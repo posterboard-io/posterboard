@@ -33,8 +33,8 @@ import ShowRoleSummary from "~/components/pb/show-summary"
 export default function RolesAndGrowth() {
 
     return (
-        <div className="flex flex-row">
-            <div className="flex flex-col w-1/2">
+        <div className="flex flex-col">
+            <div className="flex flex-col">
                 <div className="flex flex-row items-center justify-between text-lg font-normal py-2">
                     <div className="w-2/3">
                     <p>
@@ -186,7 +186,7 @@ export default function RolesAndGrowth() {
                     </div>
                 </div>
             </div>
-            <div className="w-1/2"> {/* Adjust width here */}
+            <div className="flex flex-col"> {/* Adjust width here */}
                 <ShowRoleSummary roleData={{
                     roleType: ["Software Engineer"],
                     roleLevel: ["Junior"],
@@ -197,5 +197,6 @@ export default function RolesAndGrowth() {
                 }} />
             </div>
         </div>
+        
     );
 }

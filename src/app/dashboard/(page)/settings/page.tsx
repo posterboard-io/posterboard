@@ -18,7 +18,6 @@ export default async function DashboardSettings() {
     
     const session = await getServerAuthSession() || null
     
-
     return (
         <div className="flex">
             <DashboardShell  />
@@ -53,11 +52,10 @@ export default async function DashboardSettings() {
                                 </p>
                             </CardDescription>
                         </div>
-                        <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <Button className="bg-black dark:bg-white text-white dark:text-black">
                             Manage Subscription
                         </Button>
-                    </Card>
-                    
+                    </Card>                    
                     <Card className="w-full mt-4 p-4 flex justify-between items-center py-4">
                         <div>
                             <CardTitle className="text-2xl">                            

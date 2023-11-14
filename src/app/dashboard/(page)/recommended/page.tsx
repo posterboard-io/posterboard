@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { api } from "~/trpc/react"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import DashboardCard from "~/components/pb/dashboard-card"
+import BubbleSelect from '~/components/pb/bubble-select'
+import RolesAndGrowth from '~/components/pb/roles-growth'
 
 export default function RecommendedJobs() {
 
@@ -23,19 +25,44 @@ export default function RecommendedJobs() {
                     </h1>                                      
                   </div>                  
                 </div>
-              <div className="flex flex-col">
-                  <Card className="flex flex-col space-y-2">                    
-                    <CardContent className="flex flex-col space-y-2">
-                      <div className="grid grid-cols-4 gap-4">
+                {/*  */}
+              <div className="">
+                  <Card className="">                    
+                    <CardContent className="">
+                      <div className="">
                         {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
-                          <div className="flex flex-col space-y-2 px-4">
+                          <div className="">
                             <p>You have completed onboarding </p>  
                             <p> Heres your reocommeneded feed</p>
                           </div>
                         ) : (
-                          <div className="flex flex-col py-4 px-4">
-                            <p>You havent completed onboarding </p>
-                            <p> Please complete onboarding to get your recommended feed</p>
+                          <div className="">
+                            <CardHeader>
+                              <CardTitle className="">
+                                We can help you find jobs you'll love
+                              </CardTitle>
+                              <CardDescription>
+                                Just tell us what you're looking for, and we'll curate a personalized list of jobs just for you
+                              </CardDescription>
+                            </CardHeader>
+                            <hr className="" />
+                            <CardHeader>
+                              <CardTitle className="">
+                                Select languages and frameworks
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <BubbleSelect />
+                            </CardContent>     
+                            <hr className="" />
+                            <CardHeader>
+                              <CardTitle className="">
+                                Tell us about your career goals
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <RolesAndGrowth />
+                            </CardContent>                         
                           </div>
                         )}
                       </div>

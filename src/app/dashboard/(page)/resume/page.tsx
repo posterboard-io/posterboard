@@ -2,11 +2,15 @@ import { DashboardShell } from "~/components/pb/dashboard-shell"
 import {
   Card,
   CardTitle,
-  CardDescription,    
+  CardDescription,
+  CardContent,    
 } from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import Link from "next/link"
 import { getServerAuthSession } from "~/server/auth"
+import { Input } from "~/components/ui/input"
+import { Label } from "~/components/ui/label"
+
 
 export default async function DashboardResume() {
 
@@ -39,9 +43,17 @@ export default async function DashboardResume() {
                             Want to see how it works?
                           </Link>
                         </CardDescription>
+                        <CardContent>           
+                          <div className="flex flex-col items-center py-4">               
+                            <div className="grid w-full max-w-sm items-center gap-1.5">
+                              <Label htmlFor="resume">Resume</Label>
+                              <Input id="resume" type="file" />
+                            </div>
+                          </div>
+                        </CardContent>
                         <div className="text-center">      
                           <CardDescription className="text-md text-black dark:text-white py-2 items-center justify-center">
-                            <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <Button className="bg-black dark:bg-white text-white dark:text-black">
                               Run Resume ATS
                             </Button>
                           </CardDescription>
