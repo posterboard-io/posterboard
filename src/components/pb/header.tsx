@@ -42,11 +42,6 @@ export default async function Header() {
                   </Link>              
                 </Button>
                 <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
-                  <Link href="/stats">
-                     Statistics
-                  </Link>              
-                </Button>
-                <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
                   <Link href="/dashboard">
                       Dashboard
                   </Link>                  

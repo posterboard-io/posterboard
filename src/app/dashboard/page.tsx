@@ -15,6 +15,10 @@ export default function Dashboard() {
   const savedJobsCount = api.jobs.getSavedJobs.useQuery()
 
   const jobCount = savedJobsCount.data?.length
+
+  const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
+    query: ""
+  })
   
   return (
     <div className="flex">
@@ -36,30 +40,38 @@ export default function Dashboard() {
                     </CardTitle>
                     <CardContent className="flex flex-col space-y-2">
                       <div className="grid grid-cols-4 gap-4">
-                        <DashboardCard 
-                          cardContent={jobCount?.toString() || "0"}
-                          cardContentDesc="Nice work! Keep applying!"
-                          cardTitle="Total Jobs Applied For"
-                          cardIcon="JobIcon"
-                        />
-                        <DashboardCard 
-                          cardContent="4"
-                          cardContentDesc="+2 from last month"
-                          cardTitle="Companies Applied"
-                          cardIcon="JobIcon"
-                        />
-                        <DashboardCard 
-                          cardContent="23"
-                          cardContentDesc="+4 than last month"
-                          cardTitle="New Recommended Jobs"
-                          cardIcon="JobIcon"
-                        />
-                        <DashboardCard 
-                          cardContent="92"
-                          cardContentDesc="92+ from last month"
-                          cardTitle="New Jobs Posted"
-                          cardIcon="JobIcon"
-                        />
+                        <Link href="">
+                          <DashboardCard 
+                            cardContent={jobCount?.toString() || "0"}
+                            cardContentDesc="Nice work! Keep applying!"
+                            cardTitle="Total Jobs Applied For"
+                            cardIcon="JobIcon"
+                          />
+                        </Link>
+                        <Link href="">
+                          <DashboardCard 
+                            cardContent="4"
+                            cardContentDesc="Keep it up!"
+                            cardTitle="Companies Applied"
+                            cardIcon="JobIcon"
+                          />
+                        </Link>
+                        <Link href="/dashboard/recommended">
+                          <DashboardCard 
+                            cardContent="23"
+                            cardContentDesc="We found some new jobs for you!"
+                            cardTitle="New Recommended Jobs"
+                            cardIcon="JobIcon"
+                          />
+                        </Link>
+                        <Link href="">
+                          <DashboardCard 
+                            cardContent={totalJobs?.data?.toString() || "0"}
+                            cardContentDesc="Keep checking back for new jobs!"
+                            cardTitle="Total Jobs Posted"
+                            cardIcon="JobIcon"
+                          />
+                        </Link>
                       </div>
                       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
                         <Card className="col-span-4">
