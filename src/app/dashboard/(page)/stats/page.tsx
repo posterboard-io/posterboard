@@ -2,22 +2,58 @@
 
 import { DashboardShell } from "~/components/pb/dashboard-shell"
 import { api } from "~/trpc/react"
-import Loading from "~/components/pb/loading"
-import JobCard from "~/components/pb/job-card"
+import { DashboardGraph } from "~/components/pb/dashboard-graph"
+import { StatsPieChart } from "~/components/pb/market-pie-chart"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import Link from "next/link"
 import DashboardCard from "~/components/pb/dashboard-card"
-import { DashboardGraph } from "~/components/pb/dashboard-graph"
-import { DashboardPieChart } from "~/components/pb/dashboard-piechart"
 
-export default function Dashboard() {  
+interface TechStackItem {
+    _count: {
+      companyTechStack: number;
+    };
+    companyTechStack: string[];
+}
 
-  const savedJobsCount = api.jobs.getSavedJobs.useQuery()
+export interface TechCount {
+    name: string;
+    value: number;
+}
 
-  const jobCount = savedJobsCount.data?.length
-  
-  return (
-    <div className="flex">
+export default function StatsPage() {
+
+    const techStackQueryResult = api.jobs.getJobStatsTechStack.useQuery({ })
+
+    let sortedTechCounts: TechCount[] = [];
+
+    if (techStackQueryResult.data) {
+        const techStackData: TechStackItem[] = techStackQueryResult.data;    
+
+        const countTechOccurrences = (data: TechStackItem[], techNames: string[]): TechCount[] => {
+        // Explicitly define the type of counts
+        const counts: Record<string, number> = techNames.reduce((acc, tech) => ({ ...acc, [tech]: 0 }), {});
+        
+        data.forEach(item => {
+            techNames.forEach(tech => {
+            if (item.companyTechStack.includes(tech)) {
+                counts[tech] += 1;
+            }
+            });
+        });
+        
+        // Using type assertion to assure TypeScript that 'value' will always be a number
+        return Object.keys(counts).map(key => ({ name: key, value: counts[key] as number })).sort((a, b) => (b.value as number) - (a.value as number));
+        };
+        
+        sortedTechCounts = countTechOccurrences(techStackData, [
+            "Java", "Python", "C++", "Rust", "Go", "JavaScript", "TypeScript", "SQL", "C#", 
+        ]);            
+    }
+
+    
+
+    return (
+        <div className="flex">
         <DashboardShell />
         <main className="flex-grow p-6">
             <div className="flex justify-between items-center mb-4">
@@ -25,7 +61,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between space-y-2">
                   <div>
                     <h1 className="text-2xl font-bold tracking-tight">
-                      Dashboard
+                      Job Market Statistics
                     </h1>                                      
                   </div>                  
                 </div>
@@ -37,8 +73,8 @@ export default function Dashboard() {
                     <CardContent className="flex flex-col space-y-2">
                       <div className="grid grid-cols-4 gap-4">
                         <DashboardCard 
-                          cardContent={jobCount?.toString() || "0"}
-                          cardContentDesc="Nice work! Keep applying!"
+                          cardContent="0"
+                          cardContentDesc="+130% from last month"
                           cardTitle="Total Jobs Applied For"
                           cardIcon="JobIcon"
                         />
@@ -64,7 +100,9 @@ export default function Dashboard() {
                       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
                         <Card className="col-span-4">
                           <CardHeader>
-                            <CardTitle>Total Applications</CardTitle>
+                            <CardTitle>
+                                New Jobs Posted By Company
+                            </CardTitle>
                           </CardHeader>
                           <CardContent className="pl-2">
                             <DashboardGraph />
@@ -72,10 +110,15 @@ export default function Dashboard() {
                         </Card>
                         <Card className="col-span-4">
                           <CardHeader>
-                            <CardTitle>Company Applications</CardTitle>
+                            <CardTitle>
+                                Tech Stack Breakdown
+                            </CardTitle>
                           </CardHeader>
+                          <CardDescription className="pl-6">
+                            Breakdown of tech stacks used at top companies
+                          </CardDescription>
                           <CardContent className="pl-2">
-                            <DashboardPieChart />
+                              <StatsPieChart data={sortedTechCounts} />
                           </CardContent>
                         </Card>
                       </div>
@@ -86,5 +129,5 @@ export default function Dashboard() {
             </div>                
         </main>
       </div>
-  )
+    )
 }

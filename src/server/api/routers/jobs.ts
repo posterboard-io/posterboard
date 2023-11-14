@@ -52,6 +52,28 @@ export const jobsRouter = createTRPCRouter({
         }
     ),
 
+    getJobStatsTechStack: publicProcedure
+        .input(z.object({
+            query: z.string().optional().nullable(),           
+        }))
+        .query(async ({ ctx, input }) => {
+            const where = {
+                ...(input.query ? { title: { contains: input.query } } : {}),
+            };
+
+            const jobStats = await ctx.db.jobPostings.groupBy({
+                by: ["companyTechStack"],
+                where: where,
+                _count: {
+                    companyTechStack: true,
+                },
+            });
+
+            return jobStats;
+        }
+    ),
+        
+
     getLatest: publicProcedure
         .input(z.object({
             page: z.number().optional().default(1),

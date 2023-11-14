@@ -2,15 +2,9 @@
 
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { TechCount } from "~/app/dashboard/(page)/stats/page";
 
-export const data = [
-  { name: "Amazon", total: 40 },
-  { name: "Microsoft", total: 30 },
-  { name: "Nvidia", total: 20 },
-  { name: "Google", total: 10 },
-];
-
-const COLORS = ['#fb923c',  '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb'];
+const COLORS = ['#fb923c',  '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb', '#2251e8', '#1f3fe6', '#1b2de3', '#172bd1', '#1329be', '#0f17ac', '#0a15a0', '#060d8e', '#020b7c'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = (
@@ -34,12 +28,8 @@ const renderCustomizedLabel = (
   );
 };
 
-export interface DashboardPieProps {
-  name: string,
-  total: number
-}
+export function StatsPieChart({ data }: { data: TechCount[] } ) {
 
-export function DashboardPieChart({ DashboardPieData }: { DashboardPieData?: DashboardPieProps } ) {
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart>
@@ -51,7 +41,7 @@ export function DashboardPieChart({ DashboardPieData }: { DashboardPieData?: Das
           labelLine={false}
           label={renderCustomizedLabel}         
           fill="#8884d8"
-          dataKey="total"
+          dataKey="value"
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
