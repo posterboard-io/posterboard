@@ -255,4 +255,18 @@ export const onboardingRouter = createTRPCRouter({
             });
             return updatedUser;
         }),
+
+    setUserOnboardingAsComplete: protectedProcedure
+        .mutation(async ({ ctx, input }) => {
+            // Some mutation
+            const updatedUser = await ctx.db.user.update({
+                where: {
+                    id: ctx.session.user.id,
+                },
+                data: {
+                    didCompleteOnboarding: true,
+                },
+            });
+            return updatedUser;
+        }),
 });

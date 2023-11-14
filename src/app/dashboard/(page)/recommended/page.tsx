@@ -8,12 +8,22 @@ import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
 import RolesAndGrowth from '~/components/pb/roles-growth'
 import { Button } from '~/components/ui/button'
+import Loading from '~/components/pb/loading'
 
 export default function RecommendedJobs() {
 
-    // 
+    const userDidFinishOnboarding = api.onboarding.setUserOnboardingAsComplete.useMutation()
 
     const didUserCompleteOnboarding = api.onboarding.getOnboardingStatus.useQuery()
+
+    const setUserAsComplete = () => {
+        userDidFinishOnboarding.mutate()
+        didUserCompleteOnboarding.refetch()
+    }
+
+    if (didUserCompleteOnboarding.isLoading) {
+      return <Loading />
+    }
 
     return (
         <div className="flex">
@@ -60,12 +70,18 @@ export default function RecommendedJobs() {
                             <hr className="" />
                             <CardHeader>
                               <CardTitle className="">
-                                Tell us about your career goals
+                                Tell us about your career goals - this needs heavy refactoring
                               </CardTitle>
                             </CardHeader>
                             <CardContent>
                               <RolesAndGrowth />
-                            </CardContent>                         
+                            </CardContent>     
+                            <hr className="" />
+                            <CardContent>
+                              <Button className="bg-black dark:bg-white text-white dark:text-black" onClick={setUserAsComplete}>
+                                See Recommended Jobs
+                              </Button>
+                            </CardContent>                    
                           </div>
                         )}
                       </div>
