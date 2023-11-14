@@ -13,6 +13,7 @@ import {
 import Image from 'next/image'
 import SignOutButton from '~/components/pb/sign-out-button'
 import { getServerAuthSession } from '~/server/auth'
+import CommandBox from '~/components/pb/command-box'
 
 export const dynamic = 'force-dynamic'
 
@@ -30,7 +31,7 @@ export default async function Header() {
                 </Link>                                          
             </div>
           {session ? (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4">              
               <Button className="dark:bg-inherit bg-white text-black dark:text-white  border-2 rounded-md font-bold hover:bg-inherit">
                   <Link href="/jobs">
                       Search
@@ -66,7 +67,8 @@ export default async function Header() {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-              <ModeToggle />
+              <CommandBox />
+              <ModeToggle />              
             </div>
           ) : ( 
               <div className="flex items-center gap-4">

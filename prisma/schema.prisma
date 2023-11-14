@@ -65,6 +65,7 @@ model User {
   id                          String                    @id @default(cuid())
   isTest                      Boolean                   @default(false)
   didCompleteOnboarding       Boolean                   @default(false)
+  onboardingRoleType          String[]
   onboardingTechStack         String[]
   onboardingLevel             String[]
   onboardingLocation          String[]

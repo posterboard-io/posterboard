@@ -1,6 +1,6 @@
 export type TechStack = 
     'Python' | 'JavaScript' | 'C' | 'C++' | 'Rust' | 'Go' | 'Java' | 'C#' |
-    'TypeScript' | 'Ruby' | 'PHP' | 'Swift' | 'Kotlin' | 'Scala' | 'Perl' |
+    'TypeScript' | 'Ruby' | 'PHP' | 'Swift' | 'Kotlin' | 'Scala' | 
     'Lua' | 'Haskell' | 'Elixir' | 'Erlang' | 'Clojure' | 'R' | 'Objective-C' |
     'HTML' | 'CSS' | 'Sass' | 'Less' |
     'Node.js' | 'React' | 'Vue.js' | 'Angular' | 'Ember.js' | 'Svelte' | 
@@ -93,13 +93,13 @@ export type TechStack =
 
 export const techStacks: TechStack[] = [
     'Python' , 'JavaScript' , 'C' , 'C++' , 'Rust' , 'Go' , 'Java' , 'C#' ,
-    'TypeScript' , 'Ruby' , 'PHP' , 'Swift' , 'Kotlin' , 'Scala' , 'Perl' ,
+    'TypeScript' , 'Ruby' , 'PHP' , 'Swift' , 'Kotlin' , 'Scala' , 
     'Lua' , 'Haskell' , 'Elixir' , 'Erlang' , 'R' , 'Objective-C' ,
     'HTML' , 'CSS' , 'Node.js' , 'React' , 'Vue.js' , 'Angular' , 'Svelte' , 
     'Django' , 'Flask' , 'Ruby on Rails' , 'Spring Boot' , '.NET Core' , 
     'Express.js' , 'Laravel' , 'Phoenix' , 'FastAPI' , 'ASP.NET' ,
     'PostgreSQL' , 'MySQL' , 'MongoDB' , 'Cassandra' , 'Redis' , 
-    'Oracle' , 'SQLite' , 'MariaDB' , 'DynamoDB' , 'CouchDB' ,
+    'Oracle' , 'MariaDB' , 'DynamoDB' , 'CouchDB' ,
     'AWS' , 'Azure' , 'Google Cloud' , 'Vercel' ,
 ]
 

@@ -7,8 +7,11 @@ import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/com
 import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
 import RolesAndGrowth from '~/components/pb/roles-growth'
+import { Button } from '~/components/ui/button'
 
 export default function RecommendedJobs() {
+
+    // 
 
     const didUserCompleteOnboarding = api.onboarding.getOnboardingStatus.useQuery()
 
@@ -51,8 +54,8 @@ export default function RecommendedJobs() {
                                 Select languages and frameworks
                               </CardTitle>
                             </CardHeader>
-                            <CardContent>
-                              <BubbleSelect />
+                            <CardContent>                              
+                              <BubbleSelect />                                                              
                             </CardContent>     
                             <hr className="" />
                             <CardHeader>
