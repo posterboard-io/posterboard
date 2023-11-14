@@ -269,4 +269,24 @@ export const onboardingRouter = createTRPCRouter({
             });
             return updatedUser;
         }),
+
+    getUserJobPrefrences: protectedProcedure
+        .query(async ({ ctx, input }) => {
+            // Some query
+            const userJobPrefrences = await ctx.db.user.findUnique({
+                where: {
+                    id: ctx.session.user.id,
+                },
+                select: {
+                    onboardingCompanyIndustry: true,
+                    onboardingCompanySize: true,
+                    onboardingLevel: true,
+                    onboardingLocation: true,
+                    onboardingRoleType: true,
+                    onboardingTechStack: true,
+                    onboardingTotalCompensation: true, 
+                },
+            });
+            return userJobPrefrences;
+        }),
 });

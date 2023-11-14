@@ -92,10 +92,53 @@ export const jobsRouter = createTRPCRouter({
 
     getRecommended: protectedProcedure
         .input(z.object({
-            // Some input
+            jobTitle: z.array(z.string()).optional().nullable(),
+            jobLocation: z.array(z.string()).optional().nullable(),
+            jobTechStack: z.array(z.string()).optional().nullable(),
+            jobCompany: z.array(z.string()).optional().nullable(),
+            jobSalary: z.array(z.string()).optional().nullable(),
+            jobLevel: z.array(z.string()).optional().nullable(),
+            jobIndustry: z.array(z.string()).optional().nullable(),
         }))
         .query(async ({ ctx, input }) => {
             // Some query
+            const recommendedJobs = await ctx.db.jobPostings.findMany({
+                where: {
+                    OR: [
+                        {
+                            title: {
+                                in: input.jobTitle || [],
+                            },
+                        },
+                        {
+                            location: {
+                                in: input.jobLocation || [],
+                            },
+                        },
+                        // {
+                        //     companyTechStack: {
+                        //         in: input.jobTechStack || [],
+                        //     },
+                        // },
+                        // {
+                        //     company: {
+                        //         in: input.jobCompany || [],
+                        //     },
+                        // },
+                        {
+                            compensationLow: {
+                                in: input.jobSalary || [],
+                            },
+                        },
+                        // {
+                        //     roleLevel: {
+                        //         in: input.jobLevel || [],
+                        //     },
+                        // },
+                    ],
+                },
+            });
+            return recommendedJobs;
         }
     ),
 

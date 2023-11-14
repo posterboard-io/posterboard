@@ -9,6 +9,7 @@ import BubbleSelect from '~/components/pb/bubble-select'
 import RolesAndGrowth from '~/components/pb/roles-growth'
 import { Button } from '~/components/ui/button'
 import Loading from '~/components/pb/loading'
+import RecommendedFeed from '~/components/pb/recommended-feed'
 
 export default function RecommendedJobs() {
 
@@ -46,7 +47,7 @@ export default function RecommendedJobs() {
                         {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
                           <div className="">
                             <p>You have completed onboarding </p>  
-                            <p> Heres your reocommeneded feed</p>
+                            <RecommendedFeed />
                           </div>
                         ) : (
                           <div className="">
