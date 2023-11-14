@@ -33,7 +33,7 @@ export default function Jobs() {
             query: search
     })
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {        
         setSearch(e.target.value)
     }
 
@@ -82,6 +82,12 @@ export default function Jobs() {
                             <hr className="border-gray-300 dark:border-gray-700" />
                             <div className="flex flex-col items-start space-y-2 px-4 py-2">
                                 <p className="text-sm font-semibold">Tech Stack</p>
+                                <ComboboxDemo />
+                                <p className="text-sm font-semibold">Location</p>
+                                <ComboboxDemo />
+                                <p className="text-sm font-semibold">Compensation</p>
+                                <ComboboxDemo />
+                                <p className="text-sm font-semibold">Level</p>
                                 <ComboboxDemo />
                             </div>
                         </div>

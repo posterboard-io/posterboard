@@ -19,19 +19,17 @@ export const jobsRouter = createTRPCRouter({
             const skip = (input.page - 1) * input.pageSize;
             const take = input.pageSize;
 
-            const where = {
+            const where = {            
                 ...(input.query ? { title: { contains: input.query } } : {}),
                 ...(input.location ? { location: { contains: input.location } } : {}),
                 ...(input.fullTime ? { fullTime: input.fullTime } : {}),
             };
-
             const jobs = await ctx.db.jobPostings.findMany({
                 where: where,
                 orderBy: { updatedInDbAt: "desc" },
                 skip: skip,
                 take: take,
             });
-
             return jobs;
         }),
 

@@ -135,6 +135,22 @@ model UserSavedJobs {
   @@unique([userId, jobPostingId]) // A composite unique index ensures a user can't save the same job posting multiple times
 }
 
+model LeetcodeCompany {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  questions   LeetcodeQuestion[] 
+}
+
+model LeetcodeQuestion {
+  id          Int      @id @default(autoincrement())
+  name        String
+  link        String
+  numOccur    Int
+  company     LeetcodeCompany  @relation(fields: [companyId], references: [id])
+  companyId   Int
+}
+
+
 enum StripeSubscriptionStatus {
   incomplete
   incomplete_expired
