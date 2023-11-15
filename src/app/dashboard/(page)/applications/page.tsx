@@ -4,15 +4,17 @@ import { DashboardShell } from "~/components/pb/dashboard-shell"
 import { Button } from "~/components/ui/button"
 import { getServerAuthSession } from "~/server/auth"
 import { api } from "~/trpc/react"
-import Loading from "~/components/pb/loading"
+import Loading from "~/components/pb/utils/loading"
 import JobCard from "~/components/pb/job-card"
 import JobKanbanCard from "~/components/pb/job-card-kanban"
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
 
 export default function DashboardApplications() {
     const [showAsKanban, setShowAsKanban] = useState(true);
-    const savedJobs = api.jobs.getSavedJobs.useQuery();
+    const savedJobs = api.jobs.getSavedJobs.useQuery();    
+    
+    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.id), [savedJobs.data]);
 
     const toggleView = () => {
         setShowAsKanban(!showAsKanban);
@@ -51,6 +53,7 @@ export default function DashboardApplications() {
                                             jobLink={job.jobPosting.urlJob || ""}
                                             someDate={job.jobPosting.updatedInDbAt ? new Date(job.jobPosting.updatedInDbAt).toLocaleDateString() : ""}
                                             jobId={job.id}
+                                            isSaved={allSavedJobIds!.includes(job.id)}
                                         />
                                     ))}
                                 </div>
@@ -114,6 +117,7 @@ export default function DashboardApplications() {
                                         someDate={job.jobPosting.updatedInDbAt ? new Date(job.jobPosting.updatedInDbAt).toLocaleDateString() : ""}
                                         techStack={job.jobPosting.companyTechStack}
                                         jobId={job.id}
+                                        isSaved={allSavedJobIds!.includes(job.id)}
                                     />
                                 ))}
                             </div>

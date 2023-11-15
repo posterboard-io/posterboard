@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ModeToggle } from '~/components/pb/theme-toggle'
+import { ModeToggle } from '~/components/pb/theme/theme-toggle'
 import { Button } from '~/components/ui/button'
 import ClearLogo from '~/components/pb/clear-logo'
 import {

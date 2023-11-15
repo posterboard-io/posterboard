@@ -9,22 +9,17 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "~/components/ui/hover-card"
-import Image from "next/image"
 import Link from "next/link"
 import SaveJobButton from "~/components/pb/save-job-button";
 
 export default function JobKanbanCard({ 
   jobTitle, company, locationCity, locationState, locationCountry, 
-  jobTeam, jobLink, jobId
+  jobTeam, jobLink, jobId, isSaved
   }: { 
   jobTitle: string, company: string, locationCity: string, 
   locationState: string, locationCountry: string, jobTeam: string,   
-  jobLink: string, someDate: string, jobId: number }) {
+  jobLink: string, someDate: string, jobId: number, isSaved: boolean
+ }) {
 
     return (
       <Card>
@@ -40,6 +35,7 @@ export default function JobKanbanCard({
         <div className="grid grid-cols-2 gap-6">          
           <SaveJobButton
             jobId={jobId}
+            isInitiallySaved={isSaved}
           />
           <Button variant="outline">
             <Link 

@@ -1,9 +1,10 @@
 "use client"
 
 import { api } from "~/trpc/react"
+import React, { useState, useMemo } from 'react'
 import JobCard from "~/components/pb/job-card"
 import { useRouter, useSearchParams } from 'next/navigation'
-import Loading from "~/components/pb/loading"
+import Loading from "~/components/pb/utils/loading"
 import { Button } from "~/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover"
 import { ListBulletIcon } from "@radix-ui/react-icons"
@@ -34,6 +35,12 @@ export default async function NewestJobs() {
     const totalPages = totalJobs.data ? totalJobs.data / 10 : 1
       
     const roundedUpPages = Math.ceil(totalPages)
+
+    const savedJobs = api.jobs.getSavedJobs.useQuery();
+    
+    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.id), [savedJobs.data]);
+
+    console.log("Saved Jobs: ", allSavedJobIds)
 
     return (
         <div className="flex flex-col py-4">
@@ -71,22 +78,23 @@ export default async function NewestJobs() {
                     <div className="flex flex-col space-y-2">
                         {latestJobs.data.map((job) => (
                             <JobCard 
-                            key={job.id} 
-                            jobTitle={job.title} 
-                            company={job.company} 
-                            locationCity={job.locationCity} 
-                            locationState={job.locationState} 
-                            locationCountry={job.locationCountry} 
-                            jobTeam={job.internalTeam || ""} 
-                            salaryLow={job.compensationLow || ""} 
-                            salaryHigh={job.compensationHigh || ""} 
-                            salaryRange={job.compensation || ""} 
-                            jobLink={job.urlJob || ""}
-                            jobImage={job.companyLogoUrl || ""}
-                            someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
-                            techStack={job.companyTechStack}
-                            jobId={job.id}
-                        />
+                                key={job.id} 
+                                jobTitle={job.title} 
+                                company={job.company} 
+                                locationCity={job.locationCity} 
+                                locationState={job.locationState} 
+                                locationCountry={job.locationCountry} 
+                                jobTeam={job.internalTeam || ""} 
+                                salaryLow={job.compensationLow || ""} 
+                                salaryHigh={job.compensationHigh || ""} 
+                                salaryRange={job.compensation || ""} 
+                                jobLink={job.urlJob || ""}
+                                jobImage={job.companyLogoUrl || ""}
+                                someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
+                                techStack={job.companyTechStack}
+                                jobId={job.id}
+                                isSaved={allSavedJobIds!.includes(job.id)}
+                            />
                         ))}
                     </div>
                 )}    

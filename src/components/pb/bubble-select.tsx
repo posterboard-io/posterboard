@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { TechStack, techStacks } from "~/components/pb/tech-stacks"
 import { api } from "~/trpc/react"
 import { useToast } from '~/components/ui/use-toast'
-import Loading from '~/components/pb/loading';
+import Loading from '~/components/pb/utils/loading';
 
 
 export default function BubbleSelect() {

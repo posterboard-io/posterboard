@@ -10,7 +10,7 @@ import {
   } from "~/components/ui/popover"
 import { api } from "~/trpc/react"
 import { useToast } from '~/components/ui/use-toast'
-import Loading from '~/components/pb/loading';
+import Loading from '~/components/pb/utils/loading';
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "~/lib/utils"
 import {

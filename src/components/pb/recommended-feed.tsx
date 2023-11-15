@@ -8,7 +8,7 @@ import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
 import RolesAndGrowth from '~/components/pb/roles-dropdown'
 import { Button } from '~/components/ui/button'
-import Loading from '~/components/pb/loading'
+import Loading from '~/components/pb/utils/loading'
 
 export default function RecommendedFeed() {
 

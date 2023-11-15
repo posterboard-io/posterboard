@@ -155,7 +155,7 @@ export const jobsRouter = createTRPCRouter({
             ...savedJob,
             jobPosting: savedJob.jobPosting,
         }));
-        }),
+    }),
   
     saveJob: protectedProcedure
         .input(z.object({
@@ -179,20 +179,10 @@ export const jobsRouter = createTRPCRouter({
         .mutation(async ({ ctx, input }) => {
             // You can add a check here to ensure the job actually belongs to the user
             // This prevents users from deleting jobs saved by others
-            const job = await ctx.db.userSavedJobs.findFirst({
-                where: {
-                    userId: ctx.session.user.id,
-                    jobPostingId: input.jobId,
-                },
-            });
-
-            if (!job) {
-                throw new Error("Job not found or you don't have permission to delete it.");
-            }
 
             const jobRemoved = await ctx.db.userSavedJobs.delete({
                 where: {
-                    id: job.id, // Assuming 'id' is the unique ID for the UserSavedJobs record
+                    id: input.jobId,
                 },
             });
 

@@ -8,13 +8,13 @@ import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
 import RolesDropDown from '~/components/pb/roles-dropdown'
 import { Button } from '~/components/ui/button'
-import Loading from '~/components/pb/loading'
+import Loading from '~/components/pb/utils/loading'
 import RecommendedFeed from '~/components/pb/recommended-feed'
-import LevelsDropDown from '~/components/pb/level-dropdown'
-import CitiesDropDown from '~/components/pb/location-dropdown'
-import CompanySizeDropDown from '~/components/pb/company-size-dropdown'
-import IndustryTypesDropDown from '~/components/pb/industry-dropdown'
-import CompensationDropDown from '~/components/pb/compensation-dropdown'
+import LevelsDropDown from '~/components/pb/dropdown/level-dropdown'
+import CitiesDropDown from '~/components/pb/dropdown/location-dropdown'
+import CompanySizeDropDown from '~/components/pb/dropdown/company-size-dropdown'
+import IndustryTypesDropDown from '~/components/pb/dropdown/industry-dropdown'
+import CompensationDropDown from '~/components/pb/dropdown/compensation-dropdown'
 
 export default function RecommendedJobs() {
 

@@ -5,13 +5,13 @@ import { headers } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import type { Metadata } from 'next'
-import { ThemeProvider } from "~/components/pb/theme-provider"
-import Header from '~/components/pb/header'
-import Footer from '~/components/pb/footer'
+import { ThemeProvider } from "~/components/pb/theme/theme-provider"
+import Header from '~/components/pb/global/header'
+import Footer from '~/components/pb/global/footer'
 import { Toaster } from "~/components/ui/toaster"
-import { Analytics } from '~/components/pb/analytics'
+import { Analytics } from '~/components/pb/utils/analytics'
 import { Suspense } from 'react'
-import Loading from '~/components/pb/loading'
+import Loading from '~/components/pb/utils/loading'
 import { SessionProvider } from "next-auth/react"
 
 const inter = Inter({

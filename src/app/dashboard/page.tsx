@@ -2,7 +2,7 @@
 
 import { DashboardShell } from "~/components/pb/dashboard-shell"
 import { api } from "~/trpc/react"
-import Loading from "~/components/pb/loading"
+import Loading from "~/components/pb/utils/loading"
 import JobCard from "~/components/pb/job-card"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import Link from "next/link"

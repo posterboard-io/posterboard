@@ -26,13 +26,14 @@ import SaveJobButton from "~/components/pb/save-job-button";
 export default function JobCard({ 
   jobTitle, company, locationCity, locationState, locationCountry, 
   jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, 
-  jobImage, someDate, techStack = [], jobId
+  jobImage, someDate, techStack = [], jobId, isSaved
   }: { 
   jobTitle: string, company: string, locationCity: string, 
   locationState: string, locationCountry: string, jobTeam: string, 
   salaryLow: string, salaryHigh: string, salaryRange: string, 
   jobLink: string, jobImage: string, someDate: string, techStack?: string[],
-  jobId: number }) {
+  jobId: number, isSaved: boolean }) {
+    
 
     if (techStack.length === 0) {
       techStack = ["Unknown"]
@@ -88,7 +89,9 @@ export default function JobCard({
                 </div>
               </HoverCardTrigger>
               <HoverCardContent>
-                {salaryRange} from description
+                <p className="py-1 rounded text-sm">                  
+                {salaryRange} from post
+                </p>
               </HoverCardContent>
             </HoverCard>            
           </Button>                            
@@ -118,6 +121,7 @@ export default function JobCard({
           </Button> 
           <SaveJobButton
             jobId={jobId}
+            isInitiallySaved={isSaved}
           />
           <Button variant="outline">
             <Link 
