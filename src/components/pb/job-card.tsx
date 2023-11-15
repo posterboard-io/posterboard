@@ -11,9 +11,9 @@ import {
   CardTitle,
 } from "~/components/ui/card"
 import { 
-  ArrowRight, Bookmark,
-  Calendar, CheckCircle, 
-  DollarSign, Flame, TrendingUp, Users } from "lucide-react"
+  ArrowRight, Calendar, 
+  DollarSign, Terminal 
+} from "lucide-react"
 import {
   HoverCard,
   HoverCardContent,
@@ -33,6 +33,22 @@ export default function JobCard({
   salaryLow: string, salaryHigh: string, salaryRange: string, 
   jobLink: string, jobImage: string, someDate: string, techStack?: string[],
   jobId: number }) {
+
+    if (techStack.length === 0) {
+      techStack = ["Unknown"]
+    }
+
+    if (salaryLow.length === 0) {
+      salaryLow = "Unknown"
+    }
+
+    if (salaryHigh.length === 0) {
+      salaryHigh = "Unknown"
+    }
+
+    if (salaryRange.length === 0) {
+      salaryRange = "Unknown"
+    }
 
     return (
       <Card>
@@ -60,56 +76,37 @@ export default function JobCard({
           </div>
           <div className="flex flex-col space-y-1">
           <Button variant="outline">
-            <Calendar className="mr-2 h-4 w-4 "/>
+            <Calendar className="mr-2 h-4 w-4 text-orange-500"/>
               Last Updated {someDate}
           </Button>
           <Button variant="outline">
-          <HoverCard>
+            <HoverCard>
               <HoverCardTrigger>
                 <div className="flex flex-row space-x-2">
-                <DollarSign className="mr-2 h-4 w-4 text-green-500"/>
+                <DollarSign className="mr-2 h-4 w-4 text-orange-500"/>
                   {salaryLow} - {salaryHigh} 
                 </div>
               </HoverCardTrigger>
               <HoverCardContent>
-                Unlock Salary Insights with Premium
+                {salaryRange} from description
               </HoverCardContent>
             </HoverCard>            
-          </Button>
-          <Button variant="outline">
-            <HoverCard>
-              <HoverCardTrigger>
-                <div className="flex flex-row space-x-2">
-                  <Users className="mr-2 h-4 w-4"/>
-                  Interview Prep
-                </div>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                <div className="flex flex-row space-x-2">
-                  Unlock Interview Prep with Premium 
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-          </Button>                      
+          </Button>                            
           </div>
         </div>        
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-4 gap-6">
-          <Button variant="outline">
-            <TrendingUp className="mr-2 h-4 w-4 text-green-500"/>
-            Popular
-          </Button>
+        <div className="grid grid-cols-3 gap-6">          
           <Button variant="outline">
             <HoverCard>
               <HoverCardTrigger>
                 <div className="flex flex-row space-x-2">
-                  <CheckCircle className="mr-2 h-4 w-4 text-green-500"/>
+                  <Terminal className="mr-2 h-4 w-4 text-orange-500"/>
                   Tech Stack
                 </div>
               </HoverCardTrigger>
               <HoverCardContent>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2">                  
                 {techStack.map((tech, index) => (                  
                   <p key={index} className="py-1 rounded text-sm">
                     {tech}
@@ -130,7 +127,7 @@ export default function JobCard({
             >
             View Job
             </Link>
-            <ArrowRight className="mr-2 h-4 w-4"/>            
+            <ArrowRight className="ml-2 h-4 w-4 text-orange-500"/>            
           </Button>
         </div>        
       </CardContent>

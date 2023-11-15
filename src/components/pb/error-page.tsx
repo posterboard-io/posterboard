@@ -1,10 +1,7 @@
-"use client"
-
-export default function TestPage() {
-
+export default function ErrorPage() {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1>Test Page For Filterable Cards</h1>            
+            <h1>Error Page</h1>
         </div>
     )
 }

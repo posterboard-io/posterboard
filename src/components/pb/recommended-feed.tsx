@@ -6,7 +6,7 @@ import { api } from "~/trpc/react"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
-import RolesAndGrowth from '~/components/pb/roles-growth'
+import RolesAndGrowth from '~/components/pb/roles-dropdown'
 import { Button } from '~/components/ui/button'
 import Loading from '~/components/pb/loading'
 

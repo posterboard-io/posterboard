@@ -4,7 +4,7 @@ import { cookies } from "next/headers"
 import BubbleSelect from "~/components/pb/bubble-select"
 import { Button } from "~/components/ui/button"
 import { Select } from "~/components/ui/select"
-import RolesAndGrowth from "~/components/pb/roles-growth"
+import RolesAndGrowth from "~/components/pb/roles-dropdown"
 import { useRouter } from 'next/navigation'
 
 export default async function NewPage() {

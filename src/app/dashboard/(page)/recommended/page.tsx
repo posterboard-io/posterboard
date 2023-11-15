@@ -6,10 +6,15 @@ import { api } from "~/trpc/react"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
-import RolesAndGrowth from '~/components/pb/roles-growth'
+import RolesDropDown from '~/components/pb/roles-dropdown'
 import { Button } from '~/components/ui/button'
 import Loading from '~/components/pb/loading'
 import RecommendedFeed from '~/components/pb/recommended-feed'
+import LevelsDropDown from '~/components/pb/level-dropdown'
+import CitiesDropDown from '~/components/pb/location-dropdown'
+import CompanySizeDropDown from '~/components/pb/company-size-dropdown'
+import IndustryTypesDropDown from '~/components/pb/industry-dropdown'
+import CompensationDropDown from '~/components/pb/compensation-dropdown'
 
 export default function RecommendedJobs() {
 
@@ -24,6 +29,10 @@ export default function RecommendedJobs() {
 
     if (didUserCompleteOnboarding.isLoading) {
       return <Loading />
+    }
+
+    if (didUserCompleteOnboarding.error) {
+      return <div>Error loading onboarding status</div>
     }
 
     return (
@@ -71,17 +80,56 @@ export default function RecommendedJobs() {
                             <hr className="" />
                             <CardHeader>
                               <CardTitle className="">
-                                Tell us about your career goals - this needs heavy refactoring
+                                Tell us about your career goals
                               </CardTitle>
                             </CardHeader>
                             <CardContent>
-                              <RolesAndGrowth />
+                              <div className="flex flex-col items-center">
+                                <div className="flex flex-row justify-between items-center w-full">
+                                    <p className="text-lg">
+                                      Select the roles you&apos;re interested in
+                                    </p>
+                                    <RolesDropDown />
+                                </div>
+                                <div className="flex flex-row justify-between items-center w-full mt-4">
+                                    <p className="text-lg">
+                                      Select the levels you&apos;re interested in
+                                    </p>
+                                    <LevelsDropDown />
+                                </div>
+                                <div className="flex flex-row justify-between items-center w-full mt-4">
+                                    <p className="text-lg">
+                                      Select locations you&apos;re interested in
+                                    </p>
+                                    <CitiesDropDown />
+                                </div>
+                                <div className="flex flex-row justify-between items-center w-full mt-4">
+                                    <p className="text-lg">
+                                      Select the company size you&apos;re interested in
+                                    </p>
+                                    <CompanySizeDropDown />
+                                </div>
+                                <div className="flex flex-row justify-between items-center w-full mt-4">
+                                    <p className="text-lg">
+                                      Select the industries you&apos;re interested in
+                                    </p>
+                                    <IndustryTypesDropDown />
+                                </div>
+                                <div className="flex flex-row justify-between items-center w-full mt-4">
+                                    <p className="text-lg">
+                                      Select you&apos;re compensation ranges
+                                    </p>
+                                    <CompensationDropDown />
+                                </div>
+                              </div>
                             </CardContent>     
                             <hr className="" />
                             <CardContent>
-                              <Button className="bg-black dark:bg-white text-white dark:text-black" onClick={setUserAsComplete}>
-                                See Recommended Jobs
-                              </Button>
+                              <div className="flex flex-col justify-center items-center py-4">
+                                <Button className="bg-black dark:bg-white text-white dark:text-black" onClick={setUserAsComplete}>
+                                  See Recommended Jobs
+                                </Button>
+                              </div>
                             </CardContent>                    
                           </div>
                         )}
