@@ -8,6 +8,8 @@ import { useToast } from '~/components/ui/use-toast'
 
 export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: number, isInitiallySaved: boolean }) {
 
+  console.log("Job ID: ", jobId)
+
   const { toast } = useToast()
 
   const [isSaved, setIsSaved] = useState(isInitiallySaved);

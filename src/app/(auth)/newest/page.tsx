@@ -38,9 +38,7 @@ export default async function NewestJobs() {
 
     const savedJobs = api.jobs.getSavedJobs.useQuery();
     
-    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.id), [savedJobs.data]);
-
-    console.log("Saved Jobs: ", allSavedJobIds)
+    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
 
     return (
         <div className="flex flex-col py-4">

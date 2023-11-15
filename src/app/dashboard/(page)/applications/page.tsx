@@ -14,9 +14,11 @@ export default function DashboardApplications() {
     const [showAsKanban, setShowAsKanban] = useState(true);
     const savedJobs = api.jobs.getSavedJobs.useQuery();    
     
-    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.id), [savedJobs.data]);
+    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
 
     const toggleView = () => {
+        const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
+
         setShowAsKanban(!showAsKanban);
     };
 

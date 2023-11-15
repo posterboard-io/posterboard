@@ -8,7 +8,7 @@ export default function TestPage() {
     
     const savedJobs = api.jobs.getSavedJobs.useQuery();
     
-    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.id), [savedJobs.data]);
+    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
