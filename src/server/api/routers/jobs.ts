@@ -90,55 +90,19 @@ export const jobsRouter = createTRPCRouter({
 
     getRecommended: protectedProcedure
         .input(z.object({
-            jobTitle: z.array(z.string()).optional().nullable(),
-            jobLocation: z.array(z.string()).optional().nullable(),
-            jobTechStack: z.array(z.string()).optional().nullable(),
-            jobCompany: z.array(z.string()).optional().nullable(),
-            jobSalary: z.array(z.string()).optional().nullable(),
-            jobLevel: z.array(z.string()).optional().nullable(),
-            jobIndustry: z.array(z.string()).optional().nullable(),
+            jobTitle: z.array(z.string())
         }))
         .query(async ({ ctx, input }) => {
-            // Some query
-            const recommendedJobs = await ctx.db.jobPostings.findMany({
-                where: {
-                    OR: [
-                        {
-                            title: {
-                                in: input.jobTitle || [],
-                            },
-                        },
-                        {
-                            location: {
-                                in: input.jobLocation || [],
-                            },
-                        },
-                        // {
-                        //     companyTechStack: {
-                        //         in: input.jobTechStack || [],
-                        //     },
-                        // },
-                        // {
-                        //     company: {
-                        //         in: input.jobCompany || [],
-                        //     },
-                        // },
-                        {
-                            compensationLow: {
-                                in: input.jobSalary || [],
-                            },
-                        },
-                        // {
-                        //     roleLevel: {
-                        //         in: input.jobLevel || [],
-                        //     },
-                        // },
-                    ],
+            const getRecommendedJobs = await ctx.db.jobPostings.findMany({
+                where: {    
+                    title: { in: input.jobTitle },
                 },
+                orderBy: { updatedInDbAt: "desc" },
             });
-            return recommendedJobs;
-        }
-    ),
+    
+            return getRecommendedJobs;
+        }),
+    
 
     getSavedJobs: protectedProcedure
         .query(async ({ ctx }) => {
@@ -173,36 +137,53 @@ export const jobsRouter = createTRPCRouter({
     ),    
 
     removeJob: protectedProcedure
-    .input(z.object({
-        jobId: z.number(),
-    }))
-    .mutation(async ({ ctx, input }) => {
-        // Check if the record exists
-        const existingRecord = await ctx.db.userSavedJobs.findUnique({
-            where: {
-                userId_jobPostingId: {
-                    userId: ctx.session.user.id,
-                    jobPostingId: input.jobId,
+        .input(z.object({
+            jobId: z.number(),
+        }))
+        .mutation(async ({ ctx, input }) => {
+            // Check if the record exists
+            const existingRecord = await ctx.db.userSavedJobs.findUnique({
+                where: {
+                    userId_jobPostingId: {
+                        userId: ctx.session.user.id,
+                        jobPostingId: input.jobId,
+                    },
                 },
-            },
-        });
+            });
 
-        if (!existingRecord) {
-            throw new Error("Job not found or you don't have permission to delete it.");
+            if (!existingRecord) {
+                throw new Error("Job not found or you don't have permission to delete it.");
+            }
+
+            // If the record exists, proceed to delete
+            const jobUnsaved = await ctx.db.userSavedJobs.delete({
+                where: {
+                    userId_jobPostingId: {
+                        userId: ctx.session.user.id,
+                        jobPostingId: input.jobId,
+                    },
+                },                        
+            });
+
+            return jobUnsaved;
         }
-
-        // If the record exists, proceed to delete
-        const jobUnsaved = await ctx.db.userSavedJobs.delete({
-            where: {
-                userId_jobPostingId: {
-                    userId: ctx.session.user.id,
-                    jobPostingId: input.jobId,
-                },
-            },                        
-        });
-
-        return jobUnsaved;
-    }
     ),
+
+    getJobsAppliedToSortedByMonths: protectedProcedure
+        .query(async ({ ctx }) => {
+            const jobsAppliedTo = await ctx.db.userSavedJobs.groupBy({
+                by: ["jobPostingId"],
+                where: {
+                    userId: ctx.session.user.id,
+                },
+                _count: {
+                    jobPostingId: true,
+                },
+            });
+
+            return jobsAppliedTo;
+        }
+    ),
+
 });
 

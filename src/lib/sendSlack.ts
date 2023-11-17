@@ -1,5 +1,4 @@
 export function sendSlackMessage({ logString, status, failure }: { logString: string, status: string, failure: boolean}) {
-    console.log(logString);
     const color = failure ? "#FF0000" : "#00FF00"; // Red for failure, Green for success
     const timestamp = new Date().toISOString();
   

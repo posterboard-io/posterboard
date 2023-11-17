@@ -24,7 +24,6 @@ export default async function NewestJobs() {
 
     const handleNextPage = () => {        
         const nextPage = page + 1
-        console.log(nextPage)
         router.push(`/newest?page=${nextPage}`)
     }
     

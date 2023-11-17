@@ -3,22 +3,13 @@
 import { DashboardShell } from "~/components/pb/dashboard-shell"
 import { api } from "~/trpc/react"
 import Loading from "~/components/pb/utils/loading"
-import JobCard from "~/components/pb/job-card"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import Link from "next/link"
 import DashboardCard from "~/components/pb/dashboard-card"
 import { DashboardGraph } from "~/components/pb/dashboard-graph"
 import { DashboardPieChart, DashboardPieProps } from "~/components/pb/dashboard-piechart"
-
-interface JobCountItem {
-  jobPosting: {
-    company: string;
-  };
-}
-
-interface CompanyCount {
-  [company: string]: number;
-}
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { get } from "http"
 
 
 
@@ -28,11 +19,7 @@ export default function Dashboard() {
 
   const jobCount = savedJobsCount.data?.length
 
-  console.log("jobCount", savedJobsCount.data)
-
   const companiesAppliedTo = savedJobsCount.data?.map(job => job.jobPosting.company)
-
-  console.log("companiesAppliedTo", companiesAppliedTo)
 
   const applicaationsByCompany = companiesAppliedTo?.reduce((acc: any, company: any) => {
     if (acc[company]) {
@@ -53,13 +40,20 @@ export default function Dashboard() {
     }));
   }
   
-  // Now you can safely use dashboardPieData
   
-  console.log("applicaationsByCompany", applicaationsByCompany)
+  const userJobsAppliedSortedByMonth = savedJobsCount.data?.sort((a, b) => {
+    return new Date(b.createdAt).getMonth() - new Date(a.createdAt).getMonth()
+  })
 
+  // console.log(`User applied to this many jobs this month: ${userJobsAppliedSortedByMonth?.length}`)
+  
   const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
     query: ""
   })
+
+  if (savedJobsCount.isLoading) {
+    return <Loading />
+  }
   
   return (
     <div className="flex">
@@ -84,7 +78,7 @@ export default function Dashboard() {
                         <Link href="">
                           <DashboardCard 
                             cardContent={jobCount?.toString() || "0"}
-                            cardContentDesc="Nice work! Keep applying!"
+                            cardContentDesc="Nice work!"
                             cardTitle="Total Jobs Applied For"
                             cardIcon="JobIcon"
                           />
@@ -100,16 +94,16 @@ export default function Dashboard() {
                         <Link href="/dashboard/recommended">
                           <DashboardCard 
                             cardContent="23"
-                            cardContentDesc="We found some new jobs for you!"
-                            cardTitle="New Recommended Jobs"
+                            cardContentDesc="New jobs for you!"
+                            cardTitle="Recommendations"
                             cardIcon="JobIcon"
                           />
                         </Link>
                         <Link href="/newest">
                           <DashboardCard 
                             cardContent={totalJobs?.data?.toString() || "0"}
-                            cardContentDesc="Keep checking back for new jobs!"
-                            cardTitle="Total Jobs Posted"
+                            cardContentDesc="Check back for new jobs!"
+                            cardTitle="Total Posted"
                             cardIcon="JobIcon"
                           />
                         </Link>
@@ -120,7 +114,26 @@ export default function Dashboard() {
                             <CardTitle>Total Applications</CardTitle>
                           </CardHeader>
                           <CardContent className="pl-2">
-                            <DashboardGraph />
+                            <div className="flex flex-col">
+                              <Tabs defaultValue="YTD">                              
+                              <TabsContent value="YTD">
+                                <DashboardGraph />
+                              </TabsContent>
+                              <TabsContent value="All">
+                                <DashboardGraph />
+                              </TabsContent>
+                              <div className="flex items-center justify-center">
+                              <TabsList>
+                                <TabsTrigger value="YTD">
+                                  YTD
+                                </TabsTrigger>
+                                <TabsTrigger value="All">
+                                  All Time
+                                </TabsTrigger>
+                              </TabsList>
+                              </div>
+                            </Tabs>
+                            </div>
                           </CardContent>
                         </Card>
                         <Card className="col-span-4">

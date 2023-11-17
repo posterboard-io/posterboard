@@ -31,13 +31,10 @@ export const authOptions: NextAuthOptions = {
       
     }),
     redirect: async ({ url, baseUrl }) => {      
-      console.log('Redirect URL:', url);
-      console.log('Base URL:', baseUrl);
     
       if (url.startsWith(baseUrl)) {
         return url;
-      } else {
-        console.log('Redirecting to dashboard');
+      } else {    
         return baseUrl + '/dashboard';
       }
     }

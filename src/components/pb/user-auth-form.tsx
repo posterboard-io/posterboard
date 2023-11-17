@@ -107,7 +107,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         type="button"
         className={cn(buttonVariants())}
         onClick={() => {
-          console.log("clicked")
           setIsGitHubLoading(true)
           signIn("github", { callbackUrl: "/dashboard" })
         }}
@@ -125,7 +124,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         type="button"
         className={cn(buttonVariants())}
         onClick={() => {
-          console.log("clicked")
           setIsGoogleLoading(true)
           signIn("google", { callbackUrl: "/dashboard" })
         }}

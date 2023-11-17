@@ -55,7 +55,6 @@ export default function RecommendedJobs() {
                       <div className="">
                         {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
                           <div className="">
-                            <p>You have completed onboarding </p>  
                             <RecommendedFeed />
                           </div>
                         ) : (

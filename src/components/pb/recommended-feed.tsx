@@ -1,58 +1,75 @@
 "use client"
 
-import { DashboardShell } from '~/components/pb/dashboard-shell'
-import Link from 'next/link'
 import { api } from "~/trpc/react"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
 import RolesAndGrowth from '~/components/pb/roles-dropdown'
 import { Button } from '~/components/ui/button'
+import { useMemo } from 'react'
 import Loading from '~/components/pb/utils/loading'
+import JobCard from '~/components/pb/job-card'
 
 export default function RecommendedFeed() {
 
-    const userJobPrefrences = api.onboarding.getUserJobPrefrences.useQuery()
-
-    console.log(userJobPrefrences.data)
+    const userJobPrefrences = api.onboarding.getUserJobPrefrences.useQuery();
 
     const recommendedFeed = api.jobs.getRecommended.useQuery({
-        jobTitle: userJobPrefrences.data?.onboardingRoleType,
-        jobLocation: userJobPrefrences.data?.onboardingLocation,
-        jobTechStack: userJobPrefrences.data?.onboardingTechStack,
-        jobCompany: userJobPrefrences.data?.onboardingCompanySize,
-        jobSalary: userJobPrefrences.data?.onboardingTotalCompensation,
-        jobLevel: userJobPrefrences.data?.onboardingLevel,
-        jobIndustry: userJobPrefrences.data?.onboardingCompanyIndustry,
-    })
+        jobTitle: userJobPrefrences.data?.onboardingRoleType || [],
+    });
+    
+    console.log(recommendedFeed.data);
+
+    if (recommendedFeed.isLoading) {
+        console.log('Loading recommended jobs...');
+      } else {
+        console.log('Recommended Jobs:', recommendedFeed.data);
+      }
+      console.log('Job Titles:', userJobPrefrences.data?.onboardingRoleType);
+
+      
+    
+    const savedJobs = api.jobs.getSavedJobs.useQuery();
+    
+    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
 
     if (recommendedFeed.isLoading) {
       return <Loading />
     }
 
-    console.log(recommendedFeed.data)
+    if (recommendedFeed.error) {
+      return <div>{recommendedFeed.error.message}</div>
+    }
+
+    if (recommendedFeed.data?.length === 0) {
+      return <div>no data :/</div>
+    }
+
+    if (!recommendedFeed.data) {
+        return <div>no data</div>
+    }
 
     return (
-        <div>
-            <h1>Recommended Jobs - This sucks but I know I can make it better</h1>
-            <p>Job Preferences...</p>
-            <p>{userJobPrefrences.data?.onboardingRoleType}</p>
-            <p>{userJobPrefrences.data?.onboardingLocation}</p>
-            <p>{userJobPrefrences.data?.onboardingTechStack}</p>
-            <p>{userJobPrefrences.data?.onboardingCompanySize}</p>
-            <p>{userJobPrefrences.data?.onboardingTotalCompensation}</p>
-            <p>{userJobPrefrences.data?.onboardingLevel}</p>
-            <hr />
-            <p>Your Recommended Jobs...</p>
+        <div className="flex flex-col space-y-2">
             {recommendedFeed.data?.map((job) => (
-                <div key={job.id}>
-                    <p>{job.title}</p>
-                    <p>{job.location}</p>
-                    <p>{job.company}</p>
-                    <p>{job.companyTechStack}</p>
-                    <p>{job.compensation}</p>
-                    <p>{job.roleLevel}</p>                    
-                </div>
+                <JobCard 
+                    key={job.id} 
+                    jobTitle={job.title} 
+                    company={job.company} 
+                    locationCity={job.locationCity} 
+                    locationState={job.locationState} 
+                    locationCountry={job.locationCountry} 
+                    jobTeam={job.internalTeam || ""} 
+                    salaryLow={job.compensationLow || ""} 
+                    salaryHigh={job.compensationHigh || ""} 
+                    salaryRange={job.compensation || ""} 
+                    jobLink={job.urlJob || ""}
+                    jobImage={job.companyLogoUrl || ""}
+                    someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
+                    techStack={job.companyTechStack}
+                    jobId={job.id}
+                    isSaved={allSavedJobIds!.includes(job.id)}
+                />
             ))}
         </div>
     )
