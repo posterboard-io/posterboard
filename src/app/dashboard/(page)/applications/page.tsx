@@ -19,10 +19,6 @@ export default function DashboardApplications() {
             <main className="flex-grow p-6">
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-lg font-medium">Applications</h1>
-                </div>                                    
-                <div className="flex justify-between items-center mb-4">
-                    <h1 className="text-lg font-medium">Saved Jobs 
-                    </h1>
                 </div>
                     {savedJobs.isLoading ? (
                         <Loading />
@@ -30,7 +26,7 @@ export default function DashboardApplications() {
                         <div>Error: {savedJobs.error.message}</div>
                     ) : savedJobs.data && savedJobs.data.length === 0 ? (
                         <div className="flex justify-center py-4">
-                            <p>You have no saved Jobs. Get Searching!</p>
+                            <p>You have no saved Applications. Get Searching!</p>
                         </div>
                     ) : (
                         <div className="flex flex-col space-y-2">

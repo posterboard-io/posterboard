@@ -14,18 +14,18 @@ export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: numb
 
   const saveJobMutation = api.jobs.saveJob.useMutation({
     onSuccess: () => {
-      toast({ title: "Job Saved" });
+      toast({ title: "Application Saved" });
       setIsSaved(true); // Set to saved on success
     },
-    onError: () => toast({ title: "Error Saving Job" })
+    onError: () => toast({ title: "Error Saving Application" })
   });
 
   const unsaveJobMutation = api.jobs.removeJob.useMutation({
     onSuccess: () => {
-      toast({ title: "Job Removed" });
+      toast({ title: "Application Removed" });
       setIsSaved(false); // Set to not saved on success
     },
-    onError: () => toast({ title: "Error Removing Job" })
+    onError: () => toast({ title: "Error Removing Application" })
   });
 
   const toggleSave = () => {
@@ -45,11 +45,17 @@ export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: numb
       disabled={saveJobMutation.isLoading || unsaveJobMutation.isLoading}
     >            
       {isSaved ? (
-        <BookmarkFilledIcon className="mr-2 h-4 w-4 transition-transform transform-gpu scale-100" />
+        <div className="flex flex-row">
+          <BookmarkFilledIcon className="mr-2 h-4 w-4 transition-transform transform-gpu scale-100" />
+          Saved Application          
+        </div>
       ) : (
-        <BookmarkIcon className="mr-2 h-4 w-4" />
+        <div className="flex flex-row">
+          <BookmarkIcon className="mr-2 h-4 w-4" />
+          Save Application          
+        </div>
       )}
-      Save Job
+      
     </Button>
   );
 }

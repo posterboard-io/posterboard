@@ -91,7 +91,7 @@ export default function JobCard({
           </Button>
           <Button variant="outline" className="flex items-center justify-center">
             <Bookmark className="mr-2 h-4 w-4"/>            
-            Save Job
+            Save Application
           </Button>
           <Button variant="outline" className="flex items-center justify-center">
             <Link 

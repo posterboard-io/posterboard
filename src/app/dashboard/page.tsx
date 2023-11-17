@@ -39,6 +39,12 @@ export default function Dashboard() {
       total: typeof total === 'number' ? total : 0  // Ensuring total is a number
     }));
   }
+
+  const userJobPrefrences = api.onboarding.getUserJobPrefrences.useQuery();
+
+  const recommendedFeed = api.jobs.getRecommended.useQuery({
+      jobTitle: userJobPrefrences.data?.onboardingRoleType || [],
+  });
   
   
   const userJobsAppliedSortedByMonth = savedJobsCount.data?.sort((a, b) => {
@@ -85,7 +91,7 @@ export default function Dashboard() {
                         </Link>
                         <Link href="">
                           <DashboardCard 
-                            cardContent={companiesAppliedTo?.length?.toString() || "0"}
+                            cardContent={dashboardPieData.length.toString() || "0"}
                             cardContentDesc="Keep it up!"
                             cardTitle="Companies Applied"
                             cardIcon="JobIcon"
@@ -93,7 +99,7 @@ export default function Dashboard() {
                         </Link>
                         <Link href="/dashboard/recommended">
                           <DashboardCard 
-                            cardContent="23"
+                            cardContent={recommendedFeed.data?.length.toString() || "0"}
                             cardContentDesc="New jobs for you!"
                             cardTitle="Recommendations"
                             cardIcon="JobIcon"

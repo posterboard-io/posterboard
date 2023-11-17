@@ -48,7 +48,7 @@ export default function RecommendedJobs() {
             <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
               <div className="flex flex-row justify-between items-center">
                 <h1 className="text-2xl font-bold tracking-tight">
-                  Recommended
+                  Recommended Jobs                   
                 </h1>
                 {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
                   <Button
@@ -57,17 +57,18 @@ export default function RecommendedJobs() {
                   >
                     Edit Preferences
                   </Button>
-                ) : null}
-                </div>                                  
-                {/*  */}
+                ) : null}                
+                </div>
               <div className="">
                   <Card className="">                    
                     <CardContent className="">
                       <div className="">
                         {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
+                        <div>
                           <div className="py-2">
                             <RecommendedFeed />
                           </div>
+                        </div>
                         ) : (
                           <div className="">
                             <CardHeader>
