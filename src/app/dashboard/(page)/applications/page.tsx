@@ -6,7 +6,6 @@ import Loading from "~/components/pb/utils/loading"
 import JobCard from "~/components/pb/job-card"
 import React, { useState, useMemo } from 'react'
 
-
 export default function DashboardApplications() {
     const savedJobs = api.jobs.getSavedJobs.useQuery();    
     
@@ -23,9 +22,6 @@ export default function DashboardApplications() {
                 </div>                                    
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-lg font-medium">Saved Jobs 
-                        {savedJobs.data?.map((job) => (
-                            job.jobPostingId
-                        ))}
                     </h1>
                 </div>
                     {savedJobs.isLoading ? (

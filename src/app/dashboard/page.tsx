@@ -8,13 +8,54 @@ import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/com
 import Link from "next/link"
 import DashboardCard from "~/components/pb/dashboard-card"
 import { DashboardGraph } from "~/components/pb/dashboard-graph"
-import { DashboardPieChart } from "~/components/pb/dashboard-piechart"
+import { DashboardPieChart, DashboardPieProps } from "~/components/pb/dashboard-piechart"
+
+interface JobCountItem {
+  jobPosting: {
+    company: string;
+  };
+}
+
+interface CompanyCount {
+  [company: string]: number;
+}
+
+
 
 export default function Dashboard() {  
 
   const savedJobsCount = api.jobs.getSavedJobs.useQuery()
 
   const jobCount = savedJobsCount.data?.length
+
+  console.log("jobCount", savedJobsCount.data)
+
+  const companiesAppliedTo = savedJobsCount.data?.map(job => job.jobPosting.company)
+
+  console.log("companiesAppliedTo", companiesAppliedTo)
+
+  const applicaationsByCompany = companiesAppliedTo?.reduce((acc: any, company: any) => {
+    if (acc[company]) {
+      acc[company] += 1;
+    } else {
+      acc[company] = 1;
+    }
+    return acc;
+  }
+  , {})
+
+  let dashboardPieData: DashboardPieProps[] = [];
+
+  if (applicaationsByCompany) {
+    dashboardPieData = Object.entries(applicaationsByCompany).map(([name, total]) => ({
+      name,
+      total: typeof total === 'number' ? total : 0  // Ensuring total is a number
+    }));
+  }
+  
+  // Now you can safely use dashboardPieData
+  
+  console.log("applicaationsByCompany", applicaationsByCompany)
 
   const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
     query: ""
@@ -50,7 +91,7 @@ export default function Dashboard() {
                         </Link>
                         <Link href="">
                           <DashboardCard 
-                            cardContent="4"
+                            cardContent={companiesAppliedTo?.length?.toString() || "0"}
                             cardContentDesc="Keep it up!"
                             cardTitle="Companies Applied"
                             cardIcon="JobIcon"
@@ -64,7 +105,7 @@ export default function Dashboard() {
                             cardIcon="JobIcon"
                           />
                         </Link>
-                        <Link href="">
+                        <Link href="/newest">
                           <DashboardCard 
                             cardContent={totalJobs?.data?.toString() || "0"}
                             cardContentDesc="Keep checking back for new jobs!"
@@ -87,7 +128,7 @@ export default function Dashboard() {
                             <CardTitle>Company Applications</CardTitle>
                           </CardHeader>
                           <CardContent className="pl-2">
-                            <DashboardPieChart />
+                            <DashboardPieChart DashboardPieData={dashboardPieData} />
                           </CardContent>
                         </Card>
                       </div>

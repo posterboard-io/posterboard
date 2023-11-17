@@ -9,7 +9,7 @@ import {
   Smile,
   User,
 } from "lucide-react"
-
+import Link from "next/link"
 import {
   CommandDialog,
   CommandEmpty,
@@ -47,10 +47,10 @@ export default function CommandBox() {
         <CommandInput placeholder="Type a command or search... - FINISH THIS" />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="SuggeDstions">
-            <CommandItem>
+          <CommandGroup heading="Suggestions">
+            <CommandItem>            
               <Calendar className="mr-2 h-4 w-4" />
-              <span>Dashboard</span>
+              <span>Dashboard</span>            
             </CommandItem>
             <CommandItem>
               <Smile className="mr-2 h-4 w-4" />
