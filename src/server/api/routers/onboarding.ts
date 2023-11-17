@@ -270,6 +270,20 @@ export const onboardingRouter = createTRPCRouter({
             return updatedUser;
         }),
 
+    setUserOnboardingAsNotComplete: protectedProcedure
+        .mutation(async ({ ctx, input }) => {
+            // Some mutation
+            const updatedUser = await ctx.db.user.update({
+                where: {
+                    id: ctx.session.user.id,
+                },
+                data: {
+                    didCompleteOnboarding: false,
+                },
+            });
+            return updatedUser;
+        }),
+
     getUserJobPrefrences: protectedProcedure
         .query(async ({ ctx, input }) => {
             // Some query

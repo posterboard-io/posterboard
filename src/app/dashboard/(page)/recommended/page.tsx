@@ -1,10 +1,8 @@
 "use client"
 
 import { DashboardShell } from '~/components/pb/dashboard-shell'
-import Link from 'next/link'
 import { api } from "~/trpc/react"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
-import DashboardCard from "~/components/pb/dashboard-card"
 import BubbleSelect from '~/components/pb/bubble-select'
 import RolesDropDown from '~/components/pb/roles-dropdown'
 import { Button } from '~/components/ui/button'
@@ -20,10 +18,17 @@ export default function RecommendedJobs() {
 
     const userDidFinishOnboarding = api.onboarding.setUserOnboardingAsComplete.useMutation()
 
+    const setUserAsNotComplete = api.onboarding.setUserOnboardingAsNotComplete.useMutation()
+
     const didUserCompleteOnboarding = api.onboarding.getOnboardingStatus.useQuery()
 
     const setUserAsComplete = () => {
         userDidFinishOnboarding.mutate()
+        didUserCompleteOnboarding.refetch()
+    }
+
+    const allowUserChanges = () => {
+        setUserAsNotComplete.mutate()
         didUserCompleteOnboarding.refetch()
     }
 
@@ -36,25 +41,31 @@ export default function RecommendedJobs() {
     }
 
     return (
-        <div className="flex">
+      <div className="flex">
         <DashboardShell />
         <main className="flex-grow p-6">
-            <div className="flex flex-col">
+          <div className="flex flex-col">
             <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-                <div className="flex items-center justify-between space-y-2">
-                  <div>
-                    <h1 className="text-2xl font-bold tracking-tight">
-                      Recommended
-                    </h1>                                      
-                  </div>                  
-                </div>
+              <div className="flex flex-row justify-between items-center">
+                <h1 className="text-2xl font-bold tracking-tight">
+                  Recommended
+                </h1>
+                {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
+                  <Button
+                    className="bg-black dark:bg-white text-white dark:text-black"
+                    onClick={allowUserChanges}
+                  >
+                    Edit Preferences
+                  </Button>
+                ) : null}
+                </div>                                  
                 {/*  */}
               <div className="">
                   <Card className="">                    
                     <CardContent className="">
                       <div className="">
                         {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
-                          <div className="">
+                          <div className="py-2">
                             <RecommendedFeed />
                           </div>
                         ) : (

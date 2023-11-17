@@ -27,8 +27,6 @@ export default function RecommendedFeed() {
       }
       console.log('Job Titles:', userJobPrefrences.data?.onboardingRoleType);
 
-      
-    
     const savedJobs = api.jobs.getSavedJobs.useQuery();
     
     const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
