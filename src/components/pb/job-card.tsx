@@ -54,9 +54,9 @@ export default function JobCard({
     return (
       <Card>
       <CardHeader className="space-y-1">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col space-y-1">
-          <CardTitle className="text-2xl">{jobTitle}</CardTitle>
+            <CardTitle className="text-xl md:text-2xl">{jobTitle}</CardTitle>
           <div className="flex flex-row space-x-2">
             <div className="w-8 h-8 relative">
               <Image
@@ -67,8 +67,7 @@ export default function JobCard({
                 loading="lazy"
               />
               </div>
-
-            <CardTitle className="text-xl">
+              <CardTitle className="text-lg md:text-xl">
               {company}
             </CardTitle>
           </div>
@@ -99,7 +98,7 @@ export default function JobCard({
         </div>        
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-3 gap-6">          
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Button variant="outline">
             <HoverCard>
               <HoverCardTrigger>
