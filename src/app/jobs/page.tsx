@@ -20,8 +20,6 @@ import {
 import { ListBulletIcon } from "@radix-ui/react-icons"
 import ComboboxDemo from "~/components/pb/combo-box"
 
-  
-
 export default function Jobs() {
 
     const [search, setSearch] = useState("");

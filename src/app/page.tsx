@@ -70,7 +70,7 @@ export default async function Home() {
               <div className="space-y-2">
                 <h3 className="font-bold">No more Spam</h3>
                 <p className="text-sm text-muted-foreground">
-                  No more LinkedIn. No more recruiters. No more spam.
+                  No more LinkedIn and no more recruiters.
                 </p>
               </div>
             </div>
@@ -81,7 +81,7 @@ export default async function Home() {
               <div className="space-y-2">
                 <h3 className="font-bold">Developer First</h3>
                 <p className="text-sm text-muted-foreground">
-                  Access our API and automate your job search.
+                  Get free access our API and automate your job search.
                 </p>
               </div>
             </div>
@@ -92,7 +92,7 @@ export default async function Home() {
               <div className="space-y-2">
                 <h3 className="font-bold">Resume Utilities</h3>
                 <p className="text-sm text-muted-foreground">
-                  Test your resume against job descriptions.
+                  Test your resume against ATS tools and get feedback.
                 </p>
               </div>
             </div>
@@ -101,9 +101,9 @@ export default async function Home() {
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
               <HeartHandshake className="h-12 w-12 text-blue-500" />
               <div className="space-y-2">
-                <h3 className="font-bold">Connect with others</h3>
+                <h3 className="font-bold">Community First</h3>
                 <p className="text-sm text-muted-foreground">
-                  Find other developers and connect with them. Not bots.
+                  We&apos;re active on Discord and Twitter. Join us!
                 </p>
               </div>
             </div>
@@ -112,7 +112,7 @@ export default async function Home() {
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
               <MagnifyingGlassIcon className="h-12 w-12 text-orange-500" />
               <div className="space-y-2">
-                <h3 className="font-bold">Search by tech stack</h3>
+                <h3 className="font-bold">Search by Tech Stack</h3>
                 <p className="text-sm text-muted-foreground">
                   Want only React jobs? We&apos;ve got you covered.
                 </p>
@@ -168,10 +168,15 @@ export default async function Home() {
                             </li>
                             <li className="flex items-center">
                                 <Icons.check className="mr-2 h-4 w-4" /> Connecting With Others
-                            </li>                            
+                            </li>     
+                            <li className="flex items-center">
+                                <Icons.check className="mr-2 h-4 w-4" /> API Access
+                            </li>
+                            <li className="flex items-center">
+                                <Icons.check className="mr-2 h-4 w-4" /> Interview Prep and Salary Insights
+                            </li>                       
                         </ul>
-                    </div>
-                    
+                    </div>                    
                 </div>    
                 <div className="flex flex-col gap-4 text-center">
                 <div>
