@@ -61,7 +61,7 @@ export default function SearchPage() {
     const handlePreviousPage = () => {
         const previousPage = page - 1
         router.push(`/search?page=${previousPage}`)
-    }
+    }    
 
     return (
         <div className="min-h-screen"> 
@@ -161,10 +161,10 @@ export default function SearchPage() {
                     <Button 
                         className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
                         onClick={handleNextPage}
-                        disabled={jobs.isLoading} // Assuming you have a hasNextPage flag -  || !jobs.data.hasNextPage
+                        disabled={jobs.isLoading || jobs.data.length < 100 || page === roundedUpPages}
                     >
                         Next page →
-                    </Button>                
+                    </Button>
                 </div>
             )}
         </div>
