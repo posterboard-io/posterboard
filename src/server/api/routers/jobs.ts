@@ -16,21 +16,21 @@ export const jobsRouter = createTRPCRouter({
             fullTime: z.boolean().optional().nullable(),
         }))
         .query(async ({ ctx, input }) => {
-            const skip = (input.page - 1) * input.pageSize;
-            const take = input.pageSize;
+            const { page, pageSize, query, location, fullTime } = input;
+            const skip = (page - 1) * pageSize;
 
             const where = {            
-                ...(input.query ? { title: { contains: input.query } } : {}),
-                ...(input.location ? { location: { contains: input.location } } : {}),
-                ...(input.fullTime ? { fullTime: input.fullTime } : {}),
+                ...(query && { title: { contains: query, mode: 'insensitive' as const } }),
+                ...(location && { location: { contains: location, mode: 'insensitive' as const } }),
+                ...(fullTime != null && { fullTime }),
             };
-            const jobs = await ctx.db.jobPostings.findMany({
+
+            return await ctx.db.jobPostings.findMany({
                 where: where,
                 orderBy: { updatedInDbAt: "desc" },
                 skip: skip,
-                take: take,
+                take: pageSize,
             });
-            return jobs;
         }),
 
     getTotalJobsForQuery: publicProcedure
@@ -39,7 +39,7 @@ export const jobsRouter = createTRPCRouter({
         }))
         .query(async ({ ctx, input }) => {
             const where = {
-                ...(input.query ? { title: { contains: input.query } } : {}),
+                ...(input.query ? { title: { contains: input.query, mode: 'insensitive' as const } } : {}),
             };
 
             const count = await ctx.db.jobPostings.count({

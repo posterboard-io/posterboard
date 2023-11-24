@@ -6,11 +6,10 @@ import JobCard from "~/components/pb/job-card"
 import { 
     Card,
     CardTitle,
-    CardDescription,
 } from "~/components/ui/card"
-import { Filter, Search } from "lucide-react"
+import { Search } from "lucide-react"
 import { api } from "~/trpc/react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Loading from "~/components/pb/utils/loading"
 import {
     Popover,
@@ -22,17 +21,8 @@ import ComboboxDemo from "~/components/pb/combo-box"
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function SearchPage() {
-
     const [search, setSearch] = useState("");
-
-    const jobs = api.jobs.searchJobs.useQuery({
-        query: search
-    })
-
-    const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
-            query: search
-    })
-
+    
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {        
         setSearch(e.target.value)
     }
@@ -44,21 +34,25 @@ export default function SearchPage() {
     const searchParams = useSearchParams()
     const page = parseInt(searchParams?.get('page') ?? '1', 10);
 
-    const latestJobs = api.jobs.getLatest.useQuery({        
+    const router = useRouter()
+
+    const jobs = api.jobs.searchJobs.useQuery({
+        query: search,
         page: page,
-        pageSize: 10,           
     })
 
-    const router = useRouter()
+    const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
+        query: search
+    })
 
     const handleNextPage = () => {        
         const nextPage = page + 1
-        router.push(`/newest?page=${nextPage}`)
+        router.push(`/search?page=${nextPage}`)
     }
 
     const handlePreviousPage = () => {
         const previousPage = page - 1
-        router.push(`/newest?page=${previousPage}`)
+        router.push(`/search?page=${previousPage}`)
     }
 
     const totalPages = totalJobs.data ? totalJobs.data / 10 : 1
@@ -151,19 +145,19 @@ export default function SearchPage() {
                     ))}
                 </div>
             )}
-            {latestJobs.data && latestJobs.data.length > 0 && (
+            {jobs.data && jobs.data.length > 0 && (
                 <div className="flex justify-center py-4 px-4">
                     <Button 
                         className="bg-black dark:bg-white text-white dark:text-black"
                         onClick={handleNextPage}
-                        disabled={latestJobs.isLoading}
+                        disabled={jobs.isLoading}
                     >
                         Next page →
                     </Button>
                     <Button 
                         className="bg-black dark:bg-white text-white dark:text-black"
                         onClick={handlePreviousPage}
-                        disabled={latestJobs.isLoading}
+                        disabled={jobs.isLoading}
                     >
                         ← Previous page
                     </Button>                
