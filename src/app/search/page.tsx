@@ -22,14 +22,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function SearchPage() {
     const [search, setSearch] = useState("");
-    
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {        
-        setSearch(e.target.value)
-    }
-
-    const savedJobs = api.jobs.getSavedJobs.useQuery();    
-    
-    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
 
     const searchParams = useSearchParams()
     const page = parseInt(searchParams?.get('page') ?? '1', 10);
@@ -45,6 +37,22 @@ export default function SearchPage() {
         query: search
     })
 
+    const savedJobs = api.jobs.getSavedJobs.useQuery();    
+    
+    const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
+
+    const totalPages = totalJobs.data ? totalJobs.data / 100 : 1
+      
+    const roundedUpPages = Math.ceil(totalPages)
+
+    console.log(roundedUpPages)
+
+    const showingJobsTotal = jobs.data?.length! * page
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {        
+        setSearch(e.target.value)
+    }
+
     const handleNextPage = () => {        
         const nextPage = page + 1
         router.push(`/search?page=${nextPage}`)
@@ -54,10 +62,6 @@ export default function SearchPage() {
         const previousPage = page - 1
         router.push(`/search?page=${previousPage}`)
     }
-
-    const totalPages = totalJobs.data ? totalJobs.data / 10 : 1
-      
-    const roundedUpPages = Math.ceil(totalPages)
 
     return (
         <div className="min-h-screen"> 
@@ -85,7 +89,7 @@ export default function SearchPage() {
             <div className="flex flex-row justify-between items-center space-x-4 px-4 py-2">            
                 <div>
                     <h3 className="text-lg font-semibold">                    
-                        Showing {jobs.data?.length} of {totalJobs.data} {search} Jobs
+                        Showing {showingJobsTotal} of {totalJobs.data} {search} Jobs
                     </h3>
                 </div>                
                 <div>
@@ -146,20 +150,20 @@ export default function SearchPage() {
                 </div>
             )}
             {jobs.data && jobs.data.length > 0 && (
-                <div className="flex justify-center py-4 px-4">
+                <div className="flex justify-center py-4 px-4 gap-4">
                     <Button 
-                        className="bg-black dark:bg-white text-white dark:text-black"
-                        onClick={handleNextPage}
-                        disabled={jobs.isLoading}
-                    >
-                        Next page →
-                    </Button>
-                    <Button 
-                        className="bg-black dark:bg-white text-white dark:text-black"
+                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
                         onClick={handlePreviousPage}
-                        disabled={jobs.isLoading}
+                        disabled={jobs.isLoading || page === 1}
                     >
                         ← Previous page
+                    </Button>
+                    <Button 
+                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
+                        onClick={handleNextPage}
+                        disabled={jobs.isLoading} // Assuming you have a hasNextPage flag -  || !jobs.data.hasNextPage
+                    >
+                        Next page →
                     </Button>                
                 </div>
             )}
