@@ -42,7 +42,7 @@ export default function IndustryTypesDropDown() {
 
         setSelectedIndustryTypes(newSelectedIndustryTypes);
         updateUserIndustryTypesMutation.mutate({ companyIndustry: newSelectedIndustryTypes }, {
-            onSuccess: () => toast({ title: "Industries Updated" }),
+            onSuccess: () => toast({ title: "Industries Updated ✅" }),
             onError: () => toast({ title: "Error updating industries" })
         });
     };

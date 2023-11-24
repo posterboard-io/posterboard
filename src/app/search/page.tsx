@@ -19,8 +19,9 @@ import {
 } from "~/components/ui/popover"
 import { ListBulletIcon } from "@radix-ui/react-icons"
 import ComboboxDemo from "~/components/pb/combo-box"
+import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function Jobs() {
+export default function SearchPage() {
 
     const [search, setSearch] = useState("");
 
@@ -39,6 +40,30 @@ export default function Jobs() {
     const savedJobs = api.jobs.getSavedJobs.useQuery();    
     
     const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
+
+    const searchParams = useSearchParams()
+    const page = parseInt(searchParams?.get('page') ?? '1', 10);
+
+    const latestJobs = api.jobs.getLatest.useQuery({        
+        page: page,
+        pageSize: 10,           
+    })
+
+    const router = useRouter()
+
+    const handleNextPage = () => {        
+        const nextPage = page + 1
+        router.push(`/newest?page=${nextPage}`)
+    }
+
+    const handlePreviousPage = () => {
+        const previousPage = page - 1
+        router.push(`/newest?page=${previousPage}`)
+    }
+
+    const totalPages = totalJobs.data ? totalJobs.data / 10 : 1
+      
+    const roundedUpPages = Math.ceil(totalPages)
 
     return (
         <div className="min-h-screen"> 
@@ -124,6 +149,24 @@ export default function Jobs() {
                             isSaved={allSavedJobIds!.includes(job.id)}
                         />
                     ))}
+                </div>
+            )}
+            {latestJobs.data && latestJobs.data.length > 0 && (
+                <div className="flex justify-center py-4 px-4">
+                    <Button 
+                        className="bg-black dark:bg-white text-white dark:text-black"
+                        onClick={handleNextPage}
+                        disabled={latestJobs.isLoading}
+                    >
+                        Next page →
+                    </Button>
+                    <Button 
+                        className="bg-black dark:bg-white text-white dark:text-black"
+                        onClick={handlePreviousPage}
+                        disabled={latestJobs.isLoading}
+                    >
+                        ← Previous page
+                    </Button>                
                 </div>
             )}
         </div>

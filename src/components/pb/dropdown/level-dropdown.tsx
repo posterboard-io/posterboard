@@ -42,7 +42,7 @@ export default function LevelsDropDown() {
 
         setSelectedLevel(newSelectedLevels);
         updateUserLevelMutation.mutate({ level: newSelectedLevels }, {
-            onSuccess: () => toast({ title: "Role Updated" }),
+            onSuccess: () => toast({ title: "Role Updated ✅" }),
             onError: () => toast({ title: "Error updating role" })
         });
     };

@@ -42,7 +42,7 @@ export default function RolesDropDown() {
 
         setSelectedRole(newSelectedRoles);
         updateUserRoleMutation.mutate({ role: newSelectedRoles }, {
-            onSuccess: () => toast({ title: "Role Updated" }),
+            onSuccess: () => toast({ title: "Role Updated ✅" }),
             onError: () => toast({ title: "Error updating role" })
         });
     };

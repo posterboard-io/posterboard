@@ -5,6 +5,7 @@ import { Button } from '~/components/ui/button'
 import { Icons } from "~/components/pb/icons"
 import { buttonVariants } from "~/components/ui/button"
 import { cn } from "~/lib/utils"
+import Developers from "~/components/pb/developers"
 
 
 export default async function Home() {
@@ -120,7 +121,7 @@ export default async function Home() {
             </div>
           </div>
         </div>        
-      </section>      
+      </section>
       <section id="open-source" className="container py-8 md:py-12 lg:py-24">
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
           <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
@@ -141,7 +142,8 @@ export default async function Home() {
           </p>
         </div>
       </section>   
-      <section className="container flex flex-col  gap-6 py-8 md:max-w-[64rem] md:py-12 lg:py-24">
+      
+      {/* <section className="container flex flex-col  gap-6 py-8 md:max-w-[64rem] md:py-12 lg:py-24">
             <div className="mx-auto flex w-full flex-col gap-4 md:max-w-[58rem]">
                 <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl text-center">
                     Simple, transparent pricing
@@ -271,7 +273,7 @@ export default async function Home() {
                 </Link>
                 </div>
             </div>        
-        </section>   
+        </section>    */}
     </div>
   );
 }

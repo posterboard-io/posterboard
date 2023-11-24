@@ -42,7 +42,7 @@ export default function CitiesDropDown() {
 
         setSelectedCity(newSelectedCities);
         updateUserCityMutation.mutate({ locations: newSelectedCities }, {
-            onSuccess: () => toast({ title: "Cities Updated" }),
+            onSuccess: () => toast({ title: "Cities Updated ✅" }),
             onError: () => toast({ title: "Error updating cities" })
         });
     };

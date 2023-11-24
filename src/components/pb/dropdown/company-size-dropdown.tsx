@@ -42,7 +42,7 @@ export default function CompanySizeDropDown() {
 
         setSelectedCompanySize(newSelectedCompanySizes);
         updateUserCompanySizeMutation.mutate({ companySize: newSelectedCompanySizes }, {
-            onSuccess: () => toast({ title: "Company Size Updated" }),
+            onSuccess: () => toast({ title: "Company Size Updated ✅" }),
             onError: () => toast({ title: "Error updating company size" })
         });
     };

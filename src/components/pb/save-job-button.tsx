@@ -14,7 +14,7 @@ export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: numb
 
   const saveJobMutation = api.jobs.saveJob.useMutation({
     onSuccess: () => {
-      toast({ title: "Application Saved" });
+      toast({ title: "Application Saved ✅" });
       setIsSaved(true); // Set to saved on success
     },
     onError: () => toast({ title: "Error Saving Application" })

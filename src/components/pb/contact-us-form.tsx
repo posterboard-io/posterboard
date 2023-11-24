@@ -25,7 +25,7 @@ export default function ContactUsForm() {
     const sendMessage = api.contact.sendSlackMessageToUs.useMutation({
         onSuccess: () => {
             toast({
-                title: "Message sent",
+                title: "Message sent ✅",
                 description: "We'll get back to you as soon as possible.",               
             });
             router.refresh()

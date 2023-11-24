@@ -23,7 +23,7 @@ export default function BubbleSelect() {
   const updateUserTechStack = api.onboarding.updateUserTechStack.useMutation({
     onSuccess: () => {
       toast({
-        title: "Tech Stack Updated",
+        title: "Tech Stack Updated ✅",
       })
     }
   })

@@ -42,7 +42,7 @@ export default function CompensationDropDown() {
 
         setSelectedCompensation(newSelectedCompensations);
         updateUserCompensationMutation.mutate({ totalCompensation: newSelectedCompensations }, {
-            onSuccess: () => toast({ title: "Compensation Updated" }),
+            onSuccess: () => toast({ title: "Compensation Updated ✅" }),
             onError: () => toast({ title: "Error updating compensation" })
         });
     };
