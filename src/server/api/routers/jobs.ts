@@ -13,16 +13,17 @@ export const jobsRouter = createTRPCRouter({
             pageSize: z.number().optional().default(100),
             query: z.string().optional().nullable(),
             location: z.string().optional().nullable(),
-            fullTime: z.boolean().optional().nullable(),
+            techStack: z.string().optional().nullable(),
+            compensationRange: z.string().optional().nullable(),
+            roleLevel: z.string().optional().nullable(),
         }))
         .query(async ({ ctx, input }) => {
-            const { page, pageSize, query, location, fullTime } = input;
+            const { page, pageSize, query, location } = input;
             const skip = (page - 1) * pageSize;
 
             const where = {            
                 ...(query && { title: { contains: query, mode: 'insensitive' as const } }),
                 ...(location && { location: { contains: location, mode: 'insensitive' as const } }),
-                ...(fullTime != null && { fullTime }),
             };
 
             return await ctx.db.jobPostings.findMany({

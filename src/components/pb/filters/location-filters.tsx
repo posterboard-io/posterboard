@@ -21,7 +21,7 @@ import {
   CommandItem,
 } from "~/components/ui/command"
 
-export default function RolesDropDown() {
+export default function LocationFiltersSearch() {
     const { toast } = useToast();
     const [open, setOpen] = useState(false);
     const [selectedRole, setSelectedRole] = useState<string[]>([]);
@@ -42,7 +42,7 @@ export default function RolesDropDown() {
 
         setSelectedRole(newSelectedRoles);
         updateUserRoleMutation.mutate({ role: newSelectedRoles }, {
-            onSuccess: () => toast({ title: "Role Updated ✅" }),
+            onSuccess: () => toast({ title: "Location Updated ✅" }),
             onError: () => toast({ title: "Error updating role" })
         });
     };
