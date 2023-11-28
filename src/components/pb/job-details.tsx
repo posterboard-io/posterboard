@@ -20,7 +20,11 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
     // jobId: "652eaf9b3d6b62ab4956f635"
   })
 
-  const techStackAsStr = jobSpecificDetails.data?.companyTechStack?.join(", ")
+  let techStackAsStr = jobSpecificDetails.data?.companyTechStack?.join(", ")
+
+  if (techStackAsStr === undefined || techStackAsStr === null || techStackAsStr.length === 0) {
+    techStackAsStr = "Unknown"
+  }
 
   if (jobSpecificDetails.isLoading) {
     return <Loading />
@@ -98,10 +102,10 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
                 </Button>
               </div>
             </CardHeader>        
-            <CardContent>
-              <div 
+            <CardContent className="text-black dark:text-white">
+              <div
                 dangerouslySetInnerHTML={{ __html: jobSpecificDetails.data.jobDescription! }} 
-                className="text-sm"  
+                className="text-sm text-black dark:text-white"  
               />
             </CardContent>            
           </Card>

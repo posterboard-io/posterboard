@@ -12,7 +12,8 @@ import {
 } from "~/components/ui/card"
 import { 
   ArrowRight, Calendar, 
-  DollarSign, Terminal 
+  DollarSign, Terminal,
+  FileText
 } from "lucide-react"
 import {
   HoverCard,
@@ -98,14 +99,15 @@ export default function JobCard({
         </div>        
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Button variant="outline">
+            <FileText className="mr-2 h-4 w-4 text-orange-500"/>    
             <Link 
               href={`/search/details?jobExternalId=${externalId}`}
             >
-              View Details
-            </Link>
-            <ArrowRight className="ml-2 h-4 w-4 text-orange-500"/>            
+              
+              Details
+            </Link>                     
           </Button>
           <Button variant="outline">
             <HoverCard>
