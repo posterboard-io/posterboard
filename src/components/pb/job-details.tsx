@@ -16,8 +16,8 @@ import { Button } from "~/components/ui/button";
 export default function JobDetails({ jobExternalId }: { jobExternalId: string }) {
 
   const jobSpecificDetails = api.jobs.getJobDetails.useQuery({
-    // jobId: jobExternalId
-    jobId: "652eaf9b3d6b62ab4956f635"
+    jobId: jobExternalId
+    // jobId: "652eaf9b3d6b62ab4956f635"
   })
 
   const techStackAsStr = jobSpecificDetails.data?.companyTechStack?.join(", ")

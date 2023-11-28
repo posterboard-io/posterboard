@@ -118,6 +118,7 @@ export default function DashboardApplications() {
                                         techStack={job.jobPosting.companyTechStack}
                                         jobId={job.id}
                                         isSaved={allSavedJobIds!.includes(job.id)}
+                                        externalId={job.jobPosting.externalJobId!}
                                     />
                                 ))}
                             </div>

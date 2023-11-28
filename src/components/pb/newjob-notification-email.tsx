@@ -13,7 +13,7 @@ export interface RecommendedJobsProps {
 }
 
 export const newJobsForYouTemplate: React.FC<Readonly<NewJobsForYouProps>> = ({
-  firstName, userEmail, recommendedJobs[],
+  firstName, userEmail, recommendedJobs
 }) => (
   <div>
     <h1>
@@ -26,7 +26,7 @@ export const newJobsForYouTemplate: React.FC<Readonly<NewJobsForYouProps>> = ({
       {recommendedJobs.map((job =>
         <ul>
           <li key={job.jobID}>
-            {recommendedJobs}
+            {job.jobName}            
             <a href={job.jobURL}>
               Link
             </a>

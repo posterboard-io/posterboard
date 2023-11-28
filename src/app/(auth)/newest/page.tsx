@@ -91,6 +91,7 @@ export default async function NewestJobs() {
                                 techStack={job.companyTechStack}
                                 jobId={job.id}
                                 isSaved={allSavedJobIds!.includes(job.id)}
+                                externalId={job.externalJobId!}
                             />
                         ))}
                     </div>

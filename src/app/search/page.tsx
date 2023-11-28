@@ -145,6 +145,7 @@ export default function SearchPage() {
                             techStack={job.companyTechStack || "Unknown"}
                             jobId={job.id}
                             isSaved={allSavedJobIds!.includes(job.id)}
+                            externalId={job.externalJobId!}
                         />
                     ))}
                 </div>

@@ -26,13 +26,13 @@ import SaveJobButton from "~/components/pb/save-job-button";
 export default function JobCard({ 
   jobTitle, company, locationCity, locationState, locationCountry, 
   jobTeam, salaryLow, salaryHigh, salaryRange, jobLink, 
-  jobImage, someDate, techStack = [], jobId, isSaved
+  jobImage, someDate, techStack = [], jobId, isSaved, externalId
   }: { 
   jobTitle: string, company: string, locationCity: string, 
   locationState: string, locationCountry: string, jobTeam: string, 
   salaryLow: string, salaryHigh: string, salaryRange: string, 
   jobLink: string, jobImage: string, someDate: string, techStack?: string[],
-  jobId: number, isSaved: boolean }) {
+  jobId: number, isSaved: boolean, externalId: string }) {
     
 
     if (techStack.length === 0) {
@@ -100,6 +100,14 @@ export default function JobCard({
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Button variant="outline">
+            <Link 
+              href={`/search/details?jobExternalId=${externalId}`}
+            >
+              View Details
+            </Link>
+            <ArrowRight className="ml-2 h-4 w-4 text-orange-500"/>            
+          </Button>
+          <Button variant="outline">
             <HoverCard>
               <HoverCardTrigger>
                 <div className="flex flex-row space-x-2">
@@ -117,7 +125,7 @@ export default function JobCard({
                 </div>
               </HoverCardContent>
             </HoverCard>
-          </Button> 
+          </Button>
           <SaveJobButton
             jobId={jobId}
             isInitiallySaved={isSaved}
