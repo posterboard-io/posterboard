@@ -7,16 +7,13 @@ import {
     CardContent,
     CardFooter,
   } from "~/components/ui/card"
-import { Label } from "~/components/ui/label"
-import { api } from "~/trpc/react"
 import { Button } from "~/components/ui/button"
-import { Input } from "~/components/ui/input"
-import Link from "next/link"
 import { getServerAuthSession } from "~/server/auth"
 
 export default async function DashboardSettings() {
     
     const session = await getServerAuthSession() || null
+
     
     return (
         <div className="flex">
@@ -44,16 +41,18 @@ export default async function DashboardSettings() {
                     <Card className="w-full mt-4 p-4 flex justify-between items-center py-4">
                         <div>
                             <CardTitle className="text-2xl">                            
-                                Your Subscription - FREE
+                                Export Saved Jobs
                             </CardTitle>
                             <CardDescription className="text-md text-black dark:text-white">
-                                <p>
-                                    Manage your subscription details.
-                                </p>
+                                Export your saved jobs to a CSV file.
                             </CardDescription>
                         </div>
-                        <Button className="bg-black dark:bg-white text-white dark:text-black">
-                            Manage Subscription
+                        <Button 
+                            className="bg-black dark:bg-white text-white dark:text-black"
+                            
+                        >
+
+                            Download CSV
                         </Button>
                     </Card>                    
                     <Card className="w-full mt-4 p-4 flex justify-between items-center py-4">

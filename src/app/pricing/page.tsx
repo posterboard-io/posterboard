@@ -3,6 +3,9 @@ import { Icons } from "~/components/pb/icons"
 import { buttonVariants } from "~/components/ui/button"
 import { cn } from "~/lib/utils"
 
+// TODO: Add pricing page or not? This app does cost me money to run, but I'm not sure if I want to charge for it. Ads aren't really ideal either...
+
+
 export default function PricingPage() {
     return (
         <section className="container flex flex-col  gap-6 py-8 md:max-w-[64rem] md:py-12 lg:py-24">

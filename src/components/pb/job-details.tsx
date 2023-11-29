@@ -17,7 +17,6 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
 
   const jobSpecificDetails = api.jobs.getJobDetails.useQuery({
     jobId: jobExternalId
-    // jobId: "652eaf9b3d6b62ab4956f635"
   })
 
   let techStackAsStr = jobSpecificDetails.data?.companyTechStack?.join(", ")
@@ -43,6 +42,12 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
             <Button
               variant="outline" 
               className="bg-black dark:bg-white text-white dark:text-black"
+              onClick={
+                (e) => {
+                  e.preventDefault()
+                  window.history.back();
+                }
+              }
             >
               Back to Search
             </Button>
