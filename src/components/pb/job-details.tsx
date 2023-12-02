@@ -42,7 +42,13 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
           <div className="w-full flex justify-start py-4 px-4">
             <Button
               variant="outline" 
-              className="bg-black dark:bg-white text-white dark:text-black"
+              className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white"
+              onClick={
+                (e) => {
+                  e.preventDefault()
+                  window.history.back();
+                }
+              }
             >
               Back to Search
             </Button>
@@ -90,7 +96,7 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
               <div className="flex flex-row items-center justify-center py-2">
                 <Button
                   variant="outline" 
-                  className="bg-black dark:bg-white text-white dark:text-black"
+                  className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white"
                   onClick={
                     (e) => {
                       e.preventDefault()

@@ -20,6 +20,7 @@ import { ListBulletIcon } from "@radix-ui/react-icons"
 import ComboboxDemo from "~/components/pb/combo-box"
 import { useRouter, useSearchParams } from 'next/navigation'
 
+
 export default function SearchPage() {
     const [search, setSearch] = useState("");
 
@@ -73,7 +74,7 @@ export default function SearchPage() {
                     <div className="py-2">
                         <form className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 px-2">
                         <Input placeholder="Software Engineer" className="text-sm" onChange={handleSearch} />
-                        <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black" onClick={
+                        <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white" onClick={
                             (e) => {
                                 e.preventDefault()
                                 jobs.refetch()
@@ -95,7 +96,7 @@ export default function SearchPage() {
                 <div>
                 <Popover>
                     <PopoverTrigger>
-                        <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black">                            
+                        <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white">                            
                             Filter Results
                             <ListBulletIcon className="ml-2 h-4 w-4 text-white dark:text-black" />
                         </Button>
@@ -153,14 +154,14 @@ export default function SearchPage() {
             {jobs.data && jobs.data.length > 0 && (
                 <div className="flex justify-center py-4 px-4 gap-4">
                     <Button 
-                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
+                        className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
                         onClick={handlePreviousPage}
                         disabled={jobs.isLoading || page === 1}
                     >
                         ← Previous page
                     </Button>
                     <Button 
-                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
+                        className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
                         onClick={handleNextPage}
                         disabled={jobs.isLoading || jobs.data.length < 100 || page === roundedUpPages}
                     >

@@ -17,6 +17,4 @@ interface Question {
 
 function main() {
     const leetcodeProblems = JSON.parse(fs.readFileSync('./lc.json', 'utf8'));
-
-
 }

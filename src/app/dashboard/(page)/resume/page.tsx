@@ -53,7 +53,7 @@ export default async function DashboardResume() {
                         </CardContent>
                         <div className="text-center">      
                           <CardDescription className="text-md text-black dark:text-white py-2 items-center justify-center">
-                            <Button className="bg-black dark:bg-white text-white dark:text-black">
+                            <Button className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white">
                               Run Resume ATS
                             </Button>
                           </CardDescription>

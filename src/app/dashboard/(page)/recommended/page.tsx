@@ -52,7 +52,7 @@ export default function RecommendedJobs() {
                 </h1>
                 {didUserCompleteOnboarding.data?.didCompleteOnboarding ? (
                   <Button
-                    className="bg-black dark:bg-white text-white dark:text-black"
+                    className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white"
                     onClick={allowUserChanges}
                   >
                     Edit Preferences

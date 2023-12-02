@@ -52,7 +52,7 @@ export default async function DashboardSettings() {
                                 </p>
                             </CardDescription>
                         </div>
-                        <Button className="bg-black dark:bg-white text-white dark:text-black">
+                        <Button className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white">
                             Manage Subscription
                         </Button>
                     </Card>                    

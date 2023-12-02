@@ -10,11 +10,14 @@ const JobDetailPage = () => {
   const jobExternalId = searchParams.get('jobExternalId')
 
   if (!jobExternalId || Array.isArray(jobExternalId)) {
-    // Handle error or loading state
     return <Loading />;
   }
 
-  return <JobDetails jobExternalId={jobExternalId} />;
+  return (
+    <div className="min-h-screen">
+      <JobDetails jobExternalId={jobExternalId} />
+    </div>
+  )
 };
 
 export default JobDetailPage;
