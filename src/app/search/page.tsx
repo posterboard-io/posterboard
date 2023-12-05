@@ -2,7 +2,7 @@
 
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
-import JobCard from "~/components/pb/job-card"
+import JobCard from "~/components/pb/jobcard/job-card"
 import { 
     Card,
     CardTitle,
@@ -30,8 +30,13 @@ export default function SearchPage() {
     const router = useRouter()
 
     const jobs = api.jobs.searchJobs.useQuery({
-        query: search,
         page: page,
+        pageSize: 100,
+        query: search,
+        location: "CA",
+        
+
+        
     })
 
     const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({

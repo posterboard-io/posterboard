@@ -1,12 +1,12 @@
 "use client"
 
-import { DashboardShell } from "~/components/pb/dashboard-shell"
+import { DashboardShell } from "~/components/pb/dashboard/dashboard-shell"
 import { api } from "~/trpc/react"
-import { DashboardGraph } from "~/components/pb/dashboard-graph"
+import { DashboardGraph } from "~/components/pb/dashboard/dashboard-graph"
 import { StatsPieChart } from "~/components/pb/market-pie-chart"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import Link from "next/link"
-import DashboardCard from "~/components/pb/dashboard-card"
+import DashboardCard from "~/components/pb/dashboard/dashboard-card"
 
 interface TechStackItem {
     _count: {

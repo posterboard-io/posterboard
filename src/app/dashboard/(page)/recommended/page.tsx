@@ -1,6 +1,6 @@
 "use client"
 
-import { DashboardShell } from '~/components/pb/dashboard-shell'
+import { DashboardShell } from '~/components/pb/dashboard/dashboard-shell'
 import { api } from "~/trpc/react"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import BubbleSelect from '~/components/pb/bubble-select'

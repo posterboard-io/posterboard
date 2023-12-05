@@ -124,32 +124,41 @@ model JobPostings {
 }
 
 model UserSavedJobs {
-  id           Int         @id @default(autoincrement())
-  userId       String
-  jobPostingId Int // This should be an Int to match the JobPostings id type
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  jobPosting   JobPostings @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id               Int               @id @default(autoincrement())
+  userId           String
+  jobPostingId     Int // This should be an Int to match the JobPostings id type
+  jobPostingStatus JobPostingStatus? @default(Saved)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  jobPosting       JobPostings       @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, jobPostingId]) // A composite unique index ensures a user can't save the same job posting multiple times
 }
 
+enum JobPostingStatus {
+  Saved
+  Applied
+  RecievedResponse
+  Interviewing
+  PendingOffer
+  Rejected
+}
+
 model LeetcodeCompany {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
-  questions   LeetcodeQuestion[] 
+  id        Int                @id @default(autoincrement())
+  name      String             @unique
+  questions LeetcodeQuestion[]
 }
 
 model LeetcodeQuestion {
-  id          Int      @id @default(autoincrement())
-  name        String
-  link        String
-  numOccur    Int
-  company     LeetcodeCompany  @relation(fields: [companyId], references: [id])
-  companyId   Int
+  id        Int             @id @default(autoincrement())
+  name      String
+  link      String
+  numOccur  Int
+  company   LeetcodeCompany @relation(fields: [companyId], references: [id])
+  companyId Int
 }
-
 
 enum StripeSubscriptionStatus {
   incomplete

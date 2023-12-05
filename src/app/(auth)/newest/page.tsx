@@ -2,7 +2,7 @@
 
 import { api } from "~/trpc/react"
 import React, { useState, useMemo } from 'react'
-import JobCard from "~/components/pb/job-card"
+import JobCard from "~/components/pb/jobcard/job-card"
 import { useRouter, useSearchParams } from 'next/navigation'
 import Loading from "~/components/pb/utils/loading"
 import { Button } from "~/components/ui/button"

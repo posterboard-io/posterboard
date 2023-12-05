@@ -22,7 +22,7 @@ import {
 } from "~/components/ui/hover-card"
 import Image from "next/image"
 import Link from "next/link"
-import SaveJobButton from "~/components/pb/save-job-button";
+import SaveJobButton from "~/components/pb/jobcard/save-job-button";
 
 export default function JobCard({ 
   jobTitle, company, locationCity, locationState, locationCountry, 

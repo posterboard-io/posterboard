@@ -1,9 +1,13 @@
 "use client"
-import { useMemo } from "react";
+
 import { api } from "~/trpc/react";
 import Loading from "~/components/pb/utils/loading";
-import JobKanbanCard from "~/components/pb/job-card-kanban";
+import JobKanbanCard from "~/components/pb/jobcard/job-card-kanban";
 import { Card, CardContent, CardDescription, CardFooter, CardTitle, CardHeader } from "~/components/ui/card";
+
+import React, { useState, useEffect } from 'react';
+// Import other necessary components and hooks
+
 
 export default function TestPage() {
     return (

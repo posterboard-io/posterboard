@@ -1,4 +1,4 @@
-import { DashboardShell } from "~/components/pb/dashboard-shell"
+import { DashboardShell } from "~/components/pb/dashboard/dashboard-shell"
 import { Card } from "~/components/ui/card"
 import {
     CardHeader,

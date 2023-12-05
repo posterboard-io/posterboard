@@ -15,7 +15,7 @@ export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: numb
   const saveJobMutation = api.jobs.saveJob.useMutation({
     onSuccess: () => {
       toast({ title: "Application Saved ✅" });
-      setIsSaved(true); // Set to saved on success
+      setIsSaved(true); 
     },
     onError: () => toast({ title: "Error Saving Application" })
   });
@@ -23,7 +23,7 @@ export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: numb
   const unsaveJobMutation = api.jobs.removeJob.useMutation({
     onSuccess: () => {
       toast({ title: "Application Removed" });
-      setIsSaved(false); // Set to not saved on success
+      setIsSaved(false); 
     },
     onError: () => toast({ title: "Error Removing Application" })
   });
@@ -41,18 +41,18 @@ export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: numb
     <Button 
       variant="outline" 
       onClick={toggleSave}
-      className={`flex items-center ${isSaved ? 'text-red-500' : 'text-black dark:text-white'}`}
+      className={`flex items-center ${isSaved ? 'text-orange-600' : 'text-black dark:text-white'}`}
       disabled={saveJobMutation.isLoading || unsaveJobMutation.isLoading}
     >            
       {isSaved ? (
         <div className="flex flex-row">
           <BookmarkFilledIcon className="mr-2 h-4 w-4 transition-transform transform-gpu scale-100" />
-          Saved Application          
+          Saved
         </div>
       ) : (
         <div className="flex flex-row">
           <BookmarkIcon className="mr-2 h-4 w-4" />
-          Save Application          
+          Save Job          
         </div>
       )}
       

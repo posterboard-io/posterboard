@@ -197,7 +197,28 @@ export const jobsRouter = createTRPCRouter({
         }
       })
       return jobData
-    })
+    }),
+
+    updateJobStatus: protectedProcedure
+      .input(z.object({
+        jobId: z.number(),
+        status: z.enum(["Saved", "Applied", "RecievedResponse", "Interviewing", "PendingOffer", "Rejected"])
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const jobStatusUpdated = await ctx.db.userSavedJobs.update({
+          where: {
+            userId_jobPostingId: {
+              userId: ctx.session.user.id,
+              jobPostingId: input.jobId,
+            },
+          },
+          data: {
+            jobPostingStatus: input.status,
+          },
+        });
+
+        return jobStatusUpdated;
+      }),
 
 });
 
