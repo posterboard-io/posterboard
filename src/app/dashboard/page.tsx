@@ -8,9 +8,20 @@ import Link from "next/link"
 import DashboardCard from "~/components/pb/dashboard/dashboard-card"
 import { DashboardGraph, DashboardGraphProps } from "~/components/pb/dashboard/dashboard-graph"
 import { DashboardPieChart, DashboardPieProps } from "~/components/pb/dashboard/dashboard-piechart"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
-import { get } from "http"
+import { StatsPieChart } from "~/components/pb/market-pie-chart"
+import TreeMapDashboard from "~/components/pb/dashboard/dashboard-treemap"
 
+interface TechStackItem {
+  _count: {
+    companyTechStack: number;
+  };
+  companyTechStack: string[];
+}
+
+export interface TechCount {
+  name: string;
+  value: number;
+}
 
 
 export default function Dashboard() {
@@ -24,8 +35,6 @@ export default function Dashboard() {
   if (statusOfSavedJobs.data) {
     const userApplicationStatus = statusOfSavedJobs.data?.map(job => job.jobPostingStatus)
     const applicationStatusCount: { [status: string]: number } = {};
-
-    console.log(userApplicationStatus)
 
     userApplicationStatus.forEach(status => {
       if (applicationStatusCount[status!]) {
@@ -75,11 +84,37 @@ export default function Dashboard() {
   });
 
 
-  const userJobsAppliedSortedByMonth = savedJobsCount.data?.sort((a, b) => {
-    return new Date(b.createdAt).getMonth() - new Date(a.createdAt).getMonth()
-  })
+  const techStackQueryResult = api.jobs.getJobStatsTechStack.useQuery({ })
 
-  // console.log(`User applied to this many jobs this month: ${userJobsAppliedSortedByMonth?.length}`)
+  let sortedTechCounts: TechCount[] = [];
+
+  if (techStackQueryResult.data) {
+      const techStackData: TechStackItem[] = techStackQueryResult.data;    
+
+      const countTechOccurrences = (data: TechStackItem[], techNames: string[]): TechCount[] => {
+      // Explicitly define the type of counts
+      const counts: Record<string, number> = techNames.reduce((acc, tech) => ({ ...acc, [tech]: 0 }), {});
+      
+      data.forEach(item => {
+          techNames.forEach(tech => {
+          if (item.companyTechStack.includes(tech)) {
+              counts[tech] += 1;
+          }
+          });
+      });
+      
+      // Using type assertion to assure TypeScript that 'value' will always be a number
+      return Object.keys(counts).map(key => ({ name: key, value: counts[key] as number })).sort((a, b) => (b.value as number) - (a.value as number));
+      };
+      
+      sortedTechCounts = countTechOccurrences(techStackData, [
+          "Java", "Python", "C++", "Rust", "Go", "JavaScript", "TypeScript", "SQL", "C#", "Swift"
+      ]);            
+  }
+
+  const totalJobsSortedByRoleLevel = api.jobs.getAllJobsSortedByRoleLevel.useQuery()
+
+  console.log(totalJobsSortedByRoleLevel.data!.map(job => job.roleLevel))
 
   const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
     query: ""
@@ -158,6 +193,26 @@ export default function Dashboard() {
                       </CardHeader>
                       <CardContent className="pl-2">
                         <DashboardPieChart DashboardPieData={dashboardPieData} />
+                      </CardContent>
+                    </Card>
+                    <Card className="col-span-4">
+                      <CardHeader>
+                        <CardTitle>
+                          Tech Stack Breakdown
+                        </CardTitle>
+                      </CardHeader>                      
+                      <CardContent className="pl-2">
+                          <StatsPieChart data={sortedTechCounts} />
+                      </CardContent>
+                    </Card>
+                    <Card className="col-span-4">
+                      <CardHeader>
+                        <CardTitle>
+                          Company Open Positions
+                        </CardTitle>
+                      </CardHeader>                      
+                      <CardContent className="pl-2">
+                          <TreeMapDashboard />
                       </CardContent>
                     </Card>
                   </div>

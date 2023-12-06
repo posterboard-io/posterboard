@@ -236,5 +236,17 @@ export const jobsRouter = createTRPCRouter({
           jobPosting: savedJob.jobPosting,
         }));
       }),
+
+    getAllJobsSortedByRoleLevel: publicProcedure
+      .query(async ({ ctx }) => {
+        const jobs = await ctx.db.jobPostings.groupBy({
+          by: ["roleLevel"],
+          _count: {
+            roleLevel: true,
+          },
+        });
+
+        return jobs;
+      }),
 });
 

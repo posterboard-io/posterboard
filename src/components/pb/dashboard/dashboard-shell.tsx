@@ -48,14 +48,6 @@ export function DashboardShell() {
               </div>
             </Link>
           </Button>
-          <Button onClick={() => setActiveLink('/dashboard/stats')} className={`w-full flex items-center space-x-2 bg-inherit hover:bg-gray-500 active:bg-gray-300 py-2 px-2 rounded-lg ${activeLink === '/dashboard/stats' ? 'text-black' : 'text-gray-500'}`}>
-            <Link href="/dashboard/stats">
-              <div className="flex items-center">
-                <Sigma className={`w-4 h-4 ${activeLink === '/dashboard/stats' ? 'text-black dark:text-white' : 'text-gray-500'} hover:text-blue-600 active:text-gray-900 text-black dark:text-white`} />
-                <span className="text-sm font-medium px-2 text-black dark:text-white">Stats</span>                
-              </div>
-            </Link>
-          </Button>
           <Button onClick={() => setActiveLink('/dashboard/settings')} className={`w-full flex items-center space-x-2 bg-inherit hover:bg-gray-500 active:bg-gray-300 py-2 px-2 rounded-lg ${activeLink === '/dashboard/settings' ? 'text-black' : 'text-gray-500'}`}>
             <Link href="/dashboard/settings">
               <div className="flex items-center">

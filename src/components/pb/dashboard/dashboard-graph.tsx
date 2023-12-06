@@ -1,11 +1,14 @@
 "use client"
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell } from "recharts"
 
 export interface DashboardGraphProps {
     name: string,
     total: number
 }
+
+const COLORS = ['#fb923c',  '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb'];
+
 
 export function DashboardGraph({ DashboardGraphData }: { DashboardGraphData?: DashboardGraphProps[] } ) {
   return (
@@ -27,7 +30,11 @@ export function DashboardGraph({ DashboardGraphData }: { DashboardGraphData?: Da
           axisLine={false}
           tickFormatter={(value) => `${value}`}
         />
-        <Bar dataKey="total" fill="#E17439" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="total" radius={[4, 4, 0, 0]}>
+          {DashboardGraphData?.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   )
