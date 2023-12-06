@@ -5,6 +5,7 @@ import { Button } from "~/components/ui/button"
 import JobCard from "~/components/pb/jobcard/job-card"
 import { 
     Card,
+    CardContent,
     CardTitle,
 } from "~/components/ui/card"
 import { Search } from "lucide-react"
@@ -125,6 +126,9 @@ export default function SearchPage() {
                         </Button>
                         </form>
                     </div>
+                    <CardContent className="flex flex-col space-y-2 px-2 py-2">
+                        asdfasdf
+                    </CardContent>
                 </Card>
             </div>
             <div className="flex flex-row justify-between items-center space-x-4 px-4 py-2">            
