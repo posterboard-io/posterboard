@@ -1,6 +1,37 @@
 "use client"
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
+
+export interface DashboardGraphProps {
+    name: string,
+    total: number
+}
+
+export function DashboardGraph({ DashboardGraphData }: { DashboardGraphData?: DashboardGraphProps[] } ) {
+  return (
+    <ResponsiveContainer width="100%" height={350}>
+      <BarChart data={DashboardGraphData}>
+        <XAxis
+          dataKey="name"
+          stroke="#888888"
+          fontSize={8}
+          tickLine={true}
+          axisLine={false}
+          angle={-30} // Rotate the labels by -45 degrees
+          textAnchor="end" // Align the labels to the end of the tick
+        />
+        <YAxis
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `${value}`}
+        />
+        <Bar dataKey="total" fill="#E17439" radius={[4, 4, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  )
+}
 
 export const data = [
   {
@@ -52,32 +83,3 @@ export const data = [
     total: Math.floor(Math.random() * 50) + 5,
   },
 ]
-
-export interface DashboardGraphProps {
-    name: string,
-    total: number
-}
-
-export function DashboardGraph({ DashboardGraphData }: { DashboardGraphData?: DashboardGraphProps } ) {
-  return (
-    <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `${value}`}
-        />
-        <Bar dataKey="total" fill="#E17439" radius={[4, 4, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
-  )
-}

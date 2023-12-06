@@ -6,7 +6,7 @@ import Loading from "~/components/pb/utils/loading"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import Link from "next/link"
 import DashboardCard from "~/components/pb/dashboard/dashboard-card"
-import { DashboardGraph } from "~/components/pb/dashboard/dashboard-graph"
+import { DashboardGraph, DashboardGraphProps } from "~/components/pb/dashboard/dashboard-graph"
 import { DashboardPieChart, DashboardPieProps } from "~/components/pb/dashboard/dashboard-piechart"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { get } from "http"
@@ -16,6 +16,34 @@ import { get } from "http"
 export default function Dashboard() {
 
   const savedJobsCount = api.jobs.getSavedJobs.useQuery()
+
+  const statusOfSavedJobs = api.jobs.getStatusOfSavedJobs.useQuery()
+  
+  let dashboardGraphData: DashboardGraphProps[] = [];
+
+  if (statusOfSavedJobs.data) {
+    const userApplicationStatus = statusOfSavedJobs.data?.map(job => job.jobPostingStatus)
+    const applicationStatusCount: { [status: string]: number } = {};
+
+    console.log(userApplicationStatus)
+
+    userApplicationStatus.forEach(status => {
+      if (applicationStatusCount[status!]) {
+        applicationStatusCount[status!] += 1;
+      } else {
+        applicationStatusCount[status!] = 1;
+      }
+    });
+
+    dashboardGraphData = [
+      { name: "Saved", total: applicationStatusCount["Saved"] || 0 },
+      { name: "Applied", total: applicationStatusCount["Applied"] || 0 },
+      { name: "Response", total: applicationStatusCount["RecievedResponse"] || 0 },
+      { name: "Interviewing", total: applicationStatusCount["Interviewing"] || 0 },
+      { name: "Pending", total: applicationStatusCount["PendingOffer"] || 0 },
+      { name: "Rejected", total: applicationStatusCount["Rejected"] || 0 },
+    ];
+  }
 
   const jobCount = savedJobsCount.data?.length
 
@@ -77,7 +105,6 @@ export default function Dashboard() {
             <div className="flex flex-col">
               <Card className="flex flex-col space-y-2">
                 <CardTitle className="flex flex-col py-2 px-2">
-                  {/* Put some text here?  + Add in additional details below? */}
                 </CardTitle>
                 <CardContent className="flex flex-col space-y-2">
                   <div className="grid grid-cols-4 gap-4">
@@ -115,31 +142,14 @@ export default function Dashboard() {
                     </Link>
                   </div>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
-                    <Card className="col-span-4">
+                    <Card className="col-span-4 flex-grow">
                       <CardHeader>
-                        <CardTitle>Total Applications</CardTitle>
+                        <CardTitle>Application Status</CardTitle>
                       </CardHeader>
-                      <CardContent className="pl-2">
-                        <div className="flex flex-col">
-                          <Tabs defaultValue="YTD">
-                            <TabsContent value="YTD">
-                              <DashboardGraph />
-                            </TabsContent>
-                            <TabsContent value="All">
-                              <DashboardGraph />
-                            </TabsContent>
-                            <div className="flex items-center justify-center">
-                              <TabsList>
-                                <TabsTrigger value="YTD">
-                                  YTD
-                                </TabsTrigger>
-                                <TabsTrigger value="All">
-                                  All Time
-                                </TabsTrigger>
-                              </TabsList>
-                            </div>
-                          </Tabs>
-                        </div>
+                      <CardContent className="flex-grow">
+                        <DashboardGraph 
+                          DashboardGraphData={dashboardGraphData!}
+                        />
                       </CardContent>
                     </Card>
                     <Card className="col-span-4">

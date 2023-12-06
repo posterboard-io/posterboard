@@ -220,5 +220,21 @@ export const jobsRouter = createTRPCRouter({
         return jobStatusUpdated;
       }),
 
+    getStatusOfSavedJobs: protectedProcedure
+      .query(async ({ ctx }) => {
+        const savedJobs = await ctx.db.userSavedJobs.findMany({
+          where: {
+            userId: ctx.session.user.id,
+          },
+          include: {
+            jobPosting: true, // Assuming you want to include the details of the job postings
+          },
+        });
+
+        return savedJobs.map((savedJob) => ({
+          ...savedJob,
+          jobPosting: savedJob.jobPosting,
+        }));
+      }),
 });
 

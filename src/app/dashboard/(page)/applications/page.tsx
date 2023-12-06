@@ -22,7 +22,6 @@ type ColumnsType = {
     [key in keyof typeof JobPostingStatus]: number[];
 };
 
-
 export interface StatusMap {
     [key: string]: JobPostingStatus;
 }
@@ -68,9 +67,8 @@ export default function DashboardApplications() {
         moveJobToColumn(jobId, targetColumn);
     };
 
-
     
-      const moveJobToColumn = (jobId: number, targetColumn: string) => {
+    const moveJobToColumn = (jobId: number, targetColumn: string) => {
         let newColumns = { ...columns };
     
         // Remove the jobId from all columns first
