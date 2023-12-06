@@ -114,13 +114,25 @@ export default function Dashboard() {
 
   const totalJobsSortedByRoleLevel = api.jobs.getAllJobsSortedByRoleLevel.useQuery()
 
-  console.log(totalJobsSortedByRoleLevel.data!.map(job => job.roleLevel))
+  // const countRoleTypeAtCompany = (data: any[], roleTypes: string[]): TechCount[] => {
+  //   const counts: Record<string, number> = roleTypes.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
+    
+  //   data.forEach(item => {
+  //     roleTypes.forEach(role => {
+  //       if (item.jobPosting.companyRoleType.includes(role)) {
+  //         counts[role] += 1;
+  //       }
+  //     });
+  //   });
+    
+  //   return Object.keys(counts).map(key => ({ name: key, value: counts[key] as number })).sort((a, b) => (b.value as number) - (a.value as number));
+  // }
 
   const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
     query: ""
   })
 
-  if (savedJobsCount.isLoading) {
+  if (savedJobsCount.isLoading || statusOfSavedJobs.isLoading || userJobPrefrences.isLoading || recommendedFeed.isLoading || techStackQueryResult.isLoading || totalJobsSortedByRoleLevel.isLoading || totalJobs.isLoading) {
     return <Loading />
   }
 
