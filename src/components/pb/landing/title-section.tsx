@@ -25,7 +25,7 @@ export default function TitleSectionLanding() {
             where developers can find verified jobs, from real companies with real people.
           </p>
           <div className="space-x-4">
-            <Button className="text-white">
+            <Button className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white">
               <Link href="/login">
                 Get Started
               </Link>

@@ -1,8 +1,15 @@
-import { JWT } from "next-auth/jwt"
-import type { Icon } from "lucide-react"
-
 import { Icons } from "~/components/pb/icons"
 
+
+export interface TreeMapCompanyData {
+  name: string;
+  children: PositionData[];
+}
+
+export interface PositionData {
+  name: string;
+  size: number;
+}
 
 export type StripePlans = {
   name: string

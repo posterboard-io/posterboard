@@ -137,7 +137,7 @@ export default function RecommendedJobs() {
                             <hr className="" />
                             <CardContent>
                               <div className="flex flex-col justify-center items-center py-4">
-                                <Button className="bg-black dark:bg-white text-white dark:text-black" onClick={setUserAsComplete}>
+                                <Button className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white" onClick={setUserAsComplete}>
                                   See Recommended Jobs
                                 </Button>
                               </div>

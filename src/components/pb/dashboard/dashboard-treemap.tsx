@@ -39,7 +39,6 @@ const data = [
 
 const CustomizedContent = (props: any) => {
   const { root, depth, x, y, width, height, index, colors, name, value } = props;
-  console.log(value);
 
   return (
     <g>
@@ -80,23 +79,33 @@ const CustomizedContent = (props: any) => {
 
 const COLORS = ['#fb923c',  '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb'];
 
+export interface TreeMapCompanyData {
+    name: string;
+    children: PositionData[];
+  }
+  
+export interface PositionData {
+    name: string;
+    size: number;
+}
+  
 
-export default function TreeMapDashboard() {
+export default function TreeMapDashboard({ TreeMapDashboardData }: { TreeMapDashboardData?: TreeMapCompanyData[] } ) {
   return (
     <div className="flex flex-col items-center justify-center px-4">
-    <ResponsiveContainer width="100%" height={350}>
-    <Treemap
-    //   width={400}
-    //   height={400}
-      data={data}
-      dataKey="size"
-      stroke="#fff"
-      fill="#8884d8"
-      content={<CustomizedContent colors={COLORS} />}
-    >
-      <Tooltip />
-    </Treemap>
-    </ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={350}>
+            <Treemap
+                //   width={400}
+                //   height={400}
+                data={TreeMapDashboardData || data}
+                dataKey="size"
+                stroke="#fff"
+                fill="#8884d8"
+                content={<CustomizedContent colors={COLORS} />}
+                >
+                <Tooltip />
+            </Treemap>
+        </ResponsiveContainer>
     </div>
   );
 }

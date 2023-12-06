@@ -240,9 +240,10 @@ export const jobsRouter = createTRPCRouter({
     getAllJobsSortedByRoleLevel: publicProcedure
       .query(async ({ ctx }) => {
         const jobs = await ctx.db.jobPostings.groupBy({
-          by: ["roleLevel"],
+          by: ["roleLevel", "company"],
           _count: {
             roleLevel: true,
+            company: true,
           },
         });
 

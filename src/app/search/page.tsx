@@ -51,8 +51,6 @@ export default function SearchPage() {
       
     const roundedUpPages = Math.ceil(totalPages)
 
-    console.log(roundedUpPages)
-
     const showingJobsTotal = jobs.data?.length! * page
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {        

@@ -9,7 +9,7 @@ import DashboardCard from "~/components/pb/dashboard/dashboard-card"
 import { DashboardGraph, DashboardGraphProps } from "~/components/pb/dashboard/dashboard-graph"
 import { DashboardPieChart, DashboardPieProps } from "~/components/pb/dashboard/dashboard-piechart"
 import { StatsPieChart } from "~/components/pb/market-pie-chart"
-import TreeMapDashboard from "~/components/pb/dashboard/dashboard-treemap"
+import TreeMapDashboard  from "~/components/pb/dashboard/dashboard-treemap"
 
 interface TechStackItem {
   _count: {
@@ -23,6 +23,21 @@ export interface TechCount {
   value: number;
 }
 
+interface RawData {
+  _count: { roleLevel: number; company: number };
+  roleLevel: string;
+  company: string;
+}
+
+export interface TreeMapCompanyData {
+  name: string;
+  children: PositionData[];
+}
+
+export interface PositionData {
+  name: string;
+  size: number;
+}
 
 export default function Dashboard() {
 
@@ -112,27 +127,36 @@ export default function Dashboard() {
       ]);            
   }
 
-  const totalJobsSortedByRoleLevel = api.jobs.getAllJobsSortedByRoleLevel.useQuery()
+  const transformData = (rawData: RawData[]): TreeMapCompanyData[] => {
+    const groupedData: Record<string, PositionData[]> = {};
 
-  // const countRoleTypeAtCompany = (data: any[], roleTypes: string[]): TechCount[] => {
-  //   const counts: Record<string, number> = roleTypes.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
-    
-  //   data.forEach(item => {
-  //     roleTypes.forEach(role => {
-  //       if (item.jobPosting.companyRoleType.includes(role)) {
-  //         counts[role] += 1;
-  //       }
-  //     });
-  //   });
-    
-  //   return Object.keys(counts).map(key => ({ name: key, value: counts[key] as number })).sort((a, b) => (b.value as number) - (a.value as number));
-  // }
+    rawData.forEach(item => {
+        const companyName = item.company;
+        const positionName = item.roleLevel;
+        const positionSize = item._count.roleLevel; // Assuming this is the correct field for size
+
+        if (!groupedData[companyName]) {
+            groupedData[companyName] = [];
+        }
+
+        groupedData[companyName]!.push({ name: positionName, size: positionSize });
+    });
+
+    return Object.entries(groupedData).map(([name, children]) => ({
+        name,
+        children
+    }));
+};
+
+  // Usage example
+  const totalJobsSortedByRoleLevel = api.jobs.getAllJobsSortedByRoleLevel.useQuery().data;
+  const treeMapData = totalJobsSortedByRoleLevel ? transformData(totalJobsSortedByRoleLevel) : [];
 
   const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
     query: ""
   })
 
-  if (savedJobsCount.isLoading || statusOfSavedJobs.isLoading || userJobPrefrences.isLoading || recommendedFeed.isLoading || techStackQueryResult.isLoading || totalJobsSortedByRoleLevel.isLoading || totalJobs.isLoading) {
+  if (savedJobsCount.isLoading || statusOfSavedJobs.isLoading || userJobPrefrences.isLoading || recommendedFeed.isLoading || techStackQueryResult.isLoading || totalJobs.isLoading || !dashboardGraphData || !dashboardPieData || !sortedTechCounts || !treeMapData) {
     return <Loading />
   }
 
@@ -224,7 +248,9 @@ export default function Dashboard() {
                         </CardTitle>
                       </CardHeader>                      
                       <CardContent className="pl-2">
-                          <TreeMapDashboard />
+                          <TreeMapDashboard 
+                            TreeMapDashboardData={treeMapData}
+                          />
                       </CardContent>
                     </Card>
                   </div>
