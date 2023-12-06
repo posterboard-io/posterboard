@@ -12,7 +12,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/components/ui/hover-card"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { Button } from "~/components/ui/button"
 import React, { useState } from 'react';
 import {

@@ -15,7 +15,7 @@ export const jobsRouter = createTRPCRouter({
       location: z.string().optional().nullable(),
       techStack: z.string().optional().nullable(),
       compensationRange: z.string().optional().nullable(),
-      roleLevel: z.string().optional().nullable(),
+      roleLevel: z.string().array().optional().nullable(),
     }))
     .query(async ({ ctx, input }) => {
       const { page, pageSize, query, location } = input;

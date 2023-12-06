@@ -20,7 +20,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/components/ui/hover-card"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import Link from "next/link"
 import SaveJobButton from "~/components/pb/jobcard/save-job-button";
 

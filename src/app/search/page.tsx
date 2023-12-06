@@ -19,29 +19,66 @@ import {
 import { ListBulletIcon } from "@radix-ui/react-icons"
 import ComboboxDemo from "~/components/pb/combo-box"
 import { useRouter, useSearchParams } from 'next/navigation'
-
+import { 
+    techStacks, 
+    currentLevels, 
+    citySizes, 
+    roles, 
+    companySizes, 
+    compensationRanges, 
+    industryTypes 
+} from "~/components/pb/tech-stacks"
+import { useToast } from '~/components/ui/use-toast'
+import { Check, ChevronsUpDown } from "lucide-react"
+import { cn } from "~/lib/utils"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "~/components/ui/command"
+import { set } from "zod"
 
 export default function SearchPage() {
     const [search, setSearch] = useState("");
+    const { toast } = useToast();
+    const [openLevel, setOpenLevel] = useState(false);
+    const [selectedLevel, setSelectedLevel] = useState<string[]>([]);
+
+    const selectedLabels = selectedLevel.map(value =>
+        currentLevels.find(level => level.value === value)?.label
+    ).join(", ") || "Select levels...";
 
     const searchParams = useSearchParams()
     const page = parseInt(searchParams?.get('page') ?? '1', 10);
 
     const router = useRouter()
 
+    const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
+        query: search
+    })
+
+
     const jobs = api.jobs.searchJobs.useQuery({
         page: page,
         pageSize: 100,
         query: search,
         location: "CA",
-        
-
-        
+        techStack: "React",
+        compensationRange: "100000-200000",
+        roleLevel:  selectedLevel || null,
     })
 
-    const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({
-        query: search
-    })
+    console.log(selectedLevel)
+
+    const handleSelect = (currentValue: string) => {
+        const newSelectedLevels = selectedLevel.includes(currentValue)
+            ? selectedLevel.filter(value => value !== currentValue)
+            : [...selectedLevel, currentValue];
+        setSelectedLevel(newSelectedLevels);
+        console.log(currentValue)
+    }
 
     const savedJobs = api.jobs.getSavedJobs.useQuery();    
     
@@ -118,7 +155,46 @@ export default function SearchPage() {
                                 <p className="text-sm font-semibold">Compensation</p>
                                 <ComboboxDemo />
                                 <p className="text-sm font-semibold">Level</p>
-                                <ComboboxDemo />
+                                {/*  */}
+                                <div className="my-4">
+                                        <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                                            <PopoverTrigger asChild>
+                                                <Button
+                                                    variant="outline"
+                                                    role="combobox"
+                                                    aria-expanded={openLevel}
+                                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                                >
+                                                {selectedLabels}
+                                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-[200px] p-0">
+                                                <Command>
+                                                <CommandInput placeholder="Search Levels..." />
+                                                <CommandEmpty>No level found.</CommandEmpty>
+                                                <CommandGroup>
+                                                    {currentLevels.map((level) => (
+                                                    <CommandItem
+                                                        key={level.value}
+                                                        value={level.value}
+                                                        onSelect={() => handleSelect(level.value)}
+                                                    >
+                                                        <Check
+                                                        className={cn(
+                                                            "mr-2 h-4 w-4",
+                                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                                        )}
+                                                        />
+                                                        {level.label}
+                                                    </CommandItem>
+                                                    ))}
+                                                </CommandGroup>
+                                            </Command>
+                                        </PopoverContent>
+                                    </Popover>
+                                </div>
+                                {/*  */}
                             </div>
                         </div>
                     </PopoverContent>

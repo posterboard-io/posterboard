@@ -4,7 +4,7 @@ import { cn } from "~/lib/utils"
 import { buttonVariants } from "~/components/ui/button"
 import { UserAuthForm } from "~/components/pb/user-auth-form"
 import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
-import Image from "next/image"
+import Image from "next/legacy/image"
 
 
 export const metadata = {

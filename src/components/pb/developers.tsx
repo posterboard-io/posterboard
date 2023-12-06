@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import DevelopersGif from "public/gifs/developers.gif"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 

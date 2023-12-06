@@ -1,5 +1,5 @@
 import posterboardClear from "../../../public/svg/posterboard-clear.svg"
-import Image, { StaticImageData } from "next/image"
+import Image, { StaticImageData } from "next/legacy/image"
 
 export default function ClearLogo() {
     const posterboardClearImage: StaticImageData = posterboardClear
@@ -9,6 +9,8 @@ export default function ClearLogo() {
                 src={posterboardClearImage} 
                 alt="Posterboard" 
                 className="h-12 w-12"
+                width={48}
+                height={48}
             />
         </div>
     )

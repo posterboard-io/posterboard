@@ -1,5 +1,5 @@
 "use client"
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { api } from "~/trpc/react";
 import Loading from "~/components/pb/utils/loading"
 import ErrorPage from "~/components/pb/utils/error-page"

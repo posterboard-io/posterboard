@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import SignOutButton from '~/components/pb/sign-out-button'
 import { getServerAuthSession } from '~/server/auth'
 import CommandBox from '~/components/pb/command-box'

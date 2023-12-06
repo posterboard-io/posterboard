@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { UserAuthForm } from "~/components/pb/user-auth-form"
 import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { getServerAuthSession } from "~/server/auth"
 
 

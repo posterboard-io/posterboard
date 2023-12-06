@@ -1,6 +1,6 @@
 "use client"
 import posterboardClear from "~/../public/png/posterboard.png"
-import Image, { StaticImageData } from "next/image"
+import Image, { StaticImageData } from "next/legacy/image"
 
 export default function Product() {
     const posterboardClearImage: StaticImageData = posterboardClear
