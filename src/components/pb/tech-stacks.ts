@@ -109,12 +109,22 @@ export type CompanySizeType = "Big" | "Medium" | "Small" | "Startup"
 export type CitySizeType = "Phoenix, AZ" | "San Francisco, CA" | "New York, NY" | "Los Angeles, CA" | "Chicago, IL" | "Houston, TX" | "Miami, FL" | "Seattle, WA" | "Dallas, TX" | "Boston, MA" | "Philadelphia, PA" | "San Diego, CA" | "Denver, CO" | "Atlanta, GA" | "Nashville, TN" | "Minneapolis, MN" | "San Antonio, TX" | "Orlando, FL" | "Austin, TX" | "Detroit, MI" | "Portland, OR" | "Las Vegas, NV" | "Baltimore, MD" | "Cleveland, OH" | "Sacramento, CA" | "Remote"
 export type IndustryType = "Finance" | "Fintech" | "Crypto/Blockchain" | "Solar/Energy" | "AI/Machine Learning" | "IoT" | "eCommerce" |  "Cloud Computing" | "Augmented Reality/Virtual Reality" | "Cybersecurity" | "Healthcare" | "Education" | "Government" | "Retail" | "Manufacturing" | "Transportation" | "Technology" | "Gaming" | "Telecommunications" | "Other";
 
+export interface PageSize {
+    value: number
+    label: string
+}
 
 export interface RolesAndGrowthProps {
     value: string
     label: string
 }
 
+export const pageSizeOptions: PageSize[] = [
+    { value: 10, label: "10" },
+    { value: 25, label: "25" },
+    { value: 50, label: "50" },
+    { value: 100, label: "100" },
+]
 
 export const currentLevels: RolesAndGrowthProps[] = [
     { value: "Intern", label: "Intern" },

@@ -27,7 +27,8 @@ export default async function Header() {
           <Link href="/">
             <div className="flex items-center gap-2 md:gap-4">
               <ClearLogo />
-              <h1 className="font-bold text-lg md:text-xl">Posterboard</h1>
+                <h1 className="font-bold text-lg md:text-xl">Posterboard</h1>
+                <span className="text-muted-foreground bg-muted px-1 text-xs rounded-sm">Beta</span>
             </div>
           </Link>
           </div>

@@ -7,7 +7,8 @@ import { buttonVariants } from "~/components/ui/button"
 import { cn } from "~/lib/utils"
 import Developers from "~/components/pb/developers"
 import TitleSectionLanding from "~/components/pb/landing/title-section"
-
+import LandingCountUpJobs from "~/components/pb/landing/landing-count-up-jobs"
+import NotifyOnLaunch from "~/components/pb/landing/notify-when-launch"
 
 export default async function Home() {
   return (
@@ -93,28 +94,31 @@ export default async function Home() {
               </div>
             </div>
           </div>
-        </div>        
+        </div>     
+        
       </section>
-      <section id="open-source" className="container py-8 md:py-12 lg:py-24">
+      <hr className="border-t border-foreground/10" />
+      <section className="container py-8 md:py-12 lg:py-24"
+        style={{
+          background: "radial-gradient(at bottom, #ff8f3e, transparent 70%)"
+        }}>
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
           <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-            Proudly Open Source.
+            Develop Your Career, One Commit at a Time.
           </h2>
           <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-            We aren&apos;t here to farm data or waste anyone&apos;s time. We&apos;re here to help fellow Developers. <br />{" "}
-            Find us on{" "}
-            <Link
-              href="https://github.com/posterboard-io"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4"
-            >
-              GitHub
-            </Link>
-            .{" "}
+            High quality jobs, from verified high quality companies. 
+            We&apos;re here to help you find your next job.            
           </p>
-        </div>
-      </section>   
+          <LandingCountUpJobs />          
+        </div>        
+      </section>
+
+      {/* <hr className="border-t border-foreground/10" />
+      <section className="container py-8 md:py-12 lg:py-24">
+        <NotifyOnLaunch />
+      </section> */}
+
       
       {/* <section className="container flex flex-col  gap-6 py-8 md:max-w-[64rem] md:py-12 lg:py-24">
             <div className="mx-auto flex w-full flex-col gap-4 md:max-w-[58rem]">

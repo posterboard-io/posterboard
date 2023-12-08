@@ -27,7 +27,8 @@ import {
     roles, 
     companySizes, 
     compensationRanges, 
-    industryTypes 
+    industryTypes,
+    pageSizeOptions,
 } from "~/components/pb/tech-stacks"
 import { useToast } from '~/components/ui/use-toast'
 import { Check, ChevronsUpDown } from "lucide-react"
@@ -40,6 +41,7 @@ import {
   CommandItem,
 } from "~/components/ui/command"
 import { set } from "zod"
+import ErrorPage from "~/components/pb/utils/error-page"
 
 export default function SearchPage() {
     const [search, setSearch] = useState("");
@@ -60,10 +62,9 @@ export default function SearchPage() {
         query: search
     })
 
-
     const jobs = api.jobs.searchJobs.useQuery({
         page: page,
-        pageSize: 100,
+        pageSize: 10,
         query: search,
         location: "CA",
         techStack: "React",
@@ -85,7 +86,7 @@ export default function SearchPage() {
     
     const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
 
-    const totalPages = totalJobs.data ? totalJobs.data / 100 : 1
+    const totalPages = totalJobs.data ? totalJobs.data / 10 : 1
       
     const roundedUpPages = Math.ceil(totalPages)
 
@@ -104,6 +105,21 @@ export default function SearchPage() {
         const previousPage = page - 1
         router.push(`/search?page=${previousPage}`)
     }    
+
+    if (jobs.error) {
+        toast({
+            title: "An error occurred. We've been notified and are working on it!",
+        })
+        return (
+            <ErrorPage />
+        )        
+    }
+
+    if (jobs.isLoading || !jobs.data || !totalJobs.data || !savedJobs.data || !allSavedJobIds || !roundedUpPages) {
+        return (
+            <Loading />
+        )
+    }
 
     return (
         <div className="min-h-screen"> 
@@ -126,90 +142,201 @@ export default function SearchPage() {
                         </Button>
                         </form>
                     </div>
-                    <CardContent className="flex flex-col space-y-2 px-2 py-2">
-                        asdfasdf
-                    </CardContent>
-                </Card>
+                    <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-center">
+                        {/*  */}
+                        <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Search Levels..." />
+                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandGroup>
+                                    {currentLevels.map((level) => (
+                                    <CommandItem
+                                        key={level.value}
+                                        value={level.value}
+                                        onSelect={() => handleSelect(level.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {level.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    {/*  */}
+                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Search Levels..." />
+                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandGroup>
+                                    {currentLevels.map((level) => (
+                                    <CommandItem
+                                        key={level.value}
+                                        value={level.value}
+                                        onSelect={() => handleSelect(level.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {level.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    {/*  */}
+                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Search Levels..." />
+                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandGroup>
+                                    {currentLevels.map((level) => (
+                                    <CommandItem
+                                        key={level.value}
+                                        value={level.value}
+                                        onSelect={() => handleSelect(level.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {level.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    {/*  */}
+                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Search Levels..." />
+                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandGroup>
+                                    {currentLevels.map((level) => (
+                                    <CommandItem
+                                        key={level.value}
+                                        value={level.value}
+                                        onSelect={() => handleSelect(level.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {level.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    {/*  */}
+                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Search Levels..." />
+                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandGroup>
+                                    {currentLevels.map((level) => (
+                                    <CommandItem
+                                        key={level.value}
+                                        value={level.value}
+                                        onSelect={() => handleSelect(level.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {level.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    {/*  */}
+                </CardContent>
+            </Card>
             </div>
             <div className="flex flex-row justify-between items-center space-x-4 px-4 py-2">            
-                <div>
-                    <h3 className="text-lg font-semibold">                    
-                        Showing {showingJobsTotal} of {totalJobs.data} {search} Jobs
-                    </h3>
-                </div>                
-                <div>
-                <Popover>
-                    <PopoverTrigger>
-                        <Button variant="outline" className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white">                            
-                            Filter Results
-                            <ListBulletIcon className="ml-2 h-4 w-4 text-white dark:text-black" />
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent>
-                        <div className="flex flex-col space-y-2 px-2 py-2">
-                            <div className="flex justify-start">
-                                <p className="text-lg font-semibold">Filters</p>
-                            </div>
-                            <hr className="border-gray-300 dark:border-gray-700" />
-                            <div className="flex flex-col items-start space-y-2 px-4 py-2">
-                                <p className="text-sm font-semibold">Tech Stack</p>
-                                <ComboboxDemo />
-                                <p className="text-sm font-semibold">Location</p>
-                                <ComboboxDemo />
-                                <p className="text-sm font-semibold">Compensation</p>
-                                <ComboboxDemo />
-                                <p className="text-sm font-semibold">Level</p>
-                                {/*  */}
-                                <div className="my-4">
-                                        <Popover open={openLevel} onOpenChange={setOpenLevel}>
-                                            <PopoverTrigger asChild>
-                                                <Button
-                                                    variant="outline"
-                                                    role="combobox"
-                                                    aria-expanded={openLevel}
-                                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
-                                                >
-                                                {selectedLabels}
-                                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                                </Button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="w-[200px] p-0">
-                                                <Command>
-                                                <CommandInput placeholder="Search Levels..." />
-                                                <CommandEmpty>No level found.</CommandEmpty>
-                                                <CommandGroup>
-                                                    {currentLevels.map((level) => (
-                                                    <CommandItem
-                                                        key={level.value}
-                                                        value={level.value}
-                                                        onSelect={() => handleSelect(level.value)}
-                                                    >
-                                                        <Check
-                                                        className={cn(
-                                                            "mr-2 h-4 w-4",
-                                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
-                                                        )}
-                                                        />
-                                                        {level.label}
-                                                    </CommandItem>
-                                                    ))}
-                                                </CommandGroup>
-                                            </Command>
-                                        </PopoverContent>
-                                    </Popover>
-                                </div>
-                                {/*  */}
-                            </div>
-                        </div>
-                    </PopoverContent>
-                </Popover>                
-                </div>
+                <h3 className="text-lg font-semibold">                    
+                    Showing {showingJobsTotal} of {totalJobs.data} {search} Jobs
+                </h3>                
             </div>
-            {jobs.isLoading ? (
-                <Loading />
-            ) : jobs.error ? (
-                <div>Error: {jobs.error.message}</div>
-            ) : (
                 <div className="flex flex-col space-y-2 px-2 py-2">
                     {jobs.data.map((job) => (
                         <JobCard 
@@ -233,7 +360,6 @@ export default function SearchPage() {
                         />
                     ))}
                 </div>
-            )}
             {jobs.data && jobs.data.length > 0 && (
                 <div className="flex justify-center py-4 px-4 gap-4">
                     <Button 
