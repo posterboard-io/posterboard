@@ -64,7 +64,7 @@ export default function SearchPage() {
 
     const jobs = api.jobs.searchJobs.useQuery({
         page: page,
-        pageSize: 10,
+        pageSize: 50,
         query: search,
         location: "CA",
         techStack: "React",
@@ -86,7 +86,7 @@ export default function SearchPage() {
     
     const allSavedJobIds = useMemo(() => savedJobs.data?.map(job => job.jobPostingId), [savedJobs.data]);
 
-    const totalPages = totalJobs.data ? totalJobs.data / 10 : 1
+    const totalPages = totalJobs.data ? totalJobs.data / 50 : 1
       
     const roundedUpPages = Math.ceil(totalPages)
 
@@ -115,11 +115,6 @@ export default function SearchPage() {
         )        
     }
 
-    if (jobs.isLoading || !jobs.data || !totalJobs.data || !savedJobs.data || !allSavedJobIds || !roundedUpPages) {
-        return (
-            <Loading />
-        )
-    }
 
     return (
         <div className="min-h-screen"> 
@@ -181,6 +176,7 @@ export default function SearchPage() {
                         </PopoverContent>
                     </Popover>
                     {/*  */}
+                    {/*
                     <Popover open={openLevel} onOpenChange={setOpenLevel}>
                             <PopoverTrigger asChild>
                                 <Button
@@ -217,7 +213,6 @@ export default function SearchPage() {
                             </Command>
                         </PopoverContent>
                     </Popover>
-                    {/*  */}
                     <Popover open={openLevel} onOpenChange={setOpenLevel}>
                             <PopoverTrigger asChild>
                                 <Button
@@ -254,7 +249,6 @@ export default function SearchPage() {
                             </Command>
                         </PopoverContent>
                     </Popover>
-                    {/*  */}
                     <Popover open={openLevel} onOpenChange={setOpenLevel}>
                             <PopoverTrigger asChild>
                                 <Button
@@ -291,7 +285,6 @@ export default function SearchPage() {
                             </Command>
                         </PopoverContent>
                     </Popover>
-                    {/*  */}
                     <Popover open={openLevel} onOpenChange={setOpenLevel}>
                             <PopoverTrigger asChild>
                                 <Button
@@ -328,7 +321,7 @@ export default function SearchPage() {
                             </Command>
                         </PopoverContent>
                     </Popover>
-                    {/*  */}
+                */}
                 </CardContent>
             </Card>
             </div>
@@ -337,6 +330,11 @@ export default function SearchPage() {
                     Showing {showingJobsTotal} of {totalJobs.data} {search} Jobs
                 </h3>                
             </div>
+            {jobs.isLoading ? (
+                 <Loading />
+             ) : jobs.error ? (
+                 <ErrorPage />
+             ) : (
                 <div className="flex flex-col space-y-2 px-2 py-2">
                     {jobs.data.map((job) => (
                         <JobCard 
@@ -360,6 +358,7 @@ export default function SearchPage() {
                         />
                     ))}
                 </div>
+            )}
             {jobs.data && jobs.data.length > 0 && (
                 <div className="flex justify-center py-4 px-4 gap-4">
                     <Button 

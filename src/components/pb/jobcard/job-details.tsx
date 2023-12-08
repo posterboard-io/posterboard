@@ -12,6 +12,9 @@ import {
   CardDescription
 } from "~/components/ui/card"
 import { Button } from "~/components/ui/button";
+import ShowAdText from '~/components/pb/ads/show-ad-text'
+import ShowAdImage from "../ads/show-ad-image";
+
 
 export default function JobDetails({ jobExternalId }: { jobExternalId: string }) {
 
@@ -61,6 +64,7 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
                   alt="Company Logo"
                   width={200}
                   height={200}
+                  layout="intrinsic"
                   className="rounded-sm"
                 />
               </div>
@@ -74,7 +78,7 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
               <div className="grid grid-cols-4 gap-4">
               <Card className="py-4 px-4">
                 <CardTitle className="lg:text-lg md:text-md sm:text-sm">
-                  {jobSpecificDetails.data.compensation}
+                  {jobSpecificDetails.data.compensation || "Unknown"}
                 </CardTitle>
               </Card>
               <Card className="py-4 px-4">
@@ -113,7 +117,10 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
                 dangerouslySetInnerHTML={{ __html: jobSpecificDetails.data.jobDescription! }} 
                 className="text-sm text-black dark:text-white"  
               />
-            </CardContent>            
+            </CardContent>      
+            <CardFooter> 
+              {/* Show an ad here? */}
+            </CardFooter>
           </Card>
         </div>
         ): null}

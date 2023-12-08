@@ -15,7 +15,7 @@ const JobDetailPage = () => {
 
   return (
     <div className="min-h-screen">
-      <JobDetails jobExternalId={jobExternalId} />
+      <JobDetails jobExternalId={jobExternalId} />      
     </div>
   )
 };
