@@ -10,8 +10,8 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function LandingCountUpJobs() {
     const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({ query: "" });
-    const randomValue1 = Math.floor(Math.random() * 100); 
-    const randomValue2 = Math.floor(Math.random() * 100); 
+    const randomValue1 = Math.floor(Math.random() * 99) + 1; 
+    const randomValue2 = Math.floor(Math.random() * 99) + 1; 
     const randomTechStack = techStacks[Math.floor(Math.random() * techStacks.length)];
     const randomRole = roles[Math.floor(Math.random() * roles.length)];
 
@@ -21,7 +21,7 @@ export default function LandingCountUpJobs() {
                 countUpTo={randomValue1}
                 title={`New ${randomTechStack} Jobs`}
                 link={{
-                    href: "/search",
+                    href: "/search?page=1",
                     text: "",
                     className: "rounded-md bg-orange-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600",
                     
@@ -32,7 +32,7 @@ export default function LandingCountUpJobs() {
                 countUpTo={totalJobs.data ? totalJobs.data : 0}
                 title="New Jobs Posted"
                 link={{
-                    href: "/search",
+                    href: "/search?page=1",
                     text: "Get Searching",
                     className: "rounded-md bg-orange-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600",                    
                 }}
@@ -42,7 +42,7 @@ export default function LandingCountUpJobs() {
                 countUpTo={randomValue2}
                 title={`New ${randomRole!.label} Jobs`}
                 link={{
-                    href:  "/search",
+                    href: "/search?page=1",
                     text: "",                    
                     className: "rounded-md bg-orange-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600",
                 }}

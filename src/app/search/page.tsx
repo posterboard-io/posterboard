@@ -371,7 +371,7 @@ export default function SearchPage() {
                     <Button 
                         className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
                         onClick={handleNextPage}
-                        disabled={jobs.isLoading || jobs.data.length < 100 || page === roundedUpPages}
+                        disabled={jobs.isLoading || jobs.data.length < 50 || page === roundedUpPages}
                     >
                         Next page →
                     </Button>
