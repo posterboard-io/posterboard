@@ -46,8 +46,41 @@ export default function DashboardResume() {
     reader.readAsArrayBuffer(file);
   };
 
-  console.log(resumeText);
-  console.log('resumeText');
+  const highlightKeyWords = (text: string) => {
+    const keyWords = [
+      'React', 'JavaScript', 'TypeScript', 'Node.js', 'Express',
+      'MongoDB', 'PostgreSQL', 'GraphQL', 'Apollo', 'Prisma',
+      'AWS', 'Docker', 'Kubernetes', 'Python', 'Django',
+      'Flask', 'HTML', 'CSS', 'SASS', 'Tailwind',
+      'Bootstrap', 'Material UI', 'Chakra UI', 'Next.js', 'Gatsby',
+      'Vue.js', 'Angular', 'Svelte', 'Dart', 'Flutter',
+      'Swift', 'Kotlin', 'Java', 'C#', 'C++',
+      'Go', 'Ruby', 'Rails', 'PHP', 'Laravel',
+      'SQL', 'NoSQL', 'Firebase', 'REST', 'API',
+      'CI/CD', 'Jest', 'Mocha', 'Chai', 'Jasmine',
+      'Cypress', 'React Testing Library', 'Enzyme', 'Storybook', 'Git',
+      'GitHub', 'GitLab', 'BitBucket', 'Jira', 'Trello',
+      'Asana', 'Agile', 'Scrum', 'Kanban', 'Figma',
+      'Adobe XD', 'Sketch', 'InVision', 'Zeplin', 'Abstract',
+      'Framer', 'Principle', 'Webflow', 'WordPress', 'Shopify',
+      'Wix', 'Squarespace', 'Webflow', 'Gatsby', 'Netlify',
+      'Vercel', 'Heroku', 'Digital Ocean', 'Azure', 'Google Cloud',
+      'AWS', 'Linux', 'Windows', 'MacOS', 'iOS',
+      'Android', 'Raspberry Pi', 'Arduino', 'Rust', 'Elixir',
+      'Erlang', 'Scala', 'Haskell', 'Clojure', 'Lua',
+      'Assembly', 'Bash', 'Shell',
+    ];
+
+    
+    const escapedKeyWords = keyWords.map(keyword => keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const keyWordsRegex = new RegExp(escapedKeyWords.join('|'), 'gi');
+    const highlightedText = text
+      .replace(keyWordsRegex, (match) => `<span class="bg-yellow-500 rounded-sm">${match}</span>`)
+      .replace(/(\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b)/g, '<span class="bg-blue-500 rounded-sm">$1</span>')
+      .replace(/((https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(com|io|app))/g, '<span class="bg-green-500 rounded-sm">$1</span>')
+      .replace(/(\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g, '<span class="bg-red-500 rounded-sm">$&</span>');
+    return highlightedText;
+  }
 
   return (
     <div className="flex">
@@ -66,13 +99,8 @@ export default function DashboardResume() {
                           Modern companies often use Applicant Tracking Systems (ATS) to filter out resumes that don&apos;t 
                           match the job description. It&apos;s important to optimize your resume for ATS, despite how frustrating 
                           it can be. We built a tool to help you optimize your resume for ATS. It&apos;s free to use, 
-                          and you can upload your resume as many times as you want.
-                        </CardDescription>
-                        <CardDescription className="text-md text-black dark:text-white py-1">
-                          Your resume is never stored on our servers. It&apos;s processed in your browser, and the results are displayed on your screen.{" "}
-                          <Link href="/resume-ats" className="text-blue-500 hover:text-blue-700">
-                            Want to see how it works?
-                          </Link>
+                          and you can upload your resume as many times as you want. Your resume is never stored on our servers. 
+                          It&apos;s processed in your browser, and the results are displayed on your screen.
                         </CardDescription>
                           <CardContent>           
                             <div className="flex flex-col items-center py-4">               
@@ -108,9 +136,9 @@ export default function DashboardResume() {
                     <Card className="w-full mt-4 p-4 flex flex-col py-4 px-4">
                       <CardTitle className="text-2xl">                            
                         Results
-                      </CardTitle>
+                      </CardTitle>                      
                       <CardContent className="">                          
-                          <p className="text-lg">{resumeText}</p>
+                          <p className="text-lg py-2" dangerouslySetInnerHTML={{ __html: highlightKeyWords(resumeText) }} />
                       </CardContent>
                     </Card>
                   )}
