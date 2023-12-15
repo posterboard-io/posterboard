@@ -4,8 +4,9 @@ import { DiscordLogoIcon, GitHubLogoIcon, TwitterLogoIcon } from "@radix-ui/reac
 export default function Footer() {
     return (
         <div>
-            <footer className="border-t border-b border-b-foreground/10 text-foreground">                
-                <div className="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+            <footer className="border-t border-b text-foreground">                            
+            <section className="py-12">                
+                <div className="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">                    
                     <div className="w-full sm:w-auto mb-4 sm:mb-0 flex justify-between items-center">
                         <p className="text-sm sm:text-base mb-4 sm:mb-0 px-2">Posterboard.io - {new Date().getFullYear()}</p>
                         <div className="flex gap-3">
@@ -38,6 +39,8 @@ export default function Footer() {
                         </Link>
                     </div>
                 </div>
+                
+                </section>
             </footer>
         </div>
     );

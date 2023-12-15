@@ -76,7 +76,7 @@ export default function ContactUsForm() {
                   <Textarea id="message" placeholder="Enter your message" className="min-h-[100px]"
                             value={message} onChange={(e) => setMessage(e.target.value)} />
                 </div>
-                <Button type="submit">Send message</Button>
+                <Button type="submit" className="bg-black dark:bg-white text-white dark:text-black">Send message</Button>
               </div>
             </form>
         </div>

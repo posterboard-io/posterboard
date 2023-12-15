@@ -12,12 +12,10 @@ import { api } from "~/trpc/react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
 import Link from "next/link"
-import { getServerAuthSession } from "~/server/auth"
+import UserDetailsCard from "~/components/pb/settings/user-details"
 
-export default async function DashboardSettings() {
-    
-    const session = (await getServerAuthSession()) || null
-    
+export default function DashboardSettings() {
+
     return (
         <div className="flex">
             <DashboardShell  />
@@ -25,23 +23,9 @@ export default async function DashboardSettings() {
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-lg font-medium">Settings</h1>                                    
                 </div>                              
-                {/* Render based on session condition */}
-                {session ? (
-                    <div>
-                        <Card className="w-full mt-4 p-4 flex justify-between items-center py-4">
-                        <div>
-                            <CardTitle className="text-2xl">                            
-                                Your Account
-                            </CardTitle>
-                            <CardDescription className="text-md text-black dark:text-white">
-                                <p>
-                                    {session?.user.email} - {session?.user.name}
-                                </p>                                
-                            </CardDescription>
-                        </div>
-                        
-                    </Card>
-                    {/* <Card className="w-full mt-4 p-4 flex justify-between items-center py-4">
+                <div>
+                    <UserDetailsCard />
+                    <Card className="w-full mt-4 p-4 flex justify-between items-center py-4">
                         <div>
                             <CardTitle className="text-2xl">                            
                                 Your Subscription - FREE
@@ -55,30 +39,8 @@ export default async function DashboardSettings() {
                         <Button className="bg-black dark:bg-white text-white dark:text-black hover:bg-black hover:text-white">
                             Manage Subscription
                         </Button>
-                    </Card>                     */}
-                    {/* <Card className="w-full mt-4 p-4 flex justify-between items-center py-4">
-                        <div>
-                            <CardTitle className="text-2xl">                            
-                                Delete Account
-                            </CardTitle>
-                            <CardDescription className="text-md text-black dark:text-white">
-                                <p>
-                                    Your account will be deleted permanently.
-                                </p>
-                            </CardDescription>
-                        </div>
-                        <Button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                            Delete Account
-                        </Button>
-                    </Card> */}
-                    </div>
-                ) : (
-                    <div>
-                        <CardTitle className="text-2xl">
-                            You are not logged in.
-                        </CardTitle>
-                    </div>
-                )}
+                    </Card>
+                </div>
             </main>
         </div>
     )

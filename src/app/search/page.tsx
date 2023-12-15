@@ -21,13 +21,10 @@ import { ListBulletIcon } from "@radix-ui/react-icons"
 import ComboboxDemo from "~/components/pb/combo-box"
 import { useRouter, useSearchParams } from 'next/navigation'
 import { 
-    techStacks, 
+    techStacksOptions, 
     currentLevels, 
     citySizes, 
-    roles, 
-    companySizes, 
     compensationRanges, 
-    industryTypes,
     pageSizeOptions,
 } from "~/components/pb/tech-stacks"
 import { useToast } from '~/components/ui/use-toast'
@@ -40,18 +37,68 @@ import {
   CommandInput,
   CommandItem,
 } from "~/components/ui/command"
-import { set } from "zod"
 import ErrorPage from "~/components/pb/utils/error-page"
 
 export default function SearchPage() {
     const [search, setSearch] = useState("");
     const { toast } = useToast();
     const [openLevel, setOpenLevel] = useState(false);
+    const [openTechStack, setOpenTechStack] = useState(false);
+    const [openCitySize, setOpenCitySize] = useState(false);
+    const [openCompensationRange, setOpenCompensationRange] = useState(false);
+    const [openPageSize, setOpenPageSize] = useState(false);
+    
     const [selectedLevel, setSelectedLevel] = useState<string[]>([]);
+    const [selectedTechStack, setSelectedTechStack] = useState<string[]>([]);
+    const [selectedCitySize, setSelectedCitySize] = useState<string[]>([]);
+    const [selectedCompensationRange, setSelectedCompensationRange] = useState<string[]>([]);
+    const [selectedPageSize, setSelectedPageSize] = useState<string[]>([]);
+    
+    const selectedPageSizeLabels = selectedPageSize.map(value =>
+        pageSizeOptions.find(level => level.value === value)?.label
+    ).join(", ") || "Page size";
 
-    const selectedLabels = selectedLevel.map(value =>
+    const selectedPageSizeHandleSelect = (currentValue: string) => {
+        setSelectedPageSize([currentValue]);
+        console.log(currentValue);
+    };
+
+    const selectedCitySizeLabels = selectedCitySize.map(value =>
+        citySizes.find(level => level.value === value)?.label
+    ).join(", ") || "City";
+
+    const selectedCitySizeHandleSelect = (currentValue: string) => {
+        const newSelectedCitySize = selectedCitySize.includes(currentValue)
+            ? selectedCitySize.filter(value => value !== currentValue)
+            : [...selectedCitySize, currentValue];
+        setSelectedCitySize(newSelectedCitySize);
+        console.log(currentValue);
+    }
+
+    const selectedCompensationRangeLabels = selectedCompensationRange.map(value =>
+        compensationRanges.find(level => level.value === value)?.label
+    ).join(", ") || "Compensation";
+
+    const selectedCompensationRangeHandleSelect = (currentValue: string) => {
+        setSelectedCompensationRange([currentValue]);
+        console.log(currentValue);
+    }
+
+    const selectedTechStackLabels = selectedTechStack.map(value =>
+        techStacksOptions.find(stack => stack.value === value)?.label
+    ).join(", ") || "Tech stack";
+
+    const handleTechStackSelect = (currentValue: string) => {
+        const newSelectedTechStack = selectedTechStack.includes(currentValue)
+            ? selectedTechStack.filter(value => value !== currentValue)
+            : [...selectedTechStack, currentValue];
+        setSelectedTechStack(newSelectedTechStack);
+        console.log(currentValue)
+    }
+
+    const selectedLevelLabels = selectedLevel.map(value =>
         currentLevels.find(level => level.value === value)?.label
-    ).join(", ") || "Select levels...";
+    ).join(", ") || "Role level";
 
     const searchParams = useSearchParams()
     const page = parseInt(searchParams?.get('page') ?? '1', 10);
@@ -64,15 +111,14 @@ export default function SearchPage() {
 
     const jobs = api.jobs.searchJobs.useQuery({
         page: page,
-        pageSize: 50,
+        pageSize: parseInt(selectedPageSize[0] || "50", 10),
         query: search,
-        location: "CA",
-        techStack: "React",
-        compensationRange: "100000-200000",
+        location: selectedCitySize[0] || "",
+        techStack: selectedTechStack || [""],
+        compensationRange: selectedCompensationRange[0] || "",
         roleLevel:  selectedLevel || null,
     })
 
-    console.log(selectedLevel)
 
     const handleSelect = (currentValue: string) => {
         const newSelectedLevels = selectedLevel.includes(currentValue)
@@ -137,46 +183,46 @@ export default function SearchPage() {
                         </Button>
                         </form>
                     </div>
-                    <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-center">
-                        {/*  */}
-                        <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                    <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 px-2 py-2 justify-items-center">
+                        {/* Page Size Component - works well enough */}
+                        <Popover open={openPageSize} onOpenChange={setOpenPageSize}>
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
                                     role="combobox"
-                                    aria-expanded={openLevel}
+                                    aria-expanded={openPageSize}
                                     className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
-                                {selectedLabels}
+                                {selectedPageSizeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-[200px] p-0">
                                 <Command>
-                                <CommandInput placeholder="Search Levels..." />
-                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandInput placeholder="Search page size..." />
+                                <CommandEmpty>No page size found.</CommandEmpty>
                                 <CommandGroup>
-                                    {currentLevels.map((level) => (
+                                    {pageSizeOptions.map((size) => (
                                     <CommandItem
-                                        key={level.value}
-                                        value={level.value}
-                                        onSelect={() => handleSelect(level.value)}
+                                        key={size.value}
+                                        value={size.value}
+                                        onSelect={() => selectedPageSizeHandleSelect(size.value)}
                                     >
                                         <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                            selectedPageSizeLabels.includes(size.value) ? "opacity-100" : "opacity-0"
                                         )}
                                         />
-                                        {level.label}
+                                        {size.label}
                                     </CommandItem>
                                     ))}
                                 </CommandGroup>
                             </Command>
                         </PopoverContent>
                     </Popover>
-                    {/*  */}
-                    {/*
+                    
+                    {/* Popover for Level - kinda broken ‼️ */}
                     <Popover open={openLevel} onOpenChange={setOpenLevel}>
                             <PopoverTrigger asChild>
                                 <Button
@@ -185,7 +231,7 @@ export default function SearchPage() {
                                     aria-expanded={openLevel}
                                     className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
-                                {selectedLabels}
+                                {selectedLevelLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
@@ -203,7 +249,7 @@ export default function SearchPage() {
                                         <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                            selectedLevelLabels.includes(level.value) ? "opacity-100" : "opacity-0"
                                         )}
                                         />
                                         {level.label}
@@ -213,7 +259,8 @@ export default function SearchPage() {
                             </Command>
                         </PopoverContent>
                     </Popover>
-                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                    {/* Sortable by tech stack that would be fire...?? */}
+                    <Popover open={openTechStack} onOpenChange={setOpenTechStack}>
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
@@ -221,35 +268,36 @@ export default function SearchPage() {
                                     aria-expanded={openLevel}
                                     className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
-                                {selectedLabels}
+                                {selectedTechStackLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-[200px] p-0">
                                 <Command>
-                                <CommandInput placeholder="Search Levels..." />
-                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandInput placeholder="Search Stacks..." />
+                                <CommandEmpty>No stack found.</CommandEmpty>
                                 <CommandGroup>
-                                    {currentLevels.map((level) => (
+                                    {techStacksOptions.map((tech) => (
                                     <CommandItem
-                                        key={level.value}
-                                        value={level.value}
-                                        onSelect={() => handleSelect(level.value)}
+                                        key={tech.value}
+                                        value={tech.value}
+                                        onSelect={() => handleTechStackSelect(tech.value)}
                                     >
                                         <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                            selectedTechStackLabels.includes(tech.value) ? "opacity-100" : "opacity-0"
                                         )}
                                         />
-                                        {level.label}
+                                        {tech.label}
                                     </CommandItem>
                                     ))}
                                 </CommandGroup>
                             </Command>
                         </PopoverContent>
                     </Popover>
-                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                    {/* Compensation Ranges */}
+                    <Popover open={openCompensationRange} onOpenChange={setOpenCompensationRange}>
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
@@ -257,34 +305,72 @@ export default function SearchPage() {
                                     aria-expanded={openLevel}
                                     className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
-                                {selectedLabels}
+                                {selectedCompensationRangeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-[200px] p-0">
                                 <Command>
-                                <CommandInput placeholder="Search Levels..." />
-                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandInput placeholder="Compensation..." />
+                                <CommandEmpty>No range found.</CommandEmpty>
                                 <CommandGroup>
-                                    {currentLevels.map((level) => (
+                                    {compensationRanges.map((comp) => (
                                     <CommandItem
-                                        key={level.value}
-                                        value={level.value}
-                                        onSelect={() => handleSelect(level.value)}
+                                        key={comp.value}
+                                        value={comp.value}
+                                        onSelect={() => selectedCompensationRangeHandleSelect(comp.value)}
                                     >
                                         <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            selectedLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                            selectedCompensationRangeLabels.includes(comp.value) ? "opacity-100" : "opacity-0"
                                         )}
                                         />
-                                        {level.label}
+                                        {comp.label}
                                     </CommandItem>
                                     ))}
                                 </CommandGroup>
                             </Command>
                         </PopoverContent>
                     </Popover>
+                    {/* Popover for City Size - kinda broken ‼️  */}
+                    <Popover open={openCitySize} onOpenChange={setOpenCitySize}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedCitySizeLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Cities..." />
+                                <CommandEmpty>No city found.</CommandEmpty>
+                                <CommandGroup>
+                                    {citySizes.map((city) => (
+                                    <CommandItem
+                                        key={city.value}
+                                        value={city.value}
+                                        onSelect={() => selectedCitySizeHandleSelect(city.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedCitySizeLabels.includes(city.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {city.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    {/* 
                     <Popover open={openLevel} onOpenChange={setOpenLevel}>
                             <PopoverTrigger asChild>
                                 <Button

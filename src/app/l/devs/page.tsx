@@ -1,19 +1,26 @@
-export default function Devs() {
+"use client"
+import posterboardClear from "~/../public/png/posterboard.png"
+import Image, { StaticImageData } from "next/legacy/image"
+
+export default function DeveloperPage() {
+    const posterboardClearImage: StaticImageData = posterboardClear
     return (
-        <div className="flex min-h-screen items-center justify-center">
+        <div className="flex min-h-screen items-center justify-center">            
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mt-6 items-center py-4">
-                    <h1 className="text-2xl font-bold tracking-tight py-4">Developers</h1>
-                    <p className="text-muted-foreground py-4">
-                        I&apos;ll add API stuff here.
-                    </p>
-                    <p className="text-muted-foreground py-4">
-                        Our platform connects talented developers with companies that value their skills and expertise. We believe in creating a community where devs can find not just a job, but the right job.
-                    </p>
-                    <p className="text-muted-foreground  py-4">
-                        Whether you're looking for your first developer role or you're a seasoned tech lead seeking new challenges, we're here to support you. With personalized job recommendations, a developer-centric job search, and resources to help you at every stage of your career, our job website is crafted for those who not only love coding but also value a great work environment.
-                    </p>
-                </div>
+            <div className="mt-6 items-center">
+                <Image 
+                    src={posterboardClearImage} 
+                    alt="Posterboard" 
+                    className="h-36 w-36"
+                />
+            </div>
+            <div className="p-6 rounded-lg shadow">
+                <h2 className="text-2xl font-bold  mb-4">Developers</h2>
+                <p className="mb-3">
+                    We&apos;re all about developers. We&apos;ve decided to open up our API just for that reason. 
+                    Build on top of our platform and use our data to create something awesome. (Docs coming soon).
+                </p>                
+            </div>
             </div>
         </div>
     )

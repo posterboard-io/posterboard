@@ -81,25 +81,3 @@ export type SubscriptionPlan = {
   description: string
   stripePriceId: string
 }
-
-// export type UserSubscriptionPlan = SubscriptionPlan &
-//   Pick<User, "stripeCustomerId" | "stripeSubscriptionId"> & {
-//     stripeCurrentPeriodEnd: number
-//     isPro: boolean
-// }
-
-// type UserId = string
-
-// declare module "next-auth/jwt" {
-//   interface JWT {
-//     id: UserId
-//   }
-// }
-
-// declare module "next-auth" {
-//   interface Session {
-//     user: User & {
-//       id: UserId
-//     }
-//   }
-// }

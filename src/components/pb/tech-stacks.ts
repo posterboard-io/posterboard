@@ -110,7 +110,7 @@ export type CitySizeType = "Phoenix, AZ" | "San Francisco, CA" | "New York, NY" 
 export type IndustryType = "Finance" | "Fintech" | "Crypto/Blockchain" | "Solar/Energy" | "AI/Machine Learning" | "IoT" | "eCommerce" |  "Cloud Computing" | "Augmented Reality/Virtual Reality" | "Cybersecurity" | "Healthcare" | "Education" | "Government" | "Retail" | "Manufacturing" | "Transportation" | "Technology" | "Gaming" | "Telecommunications" | "Other";
 
 export interface PageSize {
-    value: number
+    value: string
     label: string
 }
 
@@ -119,11 +119,15 @@ export interface RolesAndGrowthProps {
     label: string
 }
 
+export interface TechStackProps {
+    value: string
+    label: string
+}
+
 export const pageSizeOptions: PageSize[] = [
-    { value: 10, label: "10" },
-    { value: 25, label: "25" },
-    { value: 50, label: "50" },
-    { value: 100, label: "100" },
+    { value: "25", label: "25" },
+    { value: "50", label: "50" },
+    { value: "100", label: "100" },
 ]
 
 export const currentLevels: RolesAndGrowthProps[] = [
@@ -219,4 +223,25 @@ export const industryTypes: RolesAndGrowthProps[] = [
     { value: "Transportation", label: "Transportation" },
     { value: "Gaming", label: "Gaming" },
     { value: "Any", label: "Any" }
+]
+
+export const techStacksOptions: TechStackProps[] = [
+    { value: "Python", label: "Python" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "C", label: "C" },
+    { value: "C++", label: "C++" },
+    { value: "Rust", label: "Rust" },
+    { value: "Go", label: "Go" },
+    { value: "Java", label: "Java" },
+    { value: "C#", label: "C#" },
+    { value: "TypeScript", label: "TypeScript" },
+    { value: "Ruby", label: "Ruby" },
+    { value: "PHP", label: "PHP" },
+    { value: "Swift", label: "Swift" },
+    { value: "Kotlin", label: "Kotlin" },
+    { value: "Scala", label: "Scala" },
+    { value: "Lua", label: "Lua" },
+    { value: "AWS", label: "AWS" },
+    { value: "Azure", label: "Azure" },
+    { value: "Google Cloud", label: "Google Cloud" },    
 ]

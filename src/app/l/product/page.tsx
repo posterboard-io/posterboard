@@ -17,10 +17,10 @@ export default function Product() {
             <div className="p-6 rounded-lg shadow">
                 <h2 className="text-2xl font-bold  mb-4">Built by Developers for Developers</h2>
                 <p className=" mb-3">
-                Our platform connects talented developers with companies that value their skills and expertise. We believe in creating a community where devs can find not just a job, but the right job.
+                    Our platform connects talented developers with companies that value their skills and expertise. We believe in creating a community where devs can find not just a job, but the right job.
                 </p>
                 <p className="">
-                Whether you're looking for your first developer role or you're a seasoned tech lead seeking new challenges, we're here to support you. With personalized job recommendations, a developer-centric job search, and resources to help you at every stage of your career, our job website is crafted for those who not only love coding but also value a great work environment.
+                    Whether you're looking for your first developer role or you're a seasoned tech lead seeking new challenges, we're here to support you. With personalized job recommendations, a developer-centric job search, and resources to help you at every stage of your career, our job website is crafted for those who not only love coding but also value a great work environment.
                 </p>                            
             </div>
             </div>

@@ -13,17 +13,18 @@ export const jobsRouter = createTRPCRouter({
       pageSize: z.number().optional().default(100),
       query: z.string().optional().nullable(),
       location: z.string().optional().nullable(),
-      techStack: z.string().optional().nullable(),
+      techStack: z.string().array().optional().nullable(), // TODO: COME BACK TO THIS AND PUT THE ARRAY INTO THE QUERY
       compensationRange: z.string().optional().nullable(),
       roleLevel: z.string().array().optional().nullable(),
     }))
     .query(async ({ ctx, input }) => {
-      const { page, pageSize, query, location } = input;
-      const skip = (page - 1) * pageSize;
+      const { page, pageSize, query, location, techStack } = input;
+      const skip = (page - 1) * pageSize;      
 
       const where = {
         ...(query && { title: { contains: query, mode: 'insensitive' as const } }),
         ...(location && { location: { contains: location, mode: 'insensitive' as const } }),
+        // ...(techStack && { companyTechStack: { in: techStack, mode: 'insensitive' as const } } ),
       };
 
       return await ctx.db.jobPostings.findMany({
@@ -91,13 +92,28 @@ export const jobsRouter = createTRPCRouter({
 
   getRecommended: protectedProcedure
     .input(z.object({
-      jobTitle: z.array(z.string())
+      jobTitle: z.array(z.string()),
+      jobTechStack: z.array(z.string()).optional().nullable(),
+      jobRoleLevel: z.array(z.string()).optional().nullable(),
+      jobLocations: z.array(z.string()).optional().nullable(),
+      jobCompensationRange: z.array(z.string()).optional().nullable(),
+      jobIndustries: z.array(z.string()).optional().nullable(),
+      jobCompanySize: z.array(z.string()).optional().nullable(),
     }))
     .query(async ({ ctx, input }) => {
+
+      const where = {
+        ...(input.jobTitle && { title: { in: input.jobTitle } }),
+        ...(input.jobTechStack && { companyTechStack: { hasSome: input.jobTechStack } }),
+        // ...(input.jobRoleLevel && { roleLevel: { hasSome: input.jobRoleLevel } as RoleLevel } ),
+        ...(input.jobLocations && { location: { in: input.jobLocations } }),
+        ...(input.jobCompensationRange && { compensation: { in: input.jobCompensationRange } }),
+        ...(input.jobIndustries && { companyIndustry: { in: input.jobIndustries } }),
+        ...(input.jobCompanySize && { companySize: { in: input.jobCompanySize } }),
+      };
+
       const getRecommendedJobs = await ctx.db.jobPostings.findMany({
-        where: {
-          title: { in: input.jobTitle },
-        },
+        where: where,
         orderBy: { updatedInDbAt: "desc" },
       });
 
