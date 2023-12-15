@@ -8,12 +8,11 @@ import {
   CardContent,    
 } from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
-import Link from "next/link"
 import { Input } from "~/components/ui/input"
 import { Label } from "~/components/ui/label"
 import React, { useState } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import { Car } from "lucide-react"
+import { pdfjs } from 'react-pdf';
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`
 
@@ -75,10 +74,11 @@ export default function DashboardResume() {
     const escapedKeyWords = keyWords.map(keyword => keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
     const keyWordsRegex = new RegExp(escapedKeyWords.join('|'), 'gi');
     const highlightedText = text
-      .replace(keyWordsRegex, (match) => `<span class="bg-yellow-500 rounded-sm">${match}</span>`)
+      .replace(keyWordsRegex, (match) => `<span class="bg-yellow-400 rounded-sm">${match}</span>`)
       .replace(/(\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b)/g, '<span class="bg-blue-500 rounded-sm">$1</span>')
-      .replace(/((https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(com|io|app))/g, '<span class="bg-green-500 rounded-sm">$1</span>')
-      .replace(/(\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g, '<span class="bg-red-500 rounded-sm">$&</span>');
+      .replace(/((https?|ftp|.com|.io|.app):\/\/[^\s/$.?#].[^\s]*\.(com|io|app))/g, '<span class="bg-green-500 rounded-sm">$1</span>')
+      .replace(/(\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g, '<span class="bg-red-500 rounded-sm">$&</span>')
+      .replace(/\b(college|education|certification|bootcamp|master|masters|batchelors|batchelors|associate|associates|phd|BS|MS|MCS|BA)\b/gi, '<span class="bg-purple-500 rounded-sm">$1</span>');
     return highlightedText;
   }
 
@@ -136,7 +136,33 @@ export default function DashboardResume() {
                     <Card className="w-full mt-4 p-4 flex flex-col py-4 px-4">
                       <CardTitle className="text-2xl">                            
                         Results
-                      </CardTitle>                      
+                      </CardTitle> 
+                      <CardDescription className="text-md text-black dark:text-white">
+                        Here&apos;s what your resume would look like to an ATS. It's important to optimize your resume for ATS, but also make sure it's readable by humans!
+                        <div className="flex flex-col py-2">
+                          <div className="flex flex-row items-center">
+                            <div className="w-3 h-3 rounded-full bg-yellow-400 mr-2" />
+                            <span>Applicant Keywords</span>
+                          </div>
+                          <div className="flex flex-row items-center">
+                            <div className="w-3 h-3 rounded-full bg-green-500 mr-2" />
+                            <span>Applicant URLs</span>
+                          </div>
+                          <div className="flex flex-row items-center">
+                            <div className="w-3 h-3 rounded-full bg-purple-500 mr-2" />
+                            <span>Applicant Education</span>
+                          </div>
+                          <div className="flex flex-row items-center">
+                            <div className="w-3 h-3 rounded-full bg-red-500 mr-2" />
+                            <span>Phone Numbers</span>
+                          </div>
+                          <div className="flex flex-row items-center">
+                            <div className="w-3 h-3 rounded-full bg-blue-500 mr-2" />
+                            <span>Emails</span>
+                          </div>
+                        </div>
+                      </CardDescription>
+                      <hr className="my-4" />                      
                       <CardContent className="">                          
                           <p className="text-lg py-2" dangerouslySetInnerHTML={{ __html: highlightKeyWords(resumeText) }} />
                       </CardContent>

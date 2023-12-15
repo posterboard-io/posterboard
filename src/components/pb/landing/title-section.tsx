@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { TwitterLogoIcon  } from "@radix-ui/react-icons"
 import { ArrowUpRight } from 'lucide-react'
-import { Button } from "~/components/ui/button"
 
 export default function TitleSectionLanding() {
     return (
@@ -26,7 +25,7 @@ export default function TitleSectionLanding() {
                 target="_blank"
                 className="rounded-2xl bg-gradient-to-r from-orange-400 via-blue-400 to-blue-600 px-4 py-1.5 text-sm font-semibold text-white shadow-lg"                        
               >            
-                We&apos;re Still building. Follow along on X for updates.
+                We&apos;re still building. Follow along on X for updates.
               <Link href="https://twitter.com/joinposterboard" target="_blank" rel="noreferrer">
                 <TwitterLogoIcon className="inline-block w-4 h-4 ml-1.5" />
               </Link>
