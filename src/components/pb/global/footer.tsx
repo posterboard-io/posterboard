@@ -40,31 +40,13 @@ export default function Footer() {
                             <p className="text-sm sm:text-base mb-4 sm:mb-0 px-2">Posterboard.io - {new Date().getFullYear()}</p>
                             <div className="grid grid-flow-col gap-3 px-2 py-2">
                                 <Link href="https://github.com/posterboard-io" target="_blank" rel="noreferrer" className="hover:text-gray-600">
-                                    <Image 
-                                        src={githubLogo} 
-                                        alt="Github" 
-                                        width={24}
-                                        height={24}
-                                        layout='intrinsic'
-                                    />
+                                    <GitHubLogoIcon className="w-6 h-6" />
                                 </Link>
                                 <Link href="https://twitter.com/joinposterboard" target="_blank" rel="noreferrer" className="hover:text-gray-600">
-                                    <Image 
-                                        src={xLogo} 
-                                        alt="X" 
-                                        width={21}
-                                        height={21}
-                                        layout='intrinsic'
-                                    />
+                                    <TwitterLogoIcon className="w-6 h-6 text-blue-500" />
                                 </Link>
                                 <Link href="https://discord.gg/V8w4Z9Burz" target="_blank" rel="noreferrer" className="hover:text-gray-600">
-                                    <Image 
-                                        src={discordSVG} 
-                                        alt="Discord" 
-                                        width={25}
-                                        height={20}
-                                        layout='intrinsic'
-                                    />
+                                    <DiscordLogoIcon className="w-6 h-6 text-indigo-500" />
                                 </Link>
                             </div>
                         </div>                    
