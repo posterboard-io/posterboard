@@ -14,11 +14,16 @@ import Image from "next/legacy/image"
 import SignOutButton from '~/components/pb/sign-out-button'
 import { getServerAuthSession } from '~/server/auth'
 import CommandBox from '~/components/pb/command-box'
+import { sendSlackMessage } from '~/lib/sendSlack'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Header() {
     const session = await getServerAuthSession() 
+
+    if (session?.user.email !== "tkruer@asu.edu") {
+      sendSlackMessage({ logString : `User Authenticated ${session?.user.email || ""}`, status : "success", failure: false })
+    }
     
     return (
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">        

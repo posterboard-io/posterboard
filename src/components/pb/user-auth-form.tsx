@@ -7,8 +7,6 @@ import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import Image from "next/legacy/image"
-
-
 import { cn } from "~/lib/utils"
 import { userAuthSchema } from "~/lib/validations/auth"
 import { buttonVariants } from "~/components/ui/button"
@@ -18,7 +16,7 @@ import { toast } from "~/components/ui/use-toast"
 import { Icons } from "~/components/pb/icons"
 import { Button } from "~/components/ui/button"
 import GoogleLogo from "../../../public/png/google.png"
-import Link from "next/link"
+import { sendSlackMessage } from "~/lib/sendSlack"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -36,6 +34,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
   const [isGoogleLoading, setIsGoogleLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
+
+  const sendSlackOnClick = () => {
+    const res = sendSlackMessage({ logString : "Sign Up / Login", status : "success", failure: false })
+  }
 
   async function onSubmit(data: FormData) {    
     setIsLoading(true)
@@ -108,8 +110,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         type="button"
         className={cn(buttonVariants())}
         onClick={() => {
-          setIsGitHubLoading(true)
+          setIsGitHubLoading(true)          
           signIn("github", { callbackUrl: "/dashboard" })
+          sendSlackOnClick()
+          console.log("GitHub Login")
         }}
         disabled={isLoading || isGitHubLoading}
       >
@@ -125,8 +129,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         type="button"
         className={cn(buttonVariants())}
         onClick={() => {
-          setIsGoogleLoading(true)
+          setIsGoogleLoading(true)          
           signIn("google", { callbackUrl: "/dashboard" })
+          sendSlackOnClick()
+          console.log("Google Login")
         }}
         disabled={isLoading || isGoogleLoading}
       >
