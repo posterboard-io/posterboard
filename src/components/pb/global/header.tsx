@@ -22,7 +22,7 @@ export default async function Header() {
     const session = await getServerAuthSession() 
 
     if (session?.user.email !== "tkruer@asu.edu") {
-      sendSlackMessage({ logString : `User Authenticated ${session?.user.email || ""}`, status : "success", failure: false })
+      sendSlackMessage({ logString : `${session?.user.email || "Unknown"} Triggered Activity`, status : "success", failure: false })
     }
     
     return (

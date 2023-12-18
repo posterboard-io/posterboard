@@ -11,7 +11,7 @@ import LandingCountUpJobs from "~/components/pb/landing/landing-count-up-jobs"
 import NotifyOnLaunch from "~/components/pb/landing/notify-when-launch"
 
 export default async function Home() {
-  return (
+  return (    
     <div className="flex flex-col min-h-screen bg-grid-slate-200/50">    
       <TitleSectionLanding />
       <hr className="border-t border-foreground/10" />
