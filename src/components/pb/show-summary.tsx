@@ -1,13 +1,6 @@
 
+import { RoleData } from '~/types/types'
 
-export interface RoleData {
-    roleType: string[]
-    roleLevel: string[]
-    rolesCity: string[]
-    rolesCompanySizes: string[]
-    roleCompensationRanges: string[]
-    roleIndustryTypes: string[]
-}
 
 export default function ShowRoleSummary({ roleData }: { roleData: RoleData }) {
     const { roleType, roleLevel, rolesCity, rolesCompanySizes, roleCompensationRanges, roleIndustryTypes } = roleData

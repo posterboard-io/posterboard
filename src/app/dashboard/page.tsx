@@ -6,38 +6,13 @@ import Loading from "~/components/pb/utils/loading"
 import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
 import Link from "next/link"
 import DashboardCard from "~/components/pb/dashboard/dashboard-card"
-import { DashboardGraph, DashboardGraphProps } from "~/components/pb/dashboard/dashboard-graph"
-import { DashboardPieChart, DashboardPieProps } from "~/components/pb/dashboard/dashboard-piechart"
+import { DashboardGraphProps, DashboardPieProps } from "~/types/types"
+import { DashboardGraph } from "~/components/pb/dashboard/dashboard-graph"
+import { DashboardPieChart } from "~/components/pb/dashboard/dashboard-piechart"
 import { StatsPieChart } from "~/components/pb/market-pie-chart"
 import TreeMapDashboard  from "~/components/pb/dashboard/dashboard-treemap"
+import { TechStackItem, TechCount, RawData, TreeMapCompanyData, PositionData } from "~/types/types"
 
-interface TechStackItem {
-  _count: {
-    companyTechStack: number;
-  };
-  companyTechStack: string[];
-}
-
-export interface TechCount {
-  name: string;
-  value: number;
-}
-
-interface RawData {
-  _count: { roleLevel: number; company: number };
-  roleLevel: string;
-  company: string;
-}
-
-export interface TreeMapCompanyData {
-  name: string;
-  children: PositionData[];
-}
-
-export interface PositionData {
-  name: string;
-  size: number;
-}
 
 export default function Dashboard() {
 

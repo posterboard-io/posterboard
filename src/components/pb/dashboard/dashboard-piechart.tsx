@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { DashboardPieProps } from '~/types/types';
 
 export const data = [
   { name: "Amazon", total: 40 },
@@ -33,11 +34,6 @@ const renderCustomizedLabel = (
     </text>
   );
 };
-
-export interface DashboardPieProps {
-  name: string;
-  total: number;
-}
 
 export function DashboardPieChart({ DashboardPieData }: { DashboardPieData?: DashboardPieProps[] }) {
   return (

@@ -1,16 +1,5 @@
 
-
-export interface NewJobsForYouProps {
-  firstName: string;
-  userEmail: string;
-  recommendedJobs: RecommendedJobsProps[]
-}
-
-export interface RecommendedJobsProps {
-  jobName: string;
-  jobID: string;
-  jobURL: string;
-}
+import { NewJobsForYouProps } from '~/types/types'
 
 export const newJobsForYouTemplate: React.FC<Readonly<NewJobsForYouProps>> = ({
   firstName, userEmail, recommendedJobs

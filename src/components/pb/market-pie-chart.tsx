@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { TechCount } from "~/app/dashboard/(page)/stats/page";
+import { TechCount } from '~/types/types';
 
 const COLORS = ['#fb923c',  '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb', '#2251e8', '#1f3fe6', '#1b2de3', '#172bd1', '#1329be', '#0f17ac', '#0a15a0', '#060d8e', '#020b7c'];
 

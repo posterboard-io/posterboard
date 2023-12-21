@@ -3,22 +3,9 @@
 import { DashboardShell } from "~/components/pb/dashboard/dashboard-shell"
 import { api } from "~/trpc/react"
 import { DashboardGraph } from "~/components/pb/dashboard/dashboard-graph"
+import { Card, CardTitle, CardContent, CardHeader } from "~/components/ui/card"
+import { TechStackItem, TechCount } from "~/types/types"
 
-import { Card, CardTitle, CardContent, CardDescription, CardHeader } from "~/components/ui/card"
-import Link from "next/link"
-import DashboardCard from "~/components/pb/dashboard/dashboard-card"
-
-interface TechStackItem {
-    _count: {
-      companyTechStack: number;
-    };
-    companyTechStack: string[];
-}
-
-export interface TechCount {
-    name: string;
-    value: number;
-}
 
 export default function StatsPage() {
 

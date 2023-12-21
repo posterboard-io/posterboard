@@ -1,11 +1,8 @@
 "use client"
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell } from "recharts"
+import { DashboardGraphProps } from "~/types/types"
 
-export interface DashboardGraphProps {
-    name: string,
-    total: number
-}
 
 const COLORS = ['#fb923c',  '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb'];
 

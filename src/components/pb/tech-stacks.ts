@@ -1,3 +1,5 @@
+import { RolesAndGrowthProps, TechStackProps, PageSize } from '~/types/types'
+
 export type TechStack = 
     'Python' | 'JavaScript' | 'C' | 'C++' | 'Rust' | 'Go' | 'Java' | 'C#' |
     'TypeScript' | 'Ruby' | 'PHP' | 'Swift' | 'Kotlin' | 'Scala' | 
@@ -109,20 +111,7 @@ export type CompanySizeType = "Big" | "Medium" | "Small" | "Startup"
 export type CitySizeType = "Phoenix, AZ" | "San Francisco, CA" | "New York, NY" | "Los Angeles, CA" | "Chicago, IL" | "Houston, TX" | "Miami, FL" | "Seattle, WA" | "Dallas, TX" | "Boston, MA" | "Philadelphia, PA" | "San Diego, CA" | "Denver, CO" | "Atlanta, GA" | "Nashville, TN" | "Minneapolis, MN" | "San Antonio, TX" | "Orlando, FL" | "Austin, TX" | "Detroit, MI" | "Portland, OR" | "Las Vegas, NV" | "Baltimore, MD" | "Cleveland, OH" | "Sacramento, CA" | "Remote"
 export type IndustryType = "Finance" | "Fintech" | "Crypto/Blockchain" | "Solar/Energy" | "AI/Machine Learning" | "IoT" | "eCommerce" |  "Cloud Computing" | "Augmented Reality/Virtual Reality" | "Cybersecurity" | "Healthcare" | "Education" | "Government" | "Retail" | "Manufacturing" | "Transportation" | "Technology" | "Gaming" | "Telecommunications" | "Other";
 
-export interface PageSize {
-    value: string
-    label: string
-}
 
-export interface RolesAndGrowthProps {
-    value: string
-    label: string
-}
-
-export interface TechStackProps {
-    value: string
-    label: string
-}
 
 export const pageSizeOptions: PageSize[] = [
     { value: "25", label: "25" },

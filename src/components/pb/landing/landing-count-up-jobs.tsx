@@ -7,6 +7,7 @@ import { Card } from "~/components/ui/card";
 import { roles, techStacks } from "~/components/pb/tech-stacks";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { CountUpLink } from "~/types/types";
 
 export default function LandingCountUpJobs() {
     const totalJobs = api.jobs.getTotalJobsForQuery.useQuery({ query: "" });
@@ -52,11 +53,7 @@ export default function LandingCountUpJobs() {
     );
 }
 
-interface CountUpLink {
-    href: string;
-    className: string;
-    text: string;
-}
+
 
 const CountUpCard = ({ countUpTo, title, link, showButton }: { countUpTo: number, title: string, link: CountUpLink, showButton: boolean }) => {
     const nodeRef = useRef(null);

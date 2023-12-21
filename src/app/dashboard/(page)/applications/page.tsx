@@ -8,23 +8,12 @@ import { Button } from "~/components/ui/button"
 import React, { useState, useMemo, useEffect } from 'react'
 import JobKanbanCard from "~/components/pb/jobcard/job-card-kanban"
 import { useToast } from "~/components/ui/use-toast"
+import { JobPostingStatus, StatusMap } from "~/types/types"
 
-enum JobPostingStatus {
-    Saved = "Saved",
-    Applied = "Applied",
-    ReceivedResponse = "RecievedResponse", 
-    Interviewing = "Interviewing",
-    PendingOffer = "PendingOffer",
-    Rejected = "Rejected",
-}
 
 type ColumnsType = {
     [key in keyof typeof JobPostingStatus]: number[];
 };
-
-export interface StatusMap {
-    [key: string]: JobPostingStatus;
-}
 
 export default function DashboardApplications() {
     const [showAsKanban, setShowAsKanban] = useState(true);
