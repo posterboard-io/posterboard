@@ -14,6 +14,8 @@ import {
 import { Button } from "~/components/ui/button";
 import ShowAdText from '~/components/pb/ads/show-ad-text'
 import ShowAdImage from "../ads/show-ad-image";
+import { ArrowUpRight } from "lucide-react";
+import CompanyImageSizedRight from "~/components/pb/tech-stack/company-image-sized";
 
 
 export default function JobDetails({ jobExternalId }: { jobExternalId: string }) {
@@ -59,14 +61,7 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
         <Card>
             <CardHeader>
               <div className="flex flex-col items-center justify-center py-4">
-                <Image
-                  src={jobSpecificDetails.data.companyLogoUrl!}
-                  alt="Company Logo"
-                  width={200}
-                  height={200}
-                  layout="intrinsic"
-                  className="rounded-sm"
-                />
+                <CompanyImageSizedRight company={jobSpecificDetails.data.company} />
               </div>
               <CardDescription>
                 {jobSpecificDetails.data.company} - {jobSpecificDetails.data.location}
@@ -109,6 +104,7 @@ export default function JobDetails({ jobExternalId }: { jobExternalId: string })
                   }
                 >
                   View Role
+                  <ArrowUpRight className="ml-2 h-4 w-4 text-white dark:text-black" />
                 </Button>
               </div>
             </CardHeader>        

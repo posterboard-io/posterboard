@@ -23,6 +23,7 @@ import {
 import Image from "next/legacy/image"
 import Link from "next/link"
 import SaveJobButton from "~/components/pb/jobcard/save-job-button";
+import TechStackImage from "~/components/pb/tech-stack/tech-stack-image";
 
 export default function JobCard({ 
   jobTitle, company, locationCity, locationState, locationCountry, 
@@ -61,7 +62,7 @@ export default function JobCard({
           <div className="flex flex-row space-x-2">
             <div className="w-8 h-8 relative">
               <Image
-                className="object-contain" // or use object-contain for the full image
+                className="object-contain"
                 src={jobImage}
                 alt={company}
                 layout="fill"
@@ -109,24 +110,12 @@ export default function JobCard({
               Details
             </Link>                     
           </Button>
-          <Button variant="outline">
-            <HoverCard>
-              <HoverCardTrigger>
-                <div className="flex flex-row space-x-2">
-                  <Terminal className="mr-2 h-4 w-4 text-orange-500"/>
-                  Tech Stack
-                </div>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                <div className="grid grid-cols-2 gap-2">                  
-                {techStack.map((tech, index) => (                  
-                  <p key={index} className="py-1 rounded text-sm">
-                    {tech}
-                  </p>
-                ))}
-                </div>
-              </HoverCardContent>
-            </HoverCard>
+          <Button variant="outline">            
+            {techStack.map((tech, index) => (      
+              <div key={index} className="grid">
+                <TechStackImage techStack={tech} />
+              </div>
+            ))}
           </Button>
           <SaveJobButton
             jobId={jobId}
@@ -144,9 +133,6 @@ export default function JobCard({
           </Button>
         </div>        
       </CardContent>
-      <CardFooter>
-        {/*  */}
-      </CardFooter>
     </Card>
     )
 }

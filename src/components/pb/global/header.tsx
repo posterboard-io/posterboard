@@ -15,6 +15,7 @@ import SignOutButton from '~/components/pb/sign-out-button'
 import { getServerAuthSession } from '~/server/auth'
 import CommandBox from '~/components/pb/command-box'
 import { sendSlackMessage } from '~/lib/sendSlack'
+import santaHatSVG from '~/../public/svg/holidays/santa-hat.svg';
 
 export const dynamic = 'force-dynamic'
 
@@ -66,8 +67,13 @@ export default async function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
-                        <div className="flex items-center gap-2">
-                          <Image src={session.user?.image || ""} className="rounded-full" width={32} height={32} alt="" />
+                        <div className="flex items-center gap-2 relative">
+                          <Image src={session.user?.image || ""} className="rounded-full" width={32} height={32} alt="User Image" />
+                            {new Date().getMonth() === 11 && (
+                                <div className="absolute -top-3 -right-2 w-10 h-10">
+                                <Image src={santaHatSVG} layout="fill" alt="Santa Hat" />
+                            </div>
+                            )}                          
                         </div>
                       </Button>
                     </DropdownMenuTrigger>
