@@ -110,11 +110,9 @@ export default function JobCard({
               Details
             </Link>                     
           </Button>
-          <Button variant="outline">            
+          <Button variant="outline" className="flex flex-grid space-x-1 overflow-hidden">
             {techStack.map((tech, index) => (      
-              <div key={index} className="grid">
-                <TechStackImage techStack={tech} />
-              </div>
+              <TechStackImage key={index} techStack={tech} />              
             ))}
           </Button>
           <SaveJobButton

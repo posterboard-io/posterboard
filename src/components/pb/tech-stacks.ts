@@ -96,13 +96,12 @@ export type TechStack =
 export const techStacks: TechStack[] = [
     'Python' , 'JavaScript' , 'C' , 'C++' , 'Rust' , 'Go' , 'Java' , 'C#' ,
     'TypeScript' , 'Ruby' , 'PHP' , 'Swift' , 'Kotlin' , 'Scala' , 
-    'Lua' , 'Haskell' , 'Elixir' , 'Erlang' , 'R' , 'Objective-C' ,
+    'Lua' , 'Haskell' , 'Elixir' , 'R' , 
     'HTML' , 'CSS' , 'Node.js' , 'React' , 'Vue.js' , 'Angular' , 'Svelte' , 
-    'Django' , 'Flask' , 'Ruby on Rails' , 'Spring Boot' , '.NET Core' , 
-    'Express.js' , 'Laravel' , 'Phoenix' , 'FastAPI' , 'ASP.NET' ,
+    'Django' , 'Spring Boot' , 'Laravel' , 'Phoenix' , 'FastAPI' , 'ASP.NET' ,
     'PostgreSQL' , 'MySQL' , 'MongoDB' , 'Cassandra' , 'Redis' , 
-    'Oracle' , 'MariaDB' , 'DynamoDB' , 'CouchDB' ,
-    'AWS' , 'Azure' , 'Google Cloud' , 'Vercel' ,
+    'Oracle' , 'MariaDB' , 
+    'AWS' , 'Azure' , 'Google Cloud' ,
 ]
 
 export type RoleType = "Software Engineer" | "Full Stack Engineer" | "Frontend Engineer" | "Backend Engineer" | "DevOps Engineer" | "Data Engineer" | "Data Scientist" | "Machine Learning Engineer" | "Product Manager" | "QA Engineer" | "Security Engineer" | "Other"
