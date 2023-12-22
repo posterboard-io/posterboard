@@ -38,8 +38,7 @@ export default function Footer() {
                     />                
                 </div> */}
                 
-                <section className="py-8">  
-                    <hr className="border-gray-200 dark:border-gray-800" />
+                <section className="py-8">                      
                                                   {/* <div
                     className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                     aria-hidden="true"

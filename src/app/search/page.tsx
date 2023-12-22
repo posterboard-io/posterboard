@@ -86,7 +86,7 @@ export default function SearchPage() {
 
     const selectedTechStackLabels = selectedTechStack.map(value =>
         techStacksOptions.find(stack => stack.value === value)?.label
-    ).join(", ") || "Tech stack";
+    ).join(", ") || "Tech Stack";
 
     const handleTechStackSelect = (currentValue: string) => {
         const newSelectedTechStack = selectedTechStack.includes(currentValue)
@@ -98,7 +98,7 @@ export default function SearchPage() {
 
     const selectedLevelLabels = selectedLevel.map(value =>
         currentLevels.find(level => level.value === value)?.label
-    ).join(", ") || "Role level";
+    ).join(", ") || "Role Level";
 
     const searchParams = useSearchParams()
     const page = parseInt(searchParams?.get('page') ?? '1', 10);
@@ -136,7 +136,7 @@ export default function SearchPage() {
       
     const roundedUpPages = Math.ceil(totalPages)
 
-    const showingJobsTotal = jobs.data?.length! * page
+    let showingJobsTotal = jobs.data?.length! * page
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {        
         setSearch(e.target.value)
@@ -151,6 +151,10 @@ export default function SearchPage() {
         const previousPage = page - 1
         router.push(`/search?page=${previousPage}`)
     }    
+
+    if (Number.isNaN(showingJobsTotal)) {
+        showingJobsTotal = 0
+    }
 
     if (jobs.error) {
         toast({
@@ -183,21 +187,21 @@ export default function SearchPage() {
                         </Button>
                         </form>
                     </div>
-                    <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 px-2 py-2 justify-items-center">
+                    <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 px-2 py-2 justify-items-center">
                         {/* Page Size Component - works well enough */}
-                        <Popover open={openPageSize} onOpenChange={setOpenPageSize}>
+                        {/* <Popover open={openPageSize} onOpenChange={setOpenPageSize}>
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openPageSize}
-                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[400px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedPageSizeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[300px] p-0">
+                            <PopoverContent className="w-[400px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Search page size..." />
                                 <CommandEmpty>No page size found.</CommandEmpty>
@@ -220,82 +224,7 @@ export default function SearchPage() {
                                 </CommandGroup>
                             </Command>
                         </PopoverContent>
-                    </Popover>
-                    
-                    {/* Popover for Level - kinda broken ‼️ */}
-                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openLevel}
-                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
-                                >
-                                {selectedLevelLabels}
-                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-[300px] p-0">
-                                <Command>
-                                <CommandInput placeholder="Search Levels..." />
-                                <CommandEmpty>No level found.</CommandEmpty>
-                                <CommandGroup>
-                                    {currentLevels.map((level) => (
-                                    <CommandItem
-                                        key={level.value}
-                                        value={level.value}
-                                        onSelect={() => handleSelect(level.value)}
-                                    >
-                                        <Check
-                                        className={cn(
-                                            "mr-2 h-4 w-4",
-                                            selectedLevelLabels.includes(level.value) ? "opacity-100" : "opacity-0"
-                                        )}
-                                        />
-                                        {level.label}
-                                    </CommandItem>
-                                    ))}
-                                </CommandGroup>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
-                    {/* Sortable by tech stack that would be fire...?? */}
-                    <Popover open={openTechStack} onOpenChange={setOpenTechStack}>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    role="combobox"
-                                    aria-expanded={openLevel}
-                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
-                                >
-                                {selectedTechStackLabels}
-                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-[300px] p-0">
-                                <Command>
-                                <CommandInput placeholder="Search Stacks..." />
-                                <CommandEmpty>No stack found.</CommandEmpty>
-                                <CommandGroup>
-                                    {techStacksOptions.map((tech) => (
-                                    <CommandItem
-                                        key={tech.value}
-                                        value={tech.value}
-                                        onSelect={() => handleTechStackSelect(tech.value)}
-                                    >
-                                        <Check
-                                        className={cn(
-                                            "mr-2 h-4 w-4",
-                                            selectedTechStackLabels.includes(tech.value) ? "opacity-100" : "opacity-0"
-                                        )}
-                                        />
-                                        {tech.label}
-                                    </CommandItem>
-                                    ))}
-                                </CommandGroup>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
+                    </Popover> */}
                     {/* Compensation Ranges */}
                     <Popover open={openCompensationRange} onOpenChange={setOpenCompensationRange}>
                             <PopoverTrigger asChild>
@@ -303,13 +232,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[400px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedCompensationRangeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[300px] p-0">
+                            <PopoverContent className="w-[400px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Compensation..." />
                                 <CommandEmpty>No range found.</CommandEmpty>
@@ -333,6 +262,83 @@ export default function SearchPage() {
                             </Command>
                         </PopoverContent>
                     </Popover>
+                    {/* Sortable by tech stack that would be fire...?? */}
+                    <Popover open={openTechStack} onOpenChange={setOpenTechStack}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[400px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedTechStackLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[400px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Search Stacks..." />
+                                <CommandEmpty>No stack found.</CommandEmpty>
+                                <CommandGroup>
+                                    {techStacksOptions.map((tech) => (
+                                    <CommandItem
+                                        key={tech.value}
+                                        value={tech.value}
+                                        onSelect={() => handleTechStackSelect(tech.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedTechStackLabels.includes(tech.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {tech.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    
+                    
+                    {/* Popover for Level - kinda broken ‼️ */}
+                    <Popover open={openLevel} onOpenChange={setOpenLevel}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openLevel}
+                                    className="w-fit max-w-[400px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
+                                {selectedLevelLabels}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[400px] p-0">
+                                <Command>
+                                <CommandInput placeholder="Search Levels..." />
+                                <CommandEmpty>No level found.</CommandEmpty>
+                                <CommandGroup>
+                                    {currentLevels.map((level) => (
+                                    <CommandItem
+                                        key={level.value}
+                                        value={level.value}
+                                        onSelect={() => handleSelect(level.value)}
+                                    >
+                                        <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedLevelLabels.includes(level.value) ? "opacity-100" : "opacity-0"
+                                        )}
+                                        />
+                                        {level.label}
+                                    </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                    
                     {/* Popover for City Size - kinda broken ‼️  */}
                     <Popover open={openCitySize} onOpenChange={setOpenCitySize}>
                             <PopoverTrigger asChild>
@@ -340,13 +346,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[400px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedCitySizeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[300px] p-0">
+                            <PopoverContent className="w-[400px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Cities..." />
                                 <CommandEmpty>No city found.</CommandEmpty>
@@ -377,13 +383,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[400px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[300px] p-0">
+                            <PopoverContent className="w-[400px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Search Levels..." />
                                 <CommandEmpty>No level found.</CommandEmpty>
@@ -413,7 +419,7 @@ export default function SearchPage() {
             </div>
             <div className="flex flex-row justify-between items-center space-x-4 px-4 py-2">            
                 <h3 className="text-lg font-semibold">                    
-                    Showing {showingJobsTotal} of {totalJobs.data} {search} Jobs
+                    Showing {showingJobsTotal} of {totalJobs.data} {search} New Jobs
                 </h3>                
             </div>
             {jobs.isLoading ? (

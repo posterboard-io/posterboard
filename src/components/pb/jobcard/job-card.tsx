@@ -82,33 +82,25 @@ export default function JobCard({
               Last Updated {someDate}
           </Button>
           <Button variant="outline">
-            <HoverCard>
-              <HoverCardTrigger>
-                <div className="flex flex-row space-x-2">
-                <DollarSign className="mr-2 h-4 w-4 text-orange-500"/>
-                  {salaryLow} - {salaryHigh} 
-                </div>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                <p className="py-1 rounded text-sm">                  
-                {salaryRange} from post
-                </p>
-              </HoverCardContent>
-            </HoverCard>            
+            <div className="flex flex-row space-x-2">
+            <DollarSign className="mr-2 h-4 w-4 text-orange-500"/>
+              {salaryLow} - {salaryHigh} 
+            </div>            
           </Button>                            
           </div>
         </div>        
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
           <Button variant="outline">
             <FileText className="mr-2 h-4 w-4 text-orange-500"/>    
             <Link 
-              href={`/search/details?jobExternalId=${externalId}`}
-            >
-              
-              Details
-            </Link>                     
+                href={`/search/details?jobExternalId=${externalId}`}
+                prefetch={true}
+              >
+                Details
+                
+              </Link>                                 
           </Button>
           <Button variant="outline" className="flex flex-grid space-x-1 overflow-hidden">
             {techStack.map((tech, index) => (      

@@ -33,6 +33,7 @@ import laravelImage from "~/../public/svg/frameworks/laravel.svg"
 import fastapiImage from "~/../public/svg/frameworks/fastapi.svg"
 import phoenixImage from "~/../public/svg/frameworks/phoenix.svg"
 import aspnetImage from "~/../public/svg/frameworks/net.svg"
+import perlImage from "~/../public/svg/langs/perl.svg"
 
 import mariadbImage from "~/../public/svg/dbs/mariadb.svg"
 import mongodbImage from "~/../public/svg/dbs/mongodb.svg"
@@ -54,6 +55,18 @@ export default function TechStackImage({ techStack }: { techStack: string }) {
     let matchingSVGPath = ""
 
     if (techStack === "ASP.NET") {
+        matchingSVGPath = aspnetImage.src
+    }
+
+    if (techStack === "Perl") {
+        matchingSVGPath = perlImage.src
+    }    
+
+    if (techStack === ".NET") {
+        matchingSVGPath = aspnetImage.src
+    }
+
+    if (techStack === ".NET Core") {
         matchingSVGPath = aspnetImage.src
     }
 
@@ -113,6 +126,9 @@ export default function TechStackImage({ techStack }: { techStack: string }) {
         matchingSVGPath = rImage.src
     }
 
+    if (techStack === " R ") {
+        matchingSVGPath = rImage.src
+    }
 
     if (techStack === "Swift") {
         matchingSVGPath = swiftImage.src

@@ -3,10 +3,10 @@
 import { api } from "~/trpc/react";
 import { motion, animate } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import { Card } from "~/components/ui/card";
+import { Card, CardFooter } from "~/components/ui/card";
 import { roles, techStacks } from "~/components/pb/tech-stacks";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, LineChart } from "lucide-react";
 import { CountUpLink } from "~/types/types";
 
 export default function LandingCountUpJobs() {
@@ -120,6 +120,10 @@ const CountUpCard = ({ countUpTo, title, link, showButton }: { countUpTo: number
                     </div>
                 </motion.div>
             </motion.div>
+            {/* <CardFooter className="flex justify-center">                
+                <p className="text-sm text-green-600">Last 24 hours!</p>
+                <LineChart className="w-6 h-6 ml-2 text-green-600" />
+            </CardFooter> */}
         </Card>
     );
 };
