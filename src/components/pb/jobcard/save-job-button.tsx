@@ -22,7 +22,7 @@ export default function SaveJobButton({ jobId, isInitiallySaved }: { jobId: numb
 
   const unsaveJobMutation = api.jobs.removeJob.useMutation({
     onSuccess: () => {
-      toast({ title: "Application Removed" });
+      toast({ title: "Application Removed ✌️" });
       setIsSaved(false); 
     },
     onError: () => toast({ title: "Error Removing Application" })

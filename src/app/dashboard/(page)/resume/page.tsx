@@ -12,12 +12,15 @@ import { Input } from "~/components/ui/input"
 import { Label } from "~/components/ui/label"
 import React, { useState } from 'react';
 import { pdfjs } from 'react-pdf';
+import { api } from "~/trpc/react"
+import Loading from "~/components/pb/utils/loading"
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`
 
 
 export default function DashboardResume() {
+
   const [resumeText, setResumeText] = useState('');
   
   const handleFileUpload = async (event: { target: any }) => {

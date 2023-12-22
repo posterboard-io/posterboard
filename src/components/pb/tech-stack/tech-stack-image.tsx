@@ -248,7 +248,7 @@ export default function TechStackImage({ techStack }: { techStack: string }) {
     }
 
     return (        
-        <div className="h-8 w-8 relative">
+        <div className="h-8 w-8 relative hover:animate-bounce">
             <Image 
                 src={matchingSVGPath}
                 layout="fill"

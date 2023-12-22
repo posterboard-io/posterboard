@@ -7,27 +7,15 @@ import {
 } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
-    userSavedJobs: protectedProcedure
+    checkUserLoggedIn: protectedProcedure
         .input(z.object({
-            // Some input
+            // TODO: Add input validation
         }))
-        .query(async ({ ctx, input }) => {
-            // Some query
-        }),
+        .query(async ({ ctx }) => {
+        const user = await ctx.db.user.findUnique({
+            where: { id: ctx.session.user.id },
+        });
 
-    userAppliedJobs: protectedProcedure
-        .input(z.object({
-            // Some input
-        }))
-        .query(async ({ ctx, input }) => {
-            // Some query
-        }),
-
-    userSubscription: protectedProcedure
-        .input(z.object({
-            // Some input
-        }))
-        .query(async ({ ctx, input }) => {
-            // Some query
-        }),
+        return user;
+    }),
 })

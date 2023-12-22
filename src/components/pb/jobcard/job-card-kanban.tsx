@@ -57,9 +57,7 @@ export default function JobKanbanCard({
               href={jobLink} 
               target="_blank"
               rel="noopener noreferrer"
-            >
-            View
-            
+            >            
             </Link>            
             <ArrowUpRight className="ml-2 h-4 w-4 text-orange-500"/>
           </Button>

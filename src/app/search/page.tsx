@@ -191,13 +191,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openPageSize}
-                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedPageSizeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
+                            <PopoverContent className="w-[300px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Search page size..." />
                                 <CommandEmpty>No page size found.</CommandEmpty>
@@ -229,13 +229,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedLevelLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
+                            <PopoverContent className="w-[300px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Search Levels..." />
                                 <CommandEmpty>No level found.</CommandEmpty>
@@ -266,13 +266,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedTechStackLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
+                            <PopoverContent className="w-[300px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Search Stacks..." />
                                 <CommandEmpty>No stack found.</CommandEmpty>
@@ -303,13 +303,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedCompensationRangeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
+                            <PopoverContent className="w-[300px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Compensation..." />
                                 <CommandEmpty>No range found.</CommandEmpty>
@@ -340,13 +340,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedCitySizeLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
+                            <PopoverContent className="w-[300px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Cities..." />
                                 <CommandEmpty>No city found.</CommandEmpty>
@@ -377,13 +377,13 @@ export default function SearchPage() {
                                     variant="outline"
                                     role="combobox"
                                     aria-expanded={openLevel}
-                                    className="w-fit max-w-[200px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
+                                    className="w-fit max-w-[300px] justify-between overflow-hidden text-ellipsis whitespace-nowrap"
                                 >
                                 {selectedLabels}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
+                            <PopoverContent className="w-[300px] p-0">
                                 <Command>
                                 <CommandInput placeholder="Search Levels..." />
                                 <CommandEmpty>No level found.</CommandEmpty>

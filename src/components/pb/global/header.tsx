@@ -54,12 +54,12 @@ export default async function Header() {
           {session ? (
             <div className="flex items-center gap-4">              
               <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
-                  <Link href="/search?page=1">
+                  <Link href="/search?page=1" prefetch={true}>
                       Search
                   </Link>              
                 </Button>               
                 <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
-                  <Link href="/dashboard">
+                  <Link href="/dashboard" prefetch={true}>
                       Dashboard
                   </Link>                  
                 </Button>
@@ -94,12 +94,12 @@ export default async function Header() {
           ) : ( 
               <div className="flex items-center gap-4">
                 <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
-                  <Link href="/search?page=1">
+                  <Link href="/search?page=1" prefetch={true}>
                       Jobs
                   </Link>              
                 </Button>
                 <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
-                  <Link href="/login">
+                  <Link href="/login" prefetch={true}>
                       Login
                   </Link>              
                 </Button>
