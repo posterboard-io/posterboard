@@ -220,7 +220,7 @@ export const techStacksOptions: TechStackProps[] = [
     { value: "C++", label: "C++" },
     { value: "Rust", label: "Rust" },
     { value: "Go", label: "Go" },
-    { value: "Java", label: "Java" },
+    { value: "Java ", label: "Java " },
     { value: "C#", label: "C#" },
     { value: "TypeScript", label: "TypeScript" },
     { value: "Ruby", label: "Ruby" },
