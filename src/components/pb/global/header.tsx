@@ -53,12 +53,12 @@ export default async function Header() {
           <div className="flex items-center gap-2 md:gap-4">
           {session ? (
             <div className="flex items-center gap-4">              
-              <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
+              <Button className="dark:bg-inherit bg-inherit text-black dark:text-white font-bold hover:bg-inherit">
                   <Link href="/search?page=1" prefetch={true}>
                       Search
                   </Link>              
                 </Button>               
-                <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
+                <Button className="dark:bg-inherit bg-inherit text-black dark:text-white font-bold hover:bg-inherit">
                   <Link href="/dashboard" prefetch={true}>
                       Dashboard
                   </Link>                  
@@ -66,7 +66,7 @@ export default async function Header() {
                 <div className="flex items-center gap-4">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
+                      <Button className="dark:bg-inherit bg-inherit text-black dark:text-white font-bold hover:bg-inherit">
                         <div className="flex items-center gap-2 relative">
                           <Image src={session.user?.image || ""} className="rounded-full" width={32} height={32} alt="User Image" />
                             {new Date().getMonth() === 11 && (
@@ -93,12 +93,7 @@ export default async function Header() {
             </div>
           ) : ( 
               <div className="flex items-center gap-4">
-                <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
-                  <Link href="/search?page=1" prefetch={true}>
-                      Jobs
-                  </Link>              
-                </Button>
-                <Button className="dark:bg-inherit bg-white text-black dark:text-white font-bold hover:bg-inherit">
+                <Button className="dark:bg-inherit bg-inherit text-black dark:text-white font-bold hover:bg-inherit">
                   <Link href="/login" prefetch={true}>
                       Login
                   </Link>              
