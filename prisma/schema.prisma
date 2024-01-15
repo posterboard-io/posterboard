@@ -97,30 +97,29 @@ model VerificationToken {
 }
 
 model JobPostings {
-  id                Int             @id @default(autoincrement())
-  company           Companies
-  title             String
-  location          String
-  locationCity      String
-  locationState     String
-  locationCountry   String
-  roleLevel         RoleLevel
-  companyLogoBase64 String?
-  companyLogoUrl    String?
-  companyTechStack  String[]
-  urlJobSlug        String
-  urlJob            String
-  compensation      String?
-  compensationLow   String?
-  compensationHigh  String?
-  externalJobId     String?         @unique
-  jobDescription    String?
-  jobSearchText     String?
-  internalTeam      String?
-  createdInDBAt     DateTime        @default(now())
-  updatedInDbAt     DateTime        @updatedAt
-  posterboardId     String          @unique @default(cuid())
-  savedByUsers      UserSavedJobs[]
+  id               Int             @id @default(autoincrement())
+  company          Companies
+  title            String
+  location         String
+  locationCity     String
+  locationState    String
+  locationCountry  String
+  roleLevel        RoleLevel
+  companyLogoUrl   String?
+  companyTechStack String[]
+  urlJobSlug       String
+  urlJob           String
+  compensation     String?
+  compensationLow  String?
+  compensationHigh String?
+  externalJobId    String?         @unique
+  jobDescription   String?
+  jobSearchText    String?
+  internalTeam     String?
+  createdInDBAt    DateTime        @default(now())
+  updatedInDbAt    DateTime        @updatedAt
+  posterboardId    String          @unique @default(cuid())
+  savedByUsers     UserSavedJobs[]
 }
 
 model UserSavedJobs {
