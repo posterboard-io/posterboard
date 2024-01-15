@@ -6,6 +6,9 @@ await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
 const config = {
+  experimental: {
+    serverActions: true,
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias.canvas = false
     config.resolve.alias.encoding = false

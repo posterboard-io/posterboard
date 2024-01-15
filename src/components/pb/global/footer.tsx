@@ -38,22 +38,22 @@ export default function Footer() {
                             </div>
                         </div>                    
                     <div className="w-full sm:w-auto flex gap-3 flex-wrap justify-center sm:justify-start">
-                        <Link href="/l/product"  className="text-sm sm:text-base hover:text-gray-600">
+                        <Link href="/product"  className="text-sm sm:text-base hover:text-gray-600">
                             Product
                         </Link>
-                        <Link href="/l/blog" className="text-sm sm:text-base hover:text-gray-600">
+                        <Link href="/blog" className="text-sm sm:text-base hover:text-gray-600">
                             Blog
                         </Link>
-                        <Link href="/l/company" className="text-sm sm:text-base hover:text-gray-600">
+                        <Link href="/company" className="text-sm sm:text-base hover:text-gray-600">
                             Company
                         </Link>
-                        <Link href="/l/resources" className="text-sm sm:text-base hover:text-gray-600">
+                        <Link href="/resources" className="text-sm sm:text-base hover:text-gray-600">
                             Resources
                         </Link>
-                        <Link href="/l/devs" className="text-sm sm:text-base hover:text-gray-600">
+                        <Link href="/devs" className="text-sm sm:text-base hover:text-gray-600">
                             Developers
                         </Link>
-                        <Link href="/l/contact" className="text-sm sm:text-base hover:text-gray-600">
+                        <Link href="/contact" className="text-sm sm:text-base hover:text-gray-600">
                             Contact
                         </Link>                        
                         </div>

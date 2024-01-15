@@ -90,7 +90,7 @@ export default async function NewestJobs() {
                                 someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
                                 techStack={job.companyTechStack}
                                 jobId={job.id}
-                                isSaved={allSavedJobIds!.includes(job.id)}
+                                isSaved={allSavedJobIds!.includes(job.id) ? true : false}
                                 externalId={job.externalJobId!}
                             />
                         ))}

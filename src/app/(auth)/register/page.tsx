@@ -39,14 +39,14 @@ export default async function RegisterPage() {
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{" "}
             <Link
-              href="/l/tos"
+              href="/tos"
               className="hover:text-brand underline underline-offset-4"
             >
               Terms of Service
             </Link>{" "}
             and{" "}
             <Link
-              href="/l/pp"
+              href="/pp"
               className="hover:text-brand underline underline-offset-4"
             >
               Privacy Policy

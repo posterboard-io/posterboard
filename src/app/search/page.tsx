@@ -445,7 +445,7 @@ export default function SearchPage() {
                             someDate={job.updatedInDbAt ? new Date(job.updatedInDbAt).toLocaleDateString() : ""}
                             techStack={job.companyTechStack || "Unknown"}
                             jobId={job.id}
-                            isSaved={allSavedJobIds!.includes(job.id)}
+                            isSaved={allSavedJobIds!.includes(job.id) ?? false}
                             externalId={job.externalJobId!}
                         />
                     ))}
