@@ -2,6 +2,12 @@ import { Home, Paperclip} from "lucide-react"
 import Link from "next/link"
 import { GearIcon, MagicWandIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "~/components/ui/resizable"
+
 
 export function DashboardShell() {
 
