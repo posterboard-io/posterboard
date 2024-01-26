@@ -25,7 +25,7 @@ export default function Footer() {
                     />
                     <p className="text-sm md:text-base whitespace-nowrap">Posterboard.io - {new Date().getFullYear()}</p>
                     <Link href="https://github.com/posterboard-io" target="_blank" rel="noreferrer" className="hover:text-gray-600">
-                        <GitHubLogoIcon className="w-6 h-6 text-white" />
+                        <GitHubLogoIcon className="w-6 h-6 dark:text-white" />
                     </Link>
                     <Link href="https://twitter.com/joinposterboard" target="_blank" rel="noreferrer" className="hover:text-gray-600">
                         <TwitterLogoIcon className="w-6 h-6 text-blue-500" />
