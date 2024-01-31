@@ -4,6 +4,7 @@ import { UserAuthForm } from "~/components/pb/user-auth-form"
 import posterboardClear from "../../../../public/svg/posterboard-clear.svg"
 import Image from "next/legacy/image"
 import { getServerAuthSession } from "~/server/auth"
+import { redirect } from 'next/navigation'
 
 
 export const metadata: Metadata = {
@@ -13,10 +14,14 @@ export const metadata: Metadata = {
 
 export default async function LoginPage() {
 
-  const session = getServerAuthSession()  
-  
+  const session = await getServerAuthSession()
+
+  if (session) {
+    redirect("/dashboard")
+  }
+
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">      
+    <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <Image

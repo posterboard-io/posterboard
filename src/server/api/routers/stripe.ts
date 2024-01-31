@@ -4,18 +4,19 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { stripe } from "~/server/stripe";
 import { CustomContext } from "~/types/types";
 
+
 export const stripeRouter = createTRPCRouter({
   createCheckoutSession: protectedProcedure.mutation(async ({ ctx }) => {
     const { session, prisma, req, res } = ctx as unknown as CustomContext & { session: any };
 
     const customerId = await getOrCreateStripeCustomerIdForUser({
-        prisma,
-        stripe,
-        userId: session.user?.id,
+      prisma,
+      stripe,
+      userId: session.user?.id,
     });
 
     if (!customerId) {
-        throw new Error("Could not create customer");
+      throw new Error("Could not create customer");
     }
 
     const baseUrl =
@@ -49,6 +50,7 @@ export const stripeRouter = createTRPCRouter({
 
     return { checkoutUrl: checkoutSession.url };
   }),
+
   createBillingPortalSession: protectedProcedure.mutation(async ({ ctx }) => {
     const { session, prisma, req, res } = ctx as unknown as CustomContext & { session: any };
 
