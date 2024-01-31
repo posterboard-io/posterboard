@@ -1,14 +1,13 @@
-import { AnimatedButton } from "src/components/pb/landing/animated-button";
+import BlogLanding from "~/components/pb/blog-landing";
+import { api } from "~/trpc/react";
 
 export default function BlogPage() {
-    return (
-        <div className="">
-            from the blog
-            <AnimatedButton className="bg-blue-500" borderClassName="bg-red-500">
-                Read More
-            </AnimatedButton>
-        </div>
-    )
+
+  return (
+    <div className="flex flex-col justify-center items-center">
+      <BlogLanding />
+    </div>
+  )
 }
 
-// ASU recommends like 2-4 classes a semester..?
+

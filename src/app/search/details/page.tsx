@@ -6,7 +6,7 @@ import ErrorPage from '~/components/pb/utils/error-page'; // Your Error componen
 
 const JobDetailPage = () => {
   const searchParams = useSearchParams()
- 
+
   const jobExternalId = searchParams.get('jobExternalId')
 
   if (!jobExternalId || Array.isArray(jobExternalId)) {
@@ -15,9 +15,11 @@ const JobDetailPage = () => {
 
   return (
     <div className="min-h-screen">
-      <JobDetails jobExternalId={jobExternalId} />      
+      <JobDetails jobExternalId={jobExternalId} />
     </div>
   )
 };
 
 export default JobDetailPage;
+
+

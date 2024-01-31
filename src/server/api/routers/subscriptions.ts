@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -7,14 +6,20 @@ import {
 } from "~/server/api/trpc";
 
 export const subscriptionsRouter = createTRPCRouter({
-    // availablePlans: publicProcedure        
-        
-    // subscribePlan: protectedProcedure
+  availablePlans: publicProcedure.query(async ({ ctx }) => {
 
-    // unsubscribePlan: protectedProcedure
+  }),
 
-    // updatePaymentMethod: protectedProcedure
+  subscribePlan: protectedProcedure.mutation(async ({ ctx }) => {
 
+  }),
 
+  unsubscribePlan: protectedProcedure.mutation(async ({ ctx }) => {
+
+  }),
+
+  updatePaymentMethod: protectedProcedure.mutation(async ({ ctx }) => {
+
+  }),
 });
 
