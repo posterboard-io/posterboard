@@ -4,10 +4,10 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell } from 
 import { DashboardGraphProps } from "~/types/types"
 
 
-const COLORS = ['#fb923c',  '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb'];
+const COLORS = ['#fb923c', '#68b2c9', '#38bdf8', '#34abf5', '#3099f2', '#2c87f0', '#2875ed', '#2563eb'];
 
 
-export function DashboardGraph({ DashboardGraphData }: { DashboardGraphData?: DashboardGraphProps[] } ) {
+export function DashboardGraph({ DashboardGraphData }: { DashboardGraphData?: DashboardGraphProps[] }) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={DashboardGraphData}>
