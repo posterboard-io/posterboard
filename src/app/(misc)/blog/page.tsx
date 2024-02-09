@@ -1,5 +1,5 @@
 import BlogLanding from "~/components/pb/blog-landing";
-
+import { api } from "~/trpc/react";
 
 export default function BlogPage() {
 
